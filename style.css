@@ -1,0 +1,882 @@
+/* Google Fonts - Noto Sans KR (구글 폰트 가져오기) */
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap");
+
+/* Color Palette based on HANDONG CONNECT Logo (로고 기반 색상 팔레트 정의) */
+:root {
+  /* CSS 변수 정의 (전역적으로 사용할 수 있는 색상 및 값들) */
+  --primary-purple: #7b61ff; /* 로고의 보라색 (메인 색상) */
+  --primary-blue: #007bff; /* 로고의 파란색 (보조 메인 색상) */
+  --accent-yellow: #ffc107; /* 로고의 노란색 (강조 색상) */
+  --secondary-green: #28a745; /* 태그/아이콘 등에 사용할 녹색 */
+  --text-dark: #333; /* 어두운 글자색 */
+  --text-medium: #555; /* 중간 톤 글자색 */
+  --text-light: #777; /* 밝은 톤 글자색 */
+  --bg-light: #f8f9fa; /* 밝은 배경색 */
+  --bg-white: #ffffff; /* 흰색 배경색 */
+  --border-light: #e9ecef; /* 밝은 테두리 색 */
+  --shadow-light: 0 2px 5px rgba(0, 0, 0, 0.08); /* 가벼운 그림자 */
+  --shadow-medium: 0 5px 15px rgba(0, 0, 0, 0.12); /* 중간 정도의 그림자 */
+  --border-radius-base: 10px; /* 기본 둥근 모서리 */
+  --border-radius-sm: 5px; /* 작은 둥근 모서리 */
+}
+
+/* Base Styles (기본 스타일) */
+* {
+  margin: 0; /* 모든 요소의 바깥 여백 제거 */
+  padding: 0; /* 모든 요소의 안쪽 여백 제거 */
+  box-sizing: border-box; /* 패딩과 보더가 요소의 전체 크기에 포함되도록 설정 */
+}
+
+body {
+  font-family: "Noto Sans KR", sans-serif; /* 기본 글꼴 설정 */
+  line-height: 1.6; /* 줄 간격 설정 */
+  color: var(--text-dark); /* 기본 글자색 (어두운 색) */
+  background-color: var(--bg-light); /* 기본 배경색 (밝은 회색) */
+  scroll-behavior: smooth; /* 스크롤 이동 시 부드러운 애니메이션 효과 */
+}
+
+a {
+  text-decoration: none; /* 링크 밑줄 제거 */
+  color: var(--primary-blue); /* 링크 기본 색상 */
+}
+
+ul {
+  list-style: none; /* 목록의 점/숫자 표시 제거 */
+}
+
+/* Navbar (내비게이션 바 스타일) */
+.navbar {
+  background-color: var(--bg-white); /* 배경색 흰색 */
+  box-shadow: var(--shadow-light); /* 가벼운 그림자 효과 */
+  padding: 15px 0; /* 위아래 여백 */
+  position: sticky; /* 스크롤 시 상단에 고정 */
+  top: 0; /* 상단에 딱 붙도록 */
+  z-index: 1000; /* 다른 요소들 위에 표시되도록 z-index 설정 */
+}
+
+.nav-container {
+  max-width: 1200px; /* 최대 너비 */
+  margin: 0 auto; /* 중앙 정렬 */
+  display: flex; /* 내부 요소들을 가로로 나열 */
+  justify-content: space-between; /* 양 끝에 요소 배치, 중간에 공간 */
+  align-items: center; /* 세로 중앙 정렬 */
+  padding: 0 20px; /* 좌우 여백 */
+}
+
+/* --- 로고 이미지 크기 수정 시작 --- */
+.logo img {
+  height: 60px; /* 로고 이미지 높이를 60px로 키움 */
+  /* 필요에 따라 width: auto; 또는 고정 width 설정 가능 */
+  vertical-align: middle; /* 세로 중앙 정렬 유지 */
+}
+/* --- 로고 이미지 크기 수정 끝 --- */
+
+.nav-links {
+  display: flex; /* 링크들을 가로로 나열 */
+  flex-grow: 1; /* 남은 공간을 채우도록 확장 (중앙 정렬을 위해) */
+  justify-content: center; /* 링크들을 중앙 정렬 */
+}
+
+.nav-links li {
+  margin: 0 20px; /* 각 링크 항목의 좌우 여백 */
+}
+
+.nav-links a {
+  color: var(--text-medium); /* 링크 글자색 */
+  font-weight: 500; /* 글자 두께 */
+  padding: 8px 0; /* 위아래 여백 */
+  transition: color 0.3s ease, border-bottom 0.3s ease; /* 색상 및 밑줄 변화에 애니메이션 효과 */
+  border-bottom: 2px solid transparent; /* 기본적으로 투명한 밑줄 */
+}
+
+.nav-links a:hover {
+  color: var(--primary-purple); /* 마우스 오버 시 보라색으로 변경 */
+  border-bottom: 2px solid var(--primary-purple); /* 마우스 오버 시 보라색 밑줄 */
+}
+
+.user-actions {
+  display: flex; /* 내부 요소를 가로로 나열 */
+  align-items: center; /* 세로 중앙 정렬 */
+}
+
+.btn-login {
+  background-color: transparent; /* 배경색 투명 */
+  border: 1px solid var(--border-light); /* 옅은 회색 테두리 */
+  color: var(--text-medium); /* 글자색 */
+  padding: 8px 15px; /* 안쪽 여백 */
+  border-radius: var(--border-radius-sm); /* 작은 둥근 모서리 */
+  font-size: 0.9em; /* 글자 크기 */
+  font-weight: 500; /* 글자 두께 */
+  display: flex; /* 아이콘과 텍스트를 가로로 나열 */
+  align-items: center; /* 세로 중앙 정렬 */
+  transition: background-color 0.3s ease, color 0.3s ease; /* 배경색, 글자색 변화에 애니메이션 효과 */
+}
+
+.btn-login i {
+  margin-right: 8px; /* 아이콘과 텍스트 사이 여백 */
+  font-size: 1.1em; /* 아이콘 크기 */
+}
+
+.btn-login:hover {
+  background-color: var(--bg-light); /* 마우스 오버 시 밝은 배경색 */
+  color: var(--primary-purple); /* 마우스 오버 시 보라색 글자 */
+  border-color: var(--primary-purple); /* 마우스 오버 시 보라색 테두리 */
+}
+
+/* Hero Section - Gradient Background (히어로 섹션 - 그라데이션 배경) */
+.hero-section {
+  background: linear-gradient(
+    135deg,
+    var(--primary-purple) 0%,
+    var(--primary-blue) 60%,
+    var(--accent-yellow) 100%
+  ); /* 보라 -> 파랑 -> 노랑 그라데이션 배경 */
+  color: var(--bg-white); /* 글자색 흰색 */
+  padding: 80px 20px; /* 위아래 여백 늘림 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  display: flex; /* 내부 요소를 중앙에 정렬하기 위해 사용 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  align-items: center; /* 세로 중앙 정렬 */
+  min-height: 450px; /* 최소 높이 설정 */
+  box-shadow: var(--shadow-medium); /* 중간 정도의 그림자 효과 */
+}
+
+.hero-content {
+  max-width: 800px; /* 내용의 최대 너비 */
+  width: 100%; /* 너비를 100%로 설정 (최대 너비를 넘지 않도록) */
+}
+
+.hero-section h1 {
+  font-size: 3.5em; /* 제목 글자 크기 */
+  margin-bottom: 15px; /* 아래 여백 */
+  font-weight: 700; /* 글자 두께 (볼드) */
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.2); /* 텍스트 그림자 효과 */
+}
+
+.hero-section p {
+  font-size: 1.4em; /* 문단 글자 크기 */
+  margin-bottom: 40px; /* 아래 여백 */
+  font-weight: 300; /* 글자 두께 (얇게) */
+  opacity: 0.9; /* 약간 투명하게 */
+}
+
+/* Search Bar in Hero Section (히어로 섹션 내 검색 바) */
+.search-bar-container {
+  background-color: rgba(255, 255, 255, 0.9); /* 반투명 흰색 배경 */
+  border-radius: var(--border-radius-base); /* 둥근 모서리 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15); /* 그림자 효과 */
+  padding: 15px 25px; /* 안쪽 여백 */
+  display: inline-block; /* 내용물만큼만 너비 차지 */
+  max-width: 700px; /* 최대 너비 */
+  width: 100%; /* 너비 100% (최대 너비를 넘지 않도록) */
+  margin-bottom: 25px; /* 아래 여백 */
+}
+
+.search-input-wrapper {
+  display: flex; /* 내부 요소를 가로로 나열 */
+  align-items: center; /* 세로 중앙 정렬 */
+}
+
+.search-icon {
+  color: var(--text-light); /* 돋보기 아이콘 색상 */
+  margin-right: 15px; /* 오른쪽 여백 */
+  font-size: 1.2em; /* 아이콘 크기 */
+}
+
+.search-input {
+  flex-grow: 1; /* 남은 공간을 모두 차지하도록 확장 */
+  border: none; /* 테두리 없음 */
+  outline: none; /* 클릭 시 아웃라인 없음 */
+  font-size: 1.1em; /* 글자 크기 */
+  padding: 10px 0; /* 위아래 여백 */
+  color: var(--text-dark); /* 글자색 */
+  font-family: "Noto Sans KR", sans-serif; /* 글꼴 설정 */
+}
+
+.search-input::placeholder {
+  color: var(--text-light); /* 플레이스홀더 텍스트 색상 */
+}
+
+/* Category Filters in Hero Section (히어로 섹션 내 카테고리 필터) */
+.category-filters {
+  display: flex; /* 버튼들을 가로로 나열 */
+  justify-content: center; /* 중앙 정렬 */
+  flex-wrap: wrap; /* 공간이 부족하면 다음 줄로 넘어가도록 */
+  gap: 10px; /* 버튼 사이 간격 */
+  margin-top: 20px; /* 위 여백 */
+}
+
+.filter-btn {
+  background-color: rgba(255, 255, 255, 0.2); /* 반투명 흰색 배경 */
+  border: 1px solid rgba(255, 255, 255, 0.4); /* 반투명 흰색 테두리 */
+  color: var(--bg-white); /* 글자색 흰색 */
+  padding: 10px 20px; /* 안쪽 여백 */
+  border-radius: var(--border-radius-sm); /* 작은 둥근 모서리 */
+  font-size: 1em; /* 글자 크기 */
+  font-weight: 500; /* 글자 두께 */
+  cursor: pointer; /* 마우스 오버 시 손가락 모양으로 변경 */
+  transition: background-color 0.3s ease, border-color 0.3s ease,
+    transform 0.2s ease; /* 배경색, 테두리, 크기 변화에 애니메이션 효과 */
+}
+
+.filter-btn:hover {
+  background-color: rgba(
+    255,
+    255,
+    255,
+    0.3
+  ); /* 마우스 오버 시 배경색 더 진하게 */
+  border-color: var(--bg-white); /* 테두리 흰색으로 */
+  transform: translateY(-2px); /* 약간 위로 떠오르는 효과 */
+}
+
+.filter-btn.active {
+  background-color: var(--bg-white); /* 활성화 시 흰색 배경 */
+  color: var(--primary-purple); /* 활성화 시 보라색 글자 */
+  border-color: var(--bg-white); /* 활성화 시 흰색 테두리 */
+  font-weight: 700; /* 활성화 시 글자 두께 볼드 */
+}
+
+/* Main Content Area (메인 콘텐츠 영역) */
+.main-content {
+  max-width: 1200px; /* 최대 너비 */
+  margin: 50px auto; /* 위아래 여백, 좌우 중앙 정렬 */
+  padding: 0 20px; /* 좌우 여백 */
+}
+
+.section-heading {
+  font-size: 2.5em; /* 섹션 제목 글자 크기 */
+  font-weight: 700; /* 글자 두께 볼드 */
+  color: var(--primary-purple); /* 글자색 보라색 */
+  margin-bottom: 40px; /* 아래 여백 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  position: relative; /* 가상 요소(::after)의 기준점 */
+  padding-bottom: 15px; /* 밑줄을 위한 아래 여백 */
+}
+
+.section-heading::after {
+  /* 섹션 제목 아래 밑줄 */
+  content: ""; /* 가상 요소의 내용 (빈 문자열) */
+  position: absolute; /* 절대 위치 */
+  left: 50%; /* 왼쪽에서 50% 위치 */
+  bottom: 0; /* 아래에 붙도록 */
+  transform: translateX(-50%); /* X축으로 -50% 이동하여 정확히 중앙 정렬 */
+  width: 80px; /* 밑줄 너비 */
+  height: 4px; /* 밑줄 높이 */
+  background-color: var(--accent-yellow); /* 노란색 배경색 */
+  border-radius: 2px; /* 둥근 모서리 */
+}
+
+/* Info Overview Section (새롭게 추가된 정보 요약 섹션) */
+.info-overview-section {
+  background-color: var(--bg-white); /* 배경색 흰색 */
+  padding: 60px 40px; /* 안쪽 여백 */
+  margin-bottom: 50px; /* 아래 여백 */
+  border-radius: var(--border-radius-base); /* 둥근 모서리 */
+  box-shadow: var(--shadow-medium); /* 중간 정도의 그림자 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.overview-grid {
+  display: grid; /* 그리드 레이아웃 적용 */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(250px, 1fr)
+  ); /* 최소 250px, 최대 1fr로 자동 배치 */
+  gap: 30px; /* 그리드 아이템 사이 간격 */
+  margin-top: 40px; /* 위 여백 */
+}
+
+.overview-card {
+  background-color: var(--bg-light); /* 배경색 밝은 회색 */
+  padding: 30px; /* 안쪽 여백 */
+  border-radius: var(--border-radius-base); /* 둥근 모서리 */
+  box-shadow: var(--shadow-light); /* 가벼운 그림자 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* 변화에 애니메이션 효과 */
+}
+
+.overview-card:hover {
+  transform: translateY(-8px); /* 마우스 오버 시 약간 위로 떠오르는 효과 */
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.1); /* 그림자 더 진하게 */
+}
+
+.overview-card i {
+  font-size: 3.5em; /* 아이콘 크기 */
+  color: var(--primary-blue); /* 아이콘 색상 (파란색) */
+  margin-bottom: 20px; /* 아래 여백 */
+}
+
+.overview-card h3 {
+  font-size: 1.6em; /* 제목 글자 크기 */
+  color: var(--text-dark); /* 글자색 */
+  margin-bottom: 10px; /* 아래 여백 */
+  font-weight: 600; /* 글자 두께 */
+}
+
+.overview-card p {
+  font-size: 1em; /* 문단 글자 크기 */
+  color: var(--text-medium); /* 글자색 */
+}
+
+/* Results Sections (Majors) - 전공 섹션 */
+.results-section {
+  margin-top: 60px; /* 위 여백 */
+}
+
+/* --- Carousel Specific CSS for Majors Section (전공 섹션 캐러셀 전용 CSS) --- */
+.carousel-container {
+  position: relative; /* 내부 버튼의 위치 기준점 */
+  width: 100%; /* 너비 100% */
+  display: flex; /* 내부 요소를 가로로 나열 */
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  padding: 0 50px; /* 좌우 버튼 공간 확보를 위한 안쪽 여백 */
+  box-sizing: border-box; /* 패딩이 전체 크기에 포함되도록 */
+}
+
+.carousel-track-wrapper {
+  overflow: hidden; /* 이 부분이 중요! 캐러셀 아이템이 이 영역 밖으로 나가지 않도록 숨김 */
+  width: 100%; /* 부모 .carousel-container에 맞게 너비 차지 */
+  position: relative; /* 트랙의 위치 기준점 */
+}
+
+.carousel-track {
+  display: flex; /* 아이템들을 가로로 나열 */
+  align-items: center; /* 세로 중앙 정렬 */
+  transition: transform 0.5s ease-in-out; /* 이동 시 부드러운 전환 효과 */
+  /* transform: translateX()는 JavaScript에서 동적으로 설정됩니다 (캐러셀 이동) */
+}
+
+.carousel-item {
+  flex-shrink: 0; /* 아이템이 줄어들지 않도록 고정 */
+  width: 320px; /* 개별 아이템의 고정 너비 (필요에 따라 조절) */
+  margin: 0 15px; /* 아이템 간 좌우 간격. JavaScript에서 이 값을 계산하여 사용합니다. */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out; /* 변형 및 투명도 변화에 애니메이션 효과 */
+  opacity: 0.5; /* 기본적으로 비활성 아이템은 흐릿하게 */
+  transform: scale(0.9); /* 기본적으로 비활성 아이템은 작게 */
+  z-index: 1; /* 비활성 아이템은 낮은 z-index */
+  display: flex; /* 내부 요소 (이미지, 정보)를 세로로 정렬 */
+  flex-direction: column;
+  background-color: var(--bg-white); /* 배경색 흰색 */
+  border-radius: var(--border-radius-base); /* 둥근 모서리 */
+  box-shadow: var(--shadow-light); /* 가벼운 그림자 */
+}
+
+.carousel-item.active {
+  opacity: 1; /* 활성화된 아이템은 선명하게 */
+  transform: scale(1); /* 활성화된 아이템은 원래 크기로 */
+  z-index: 10; /* 가장 위에 오도록 */
+  box-shadow: var(--shadow-medium); /* 활성화된 아이템 그림자 강조 */
+}
+
+.carousel-item img {
+  width: 100%; /* 아이템 너비에 맞게 이미지 크기 조절 */
+  height: 200px; /* 이미지 높이 고정 (예시) */
+  object-fit: cover; /* 이미지가 잘리지 않고 아이템을 채우도록 */
+  border-radius: var(--border-radius-base) var(--border-radius-base) 0 0; /* 상단 모서리만 둥글게 */
+}
+
+.carousel-item .item-info {
+  /* 각 캐러셀 아이템 내 정보 영역 (study-card 스타일 활용) */
+  padding: 25px; /* 안쪽 여백 */
+  padding-top: 15px; /* 이미지와의 간격 조정 */
+  flex-grow: 1; /* 남은 공간을 채우도록 확장 */
+  display: flex;
+  flex-direction: column; /* 내부 요소를 세로로 정렬 */
+}
+
+/* study-card 내부 스타일 (캐러셀 아이템 내에서도 사용됨) */
+.study-card .card-header {
+  margin-bottom: 15px; /* 아래 여백 */
+}
+.study-card .card-header h3 {
+  font-size: 1.3em; /* 캐러셀 카드의 제목 글자 크기 조정 */
+}
+.study-card .card-description {
+  font-size: 0.95em; /* 캐러셀 카드의 설명 글자 크기 조정 */
+  margin-bottom: 15px; /* 아래 여백 */
+  flex-grow: 1; /* 설명이 길어져도 카드 높이가 자동으로 조절되도록 */
+}
+.study-card .card-meta {
+  font-size: 0.85em; /* 메타 정보 글자 크기 */
+  margin-bottom: 15px; /* 아래 여백 */
+}
+.study-card .card-tags {
+  margin-top: auto; /* 태그가 항상 카드 하단에 붙도록 */
+}
+
+/* Navigation Buttons (carousel-nav) - 캐러셀 좌우 버튼 */
+.carousel-nav {
+  background-color: rgba(0, 0, 0, 0.5); /* 반투명 검정 배경 */
+  color: white; /* 글자색 흰색 */
+  border: none; /* 테두리 없음 */
+  border-radius: 50%; /* 원형 버튼 */
+  width: 50px; /* 너비 */
+  height: 50px; /* 높이 */
+  display: flex; /* 아이콘 중앙 정렬을 위해 사용 */
+  align-items: center; /* 세로 중앙 정렬 */
+  justify-content: center; /* 가로 중앙 정렬 */
+  cursor: pointer; /* 마우스 오버 시 손가락 모양 */
+  font-size: 1.5em; /* 아이콘 크기 */
+  position: absolute; /* 슬라이더 좌우에 고정 */
+  top: 50%; /* 상단에서 50% 위치 */
+  transform: translateY(-50%); /* Y축으로 -50% 이동하여 세로 중앙 정렬 */
+  z-index: 20; /* 다른 요소들 위에 표시되도록 */
+  transition: background-color 0.3s ease, opacity 0.3s ease; /* 배경색, 투명도 변화에 애니메이션 효과 */
+}
+
+.carousel-nav:hover:not(:disabled) {
+  /* 마우스 오버 시 (비활성화 상태가 아닐 때) */
+  background-color: rgba(0, 0, 0, 0.7); /* 배경색 더 진하게 */
+}
+
+.carousel-nav:disabled {
+  /* 버튼 비활성화 시 */
+  opacity: 0.3; /* 투명하게 */
+  cursor: not-allowed; /* 마우스 커서 변경 */
+}
+
+.carousel-nav.prev {
+  left: 0; /* 왼쪽에 붙도록 */
+}
+
+.carousel-nav.next {
+  right: 0; /* 오른쪽에 붙도록 */
+}
+
+/* study-card (주로 캐러셀 아이템에 적용되지만, 다른 일반 카드에도 적용될 수 있는 공통 스타일) */
+.study-card {
+  background-color: var(--bg-white); /* 배경색 흰색 */
+  border-radius: var(--border-radius-base); /* 둥근 모서리 */
+  box-shadow: var(--shadow-medium); /* 그림자 */
+  padding: 25px; /* 안쪽 여백 */
+  display: flex;
+  flex-direction: column; /* 내부 요소를 세로로 정렬 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* 변화에 애니메이션 효과 */
+}
+
+.study-card:hover {
+  transform: translateY(-8px); /* 마우스 오버 시 약간 위로 떠오르는 효과 */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15); /* 그림자 더 진하게 */
+}
+
+.card-header {
+  display: flex; /* 내부 요소를 가로로 나열 */
+  justify-content: space-between; /* 양 끝에 요소 배치 */
+  align-items: center; /* 세로 중앙 정렬 */
+  margin-bottom: 15px; /* 아래 여백 */
+}
+
+.card-header h3 {
+  font-size: 1.5em; /* 제목 글자 크기 (캐러셀 아이템에서 덮어쓰기 될 수 있음) */
+  font-weight: 700; /* 글자 두께 볼드 */
+  color: var(--primary-purple); /* 글자색 보라색 */
+}
+
+.card-header .fa-bookmark {
+  /* 북마크 아이콘 스타일 */
+  color: var(--border-light); /* 기본 색상 */
+  cursor: pointer; /* 마우스 오버 시 손가락 모양 */
+  transition: color 0.3s ease; /* 색상 변화에 애니메이션 효과 */
+  font-size: 1.2em; /* 아이콘 크기 */
+}
+
+.card-header .fa-bookmark:hover,
+.card-header .fa-bookmark.active {
+  /* 북마크 아이콘 마우스 오버 시 또는 활성화 시 */
+  color: var(--accent-yellow); /* 노란색으로 변경 */
+}
+
+.card-description {
+  font-size: 1em; /* 설명 글자 크기 (캐러셀 아이템에서 덮어쓰기 될 수 있음) */
+  color: var(--text-medium); /* 글자색 */
+  margin-bottom: 15px; /* 아래 여백 */
+  flex-grow: 1; /* 남은 공간을 채우도록 확장 */
+}
+
+.card-meta {
+  display: flex; /* 메타 정보 항목들을 가로로 나열 */
+  flex-wrap: wrap; /* 공간 부족 시 다음 줄로 */
+  gap: 15px; /* 항목 사이 간격 */
+  margin-bottom: 15px; /* 아래 여백 */
+  font-size: 0.9em; /* 글자 크기 (캐러셀 아이템에서 덮어쓰기 될 수 있음) */
+  color: var(--text-light); /* 글자색 */
+}
+
+.meta-item {
+  display: flex; /* 아이콘과 텍스트를 가로로 나열 */
+  align-items: center; /* 세로 중앙 정렬 */
+}
+
+.meta-item i {
+  margin-right: 5px; /* 아이콘 오른쪽 여백 */
+  color: var(--secondary-green); /* 아이콘 색상 (녹색) */
+}
+
+.card-tags {
+  display: flex; /* 태그들을 가로로 나열 */
+  flex-wrap: wrap; /* 공간 부족 시 다음 줄로 */
+  gap: 8px; /* 태그 사이 간격 */
+  margin-top: auto; /* 태그가 항상 하단에 붙도록 */
+}
+
+.tag {
+  padding: 6px 12px; /* 안쪽 여백 */
+  border-radius: var(--border-radius-sm); /* 작은 둥근 모서리 */
+  font-size: 0.85em; /* 글자 크기 */
+  font-weight: 500; /* 글자 두께 */
+  white-space: nowrap; /* 태그 내용이 한 줄에 표시되도록 (줄바꿈 방지) */
+}
+
+/* Custom Tag Colors based on logo (로고 기반 커스텀 태그 색상) */
+.tag-blue {
+  background-color: var(--primary-blue); /* 파란색 배경 */
+  color: var(--bg-white); /* 흰색 글자 */
+}
+.tag-purple {
+  background-color: var(--primary-purple); /* 보라색 배경 */
+  color: var(--bg-white); /* 흰색 글자 */
+}
+.tag-green {
+  background-color: var(--secondary-green); /* 녹색 배경 */
+  color: var(--bg-white); /* 흰색 글자 */
+}
+.tag-yellow {
+  background-color: var(--accent-yellow); /* 노란색 배경 */
+  color: var(--text-dark); /* 어두운 글자 */
+}
+
+/* Community Section (새롭게 추가된 커뮤니티 섹션) */
+.community-section {
+  background-color: var(--bg-white); /* 배경색 흰색 */
+  padding: 60px 40px; /* 안쪽 여백 */
+  margin-top: 60px; /* 위 여백 */
+  border-radius: var(--border-radius-base); /* 둥근 모서리 */
+  box-shadow: var(--shadow-medium); /* 중간 정도의 그림자 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+}
+
+.community-content {
+  max-width: 900px; /* 내용의 최대 너비 */
+  margin: 0 auto; /* 중앙 정렬 */
+}
+
+.community-content > p {
+  font-size: 1.2em; /* 문단 글자 크기 */
+  color: var(--text-medium); /* 글자색 */
+  margin-bottom: 40px; /* 아래 여백 */
+}
+
+.community-features {
+  display: grid; /* 그리드 레이아웃 적용 */
+  grid-template-columns: repeat(
+    auto-fit,
+    minmax(200px, 1fr)
+  ); /* 최소 200px, 최대 1fr로 자동 배치 */
+  gap: 30px; /* 그리드 아이템 사이 간격 */
+  margin-bottom: 50px; /* 아래 여백 */
+}
+
+.feature-item {
+  text-align: center; /* 텍스트 중앙 정렬 */
+  padding: 20px; /* 안쪽 여백 */
+  border-radius: var(--border-radius-base); /* 둥근 모서리 */
+  background-color: var(--bg-light); /* 배경색 밝은 회색 */
+  box-shadow: var(--shadow-light); /* 가벼운 그림자 */
+  transition: transform 0.3s ease, box-shadow 0.3s ease; /* 변화에 애니메이션 효과 */
+}
+
+.feature-item:hover {
+  transform: translateY(-5px); /* 마우스 오버 시 약간 위로 떠오르는 효과 */
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1); /* 그림자 더 진하게 */
+}
+
+.feature-item i {
+  font-size: 3em; /* 아이콘 크기 */
+  color: var(--primary-purple); /* 아이콘 색상 (보라색) */
+  margin-bottom: 15px; /* 아래 여백 */
+}
+
+.feature-item h4 {
+  font-size: 1.3em; /* 제목 글자 크기 */
+  color: var(--text-dark); /* 글자색 */
+  margin-bottom: 10px; /* 아래 여백 */
+  font-weight: 600; /* 글자 두께 */
+}
+
+.feature-item p {
+  font-size: 0.95em; /* 문단 글자 크기 */
+  color: var(--text-light); /* 글자색 */
+}
+
+/* Contact Section (CTA - Call to Action) - 문의 섹션 */
+.contact-section {
+  background: linear-gradient(
+    90deg,
+    var(--primary-blue),
+    var(--primary-purple)
+  ); /* 파랑에서 보라로 가는 그라데이션 배경 */
+  color: var(--bg-white); /* 글자색 흰색 */
+  padding: 70px 40px; /* 안쪽 여백 */
+  border-radius: var(--border-radius-base); /* 둥근 모서리 */
+  box-shadow: var(--shadow-medium); /* 중간 정도의 그림자 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  margin-top: 60px; /* 위 여백 */
+}
+
+.contact-section .section-heading {
+  color: var(--bg-white); /* 섹션 제목 글자색 흰색 */
+  margin-bottom: 20px; /* 아래 여백 */
+}
+.contact-section .section-heading::after {
+  background-color: var(--bg-white); /* 섹션 제목 밑줄 색상 흰색 */
+}
+
+.contact-section p {
+  font-size: 1.3em; /* 문단 글자 크기 */
+  margin-bottom: 45px; /* 아래 여백 */
+  font-weight: 300; /* 글자 두께 (얇게) */
+  opacity: 0.95; /* 약간 투명하게 */
+}
+
+.btn-secondary {
+  display: inline-block; /* 내용물만큼만 너비 차지 */
+  background: var(--accent-yellow); /* 노란색 배경 */
+  color: var(--primary-purple); /* 글자색 보라색 */
+  padding: 18px 45px; /* 안쪽 여백 */
+  border-radius: var(--border-radius-sm); /* 작은 둥근 모서리 */
+  font-size: 1.3em; /* 글자 크기 */
+  font-weight: 700; /* 글자 두께 볼드 */
+  transition: background-color 0.3s ease, transform 0.2s ease,
+    box-shadow 0.3s ease; /* 배경색, 크기, 그림자 변화에 애니메이션 효과 */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* 그림자 */
+}
+
+.btn-secondary:hover {
+  background-color: #e6b100; /* 마우스 오버 시 노란색 더 진하게 */
+  transform: translateY(-3px); /* 약간 위로 떠오르는 효과 */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.25); /* 그림자 더 진하게 */
+}
+
+/* Footer Section (푸터 - 하단 정보) */
+.main-footer {
+  background-color: var(--primary-purple); /* 배경색 보라색 */
+  color: var(--bg-white); /* 글자색 흰색 */
+  text-align: center; /* 텍스트 중앙 정렬 */
+  padding: 30px 20px; /* 안쪽 여백 */
+  font-size: 0.95em; /* 글자 크기 */
+  margin-top: 60px; /* 위 여백 */
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.05); /* 상단에 그림자 */
+}
+
+/* Responsive Design (반응형 디자인 - 화면 크기에 따라 스타일 변경) */
+
+/* 992px 이하 화면 */
+@media (max-width: 992px) {
+  .nav-links li {
+    margin: 0 15px; /* 내비게이션 링크 간격 줄이기 */
+  }
+  .hero-section h1 {
+    font-size: 2.8em; /* 히어로 제목 글자 크기 줄이기 */
+  }
+  .hero-section p {
+    font-size: 1.2em; /* 히어로 문단 글자 크기 줄이기 */
+  }
+  .search-bar-container {
+    max-width: 550px; /* 검색창 최대 너비 줄이기 */
+  }
+  .section-heading {
+    font-size: 2em; /* 섹션 제목 글자 크기 줄이기 */
+  }
+  .overview-grid {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(280px, 1fr)
+    ); /* 오버뷰 카드 최소 너비 줄이기 */
+  }
+  /* Carousel specific responsive adjustments (캐러셀 전용 반응형 조정) */
+  .carousel-item {
+    width: 280px; /* 태블릿에서 캐러셀 아이템 너비 조정 */
+    margin: 0 10px; /* 마진도 조정 */
+  }
+  .carousel-nav {
+    width: 45px; /* 캐러셀 버튼 너비 줄이기 */
+    height: 45px; /* 캐러셀 버튼 높이 줄이기 */
+    font-size: 1.4em; /* 캐러셀 버튼 아이콘 크기 줄이기 */
+  }
+  .community-features {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(250px, 1fr)
+    ); /* 커뮤니티 기능 카드 최소 너비 줄이기 */
+  }
+}
+
+/* 768px 이하 화면 (주로 태블릿 세로 모드) */
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column; /* 내비게이션 바 내용을 세로로 나열 */
+    padding: 0 15px; /* 좌우 여백 줄이기 */
+  }
+  .nav-links {
+    margin-top: 15px; /* 위 여백 */
+    flex-wrap: wrap; /* 링크들이 다음 줄로 넘어가도록 */
+    justify-content: center; /* 중앙 정렬 */
+  }
+  .nav-links li {
+    margin: 0 10px 10px; /* 링크 간격 및 아래 여백 조정 */
+  }
+  .logo {
+    margin-bottom: 10px; /* 로고 아래 여백 */
+  }
+  /* --- 로고 이미지 크기 수정 (768px 이하) 시작 --- */
+  .logo img {
+    height: 50px; /* 태블릿 세로 모드에서 로고 높이를 50px로 조정 */
+  }
+  /* --- 로고 이미지 크기 수정 (768px 이하) 끝 --- */
+  .user-actions {
+    margin-top: 10px; /* 사용자 액션 버튼 위 여백 */
+  }
+  .hero-section {
+    padding: 60px 20px; /* 히어로 섹션 안쪽 여백 줄이기 */
+    min-height: 380px; /* 최소 높이 줄이기 */
+  }
+  .hero-section h1 {
+    font-size: 2.2em; /* 히어로 제목 글자 크기 더 줄이기 */
+  }
+  .hero-section p {
+    font-size: 1em; /* 히어로 문단 글자 크기 더 줄이기 */
+    margin-bottom: 30px; /* 아래 여백 줄이기 */
+  }
+  .search-bar-container {
+    padding: 12px 20px; /* 검색창 안쪽 여백 줄이기 */
+  }
+  .search-input {
+    font-size: 1em; /* 검색창 글자 크기 줄이기 */
+  }
+  .category-filters {
+    gap: 8px; /* 필터 버튼 간격 줄이기 */
+  }
+  .filter-btn {
+    padding: 8px 15px; /* 필터 버튼 안쪽 여백 줄이기 */
+    font-size: 0.9em; /* 필터 버튼 글자 크기 줄이기 */
+  }
+  .section-heading {
+    font-size: 1.8em; /* 섹션 제목 글자 크기 더 줄이기 */
+  }
+  .overview-grid {
+    grid-template-columns: 1fr; /* 오버뷰 카드 한 줄에 하나씩 표시 */
+  }
+  /* Carousel specific responsive adjustments (캐러셀 전용 반응형 조정) */
+  .carousel-item {
+    width: 250px; /* 모바일에서 캐러셀 아이템 너비 조정 */
+    margin: 0 10px;
+  }
+  .carousel-nav {
+    width: 40px; /* 캐러셀 버튼 너비 더 줄이기 */
+    height: 40px; /* 캐러셀 버튼 높이 더 줄이기 */
+    font-size: 1.2em; /* 캐러셀 버튼 아이콘 크기 더 줄이기 */
+  }
+  .carousel-container {
+    padding: 0 20px; /* 모바일에서 버튼 공간 확보 조정 */
+  }
+  .community-features {
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(250px, 1fr)
+    ); /* 커뮤니티 기능 카드 최소 너비 조정 */
+  }
+}
+
+/* 480px 이하 화면 (주로 스마트폰 세로 모드) */
+@media (max-width: 480px) {
+  .navbar {
+    padding: 10px 0; /* 내비게이션 바 위아래 여백 더 줄이기 */
+  }
+  /* --- 로고 이미지 크기 수정 (480px 이하) 시작 --- */
+  .logo img {
+    height: 45px; /* 스마트폰 세로 모드에서 로고 높이를 45px로 조정 */
+  }
+  /* --- 로고 이미지 크기 수정 (480px 이하) 끝 --- */
+  .nav-links {
+    display: none; /* 모바일에서는 내비게이션 링크 숨기기 (햄버거 메뉴로 대체하거나) */
+  }
+  .user-actions {
+    width: 100%; /* 사용자 액션 버튼 너비 100% */
+    justify-content: center; /* 중앙 정렬 */
+    margin-top: 15px; /* 위 여백 */
+  }
+  .hero-section {
+    padding: 40px 15px; /* 히어로 섹션 안쪽 여백 더 줄이기 */
+    min-height: 300px; /* 최소 높이 더 줄이기 */
+  }
+  .hero-section h1 {
+    font-size: 1.8em; /* 히어로 제목 글자 크기 더 줄이기 */
+  }
+  .hero-section p {
+    font-size: 0.9em; /* 히어로 문단 글자 크기 더 줄이기 */
+    margin-bottom: 25px; /* 아래 여백 줄이기 */
+  }
+  .search-bar-container {
+    padding: 10px 15px; /* 검색창 안쪽 여백 더 줄이기 */
+  }
+  .search-input {
+    font-size: 0.9em; /* 검색창 글자 크기 더 줄이기 */
+  }
+  .category-filters {
+    flex-direction: column; /* 카테고리 필터 버튼 세로로 정렬 */
+    align-items: center; /* 중앙 정렬 */
+  }
+  .filter-btn {
+    width: 80%; /* 필터 버튼 너비 늘림 */
+  }
+  .main-content {
+    margin: 30px auto; /* 메인 콘텐츠 위아래 여백 줄이기 */
+    padding: 0 15px; /* 좌우 여백 줄이기 */
+  }
+  .section-heading {
+    font-size: 1.5em; /* 섹션 제목 글자 크기 더 줄이기 */
+    margin-bottom: 30px; /* 아래 여백 줄이기 */
+  }
+  .overview-card,
+  .study-card,
+  .feature-item {
+    padding: 20px; /* 카드 안쪽 여백 줄이기 */
+  }
+  .overview-card i {
+    font-size: 3em; /* 오버뷰 카드 아이콘 크기 줄이기 */
+  }
+  .overview-card h3 {
+    font-size: 1.4em; /* 오버뷰 카드 제목 글자 크기 줄이기 */
+  }
+  .overview-card p {
+    font-size: 0.9em; /* 오버뷰 카드 문단 글자 크기 줄이기 */
+  }
+  /* Carousel specific responsive adjustments (캐러셀 전용 반응형 조정) */
+  .carousel-item {
+    width: 220px; /* 아주 작은 화면에서 캐러셀 아이템 너비 조정 */
+    margin: 0 8px;
+  }
+  .carousel-nav {
+    width: 35px; /* 캐러셀 버튼 너비 더 줄이기 */
+    height: 35px; /* 캐러셀 버튼 높이 더 줄이기 */
+    font-size: 1em; /* 캐러셀 버튼 아이콘 크기 더 줄이기 */
+  }
+  .carousel-container {
+    padding: 0 10px; /* 아주 작은 화면에서 버튼 공간 확보 조정 */
+  }
+  .contact-section {
+    padding: 50px 20px; /* 문의 섹션 안쪽 여백 줄이기 */
+  }
+  .contact-section p {
+    font-size: 1.1em; /* 문의 섹션 문단 글자 크기 줄이기 */
+  }
+  .btn-secondary {
+    padding: 15px 30px; /* 버튼 안쪽 여백 줄이기 */
+    font-size: 1.1em; /* 버튼 글자 크기 줄이기 */
+  }
+  .main-footer {
+    padding: 20px 15px; /* 푸터 안쪽 여백 줄이기 */
+  }
+}
