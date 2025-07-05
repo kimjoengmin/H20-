@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>한동대학교 국제어문학부 - Handong Connect</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* 이 페이지를 위한 특정 스타일 (기존 style.css에 추가해도 좋음) */
+      .major-detail-section {
+        padding: 80px 0; /* 네비게이션바 아래 여유 공간 */
+      }
+      .major-detail-container {
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 40px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+      .major-detail-container h1 {
+        color: #6a1b9a; /* 보라색 */
+        margin-bottom: 25px;
+        font-size: 2.8em;
+        font-weight: 700;
+      }
+      .major-detail-container img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        margin-bottom: 40px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      }
+      .major-detail-container p {
+        font-size: 1.15em;
+        line-height: 1.7;
+        color: #444;
+        margin-bottom: 20px;
+        text-align: justify; /* 양쪽 정렬 */
+      }
+      .major-detail-container .features-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 35px;
+        text-align: left;
+      }
+      .major-detail-container .features-list li {
+        background: #f0f8ff; /* 연한 하늘색 배경 */
+        margin-bottom: 12px;
+        padding: 18px 20px;
+        border-left: 6px solid #03a9f4; /* 파란색 왼쪽 테두리 */
+        border-radius: 8px;
+        font-size: 1.05em;
+        color: #333;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+      .major-detail-container .features-list li i {
+        color: #03a9f4; /* 아이콘 색상 */
+        font-size: 1.2em;
+      }
+      .detail-card-tags {
+        margin-top: 30px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      .detail-card-tags .tag {
+        display: inline-block;
+        padding: 10px 18px;
+        margin: 6px;
+        border-radius: 25px;
+        font-size: 0.95em;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+      .detail-card-tags .tag-blue {
+        background-color: #e3f2fd;
+        color: #2196f3;
+      }
+      .detail-card-tags .tag-purple {
+        background-color: #ede7f6;
+        color: #673ab7;
+      }
+      .detail-card-tags .tag-green {
+        background-color: #e8f5e9;
+        color: #4caf50;
+      }
+      .major-detail-container .back-button {
+        display: inline-flex; /* 아이콘과 텍스트 정렬을 위해 */
+        align-items: center;
+        gap: 8px;
+        margin-top: 40px;
+        padding: 14px 30px;
+        background-color: #6a1b9a;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 1.05em;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+      .major-detail-container .back-button:hover {
+        background-color: #4a148c;
+        transform: translateY(-2px); /* 약간의 호버 효과 */
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="logo">
+          <img src="./images/logo.png" alt="HANDONG CONNECT 로고" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#sections">둘러보기</a></li>
+          <li><a href="index.html#majors">학부/전공</a></li>
+          <li><a href="index.html#clubs">동아리/학회</a></li>
+          <li><a href="index.html#community">커뮤니티</a></li>
+          <li><a href="index.html#contact">문의</a></li>
+        </ul>
+        <div class="user-actions">
+          <a href="#" class="btn-login"
+            ><i class="fas fa-user-circle"></i> My 계정</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <section class="major-detail-section">
+        <div class="major-detail-container">
+          <h1>국제어문학부</h1>
+          <img
+            src="./images/글로벌리더쉽학부 (2).png"
+            alt="글로벌리더십학부 이미지"
+          />
+          <p>
+            국제어문학부 학생은 국제지역학과 영어라는 전공을 가지고 그리스도를 위하여 개인과 개인, 
+            집단과 집단, 민족과 민족, 국가와 국가 등 모든 파괴된 관계들을 회복시키기 위해 화해와 
+            하나됨의 다리를 놓는 사람들이 되어 인류사회의 평화와 발전에 기여하고 궁극적으로 하나님의 
+            나라 완성에 참여한다.
+          </p>
+          <p>
+            국제지역학과 영어를 통합적으로 제공함으로 전공자들로 하여금 자신이 지닌 능력을 계발하고
+            다양한 소명(Calling, 직업)을 발견하여 이를 효과적이고 지속적으로 추구하도록 한다. 
+            졸업생들은 일반 회사는 물론 국제 기구, 외교, 통역, 번역, 국제 비즈니스 및 학문 각 
+            전문 분야에 진출하여 섬기는 지도자로서 세계를 변화시키는 비전을 갖는다.
+          </p>
+          <ul class="features-list">
+            <li>
+              <i class="fas fa-check-circle"></i> 국제 정세와 지역 이슈를 이해하는 글로벌
+              인문학적 소양 습득
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i> 영어의 구조와 문법부터 문학, 통번역까지 
+              심화된 언어 능력 강화
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i> 국제개발협력과 외교정책 등 현실 세계에
+              적용 가능한 지식 학습
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i> 다양한 문화와 세계관에 대한 비판적 사고와
+              비교문화 역량 함양
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i> 실전 중심 TESOL 교육과 통번역 실습을
+              통한 교육 및 소통 능력 배양
+            </li>
+          </ul>
+          <div class="detail-card-tags">
+            <span class="tag tag-blue">#영어심화</span>
+            <span class="tag tag-purple">#국제개발협력</span>
+            <span class="tag tag-green">#통번역</span>
+            <span class="tag tag-blue">#글로벌소통</span>
+          </div>
+          <a href="index.html#majors" class="back-button">
+            <i class="fas fa-arrow-left"></i> 학부/전공 목록으로 돌아가기
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="main-footer">
+      <p>&copy; 2025 Handong Connect. 한동대학교를 위한 학생 개발 플랫폼.</p>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>한동대학교 공간환경시스템공학부 - Handong Connect</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* 이 페이지를 위한 특정 스타일 (기존 style.css에 추가해도 좋음) */
+      .major-detail-section {
+        padding: 80px 0; /* 네비게이션바 아래 여유 공간 */
+      }
+      .major-detail-container {
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 40px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+      .major-detail-container h1 {
+        color: #6a1b9a; /* 보라색 */
+        margin-bottom: 25px;
+        font-size: 2.8em;
+        font-weight: 700;
+      }
+      .major-detail-container img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        margin-bottom: 40px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      }
+      .major-detail-container p {
+        font-size: 1.15em;
+        line-height: 1.7;
+        color: #444;
+        margin-bottom: 20px;
+        text-align: justify; /* 양쪽 정렬 */
+      }
+      .major-detail-container .features-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 35px;
+        text-align: left;
+      }
+      .major-detail-container .features-list li {
+        background: #f0f8ff; /* 연한 하늘색 배경 */
+        margin-bottom: 12px;
+        padding: 18px 20px;
+        border-left: 6px solid #03a9f4; /* 파란색 왼쪽 테두리 */
+        border-radius: 8px;
+        font-size: 1.05em;
+        color: #333;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+      .major-detail-container .features-list li i {
+        color: #03a9f4; /* 아이콘 색상 */
+        font-size: 1.2em;
+      }
+      .detail-card-tags {
+        margin-top: 30px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      .detail-card-tags .tag {
+        display: inline-block;
+        padding: 10px 18px;
+        margin: 6px;
+        border-radius: 25px;
+        font-size: 0.95em;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+      .detail-card-tags .tag-blue {
+        background-color: #e3f2fd;
+        color: #2196f3;
+      }
+      .detail-card-tags .tag-purple {
+        background-color: #ede7f6;
+        color: #673ab7;
+      }
+      .detail-card-tags .tag-green {
+        background-color: #e8f5e9;
+        color: #4caf50;
+      }
+      .major-detail-container .back-button {
+        display: inline-flex; /* 아이콘과 텍스트 정렬을 위해 */
+        align-items: center;
+        gap: 8px;
+        margin-top: 40px;
+        padding: 14px 30px;
+        background-color: #6a1b9a;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 1.05em;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+      .major-detail-container .back-button:hover {
+        background-color: #4a148c;
+        transform: translateY(-2px); /* 약간의 호버 효과 */
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="logo">
+          <img src="./images/logo.png" alt="HANDONG CONNECT 로고" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#sections">둘러보기</a></li>
+          <li><a href="index.html#majors">학부/전공</a></li>
+          <li><a href="index.html#clubs">동아리/학회</a></li>
+          <li><a href="index.html#community">커뮤니티</a></li>
+          <li><a href="index.html#contact">문의</a></li>
+        </ul>
+        <div class="user-actions">
+          <a href="#" class="btn-login"
+            ><i class="fas fa-user-circle"></i> My 계정</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <section class="major-detail-section">
+        <div class="major-detail-container">
+          <h1>공간환경시스템공학부</h1>
+          <img
+            src="./images/글로벌리더쉽학부 (2).png"
+            alt="글로벌리더십학부 이미지"
+          />
+          <p>
+            하나님이 창조하신 지구를 전공학문을 통하여 쾌적하고 지속 가능한 공간환경으로 개선함으로 
+            인류와 사회에 기여하는 인재를 양성한다.
+
+          </p>
+          <p>
+            공간환경시스템공학부는 공간영역(예: 도시, 건축, 토목 인프라 - 도로/철도, 하천/항만 등)에서 
+            발생하는 공학 현상과 문제들을 시스템적 분석에 의해 해결하는 인재를양성한다. 특히 환경친화적 
+            관점에서 지속 가능한 공간개발을 추진하므로, 하나님의 창조 질서를 회복하는 기독전문인을 양성하는
+            것을 목표로 한다.
+          </p>
+          <ul class="features-list">
+            <li>
+              <i class="fas fa-check-circle"></i> 도시, 토목 인프라를 설계하고 관리하는 공학 이론과
+              실무 능력 습득
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i> 공간 정보, 측량, 드론 등 첨단 기술을 활용한
+              분석 훈련
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i> 수자원, 구조, 지반 등 다양한 환경 시스템 설계 
+              및 해석 능력 배양
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i> 지속가능한 도시 개발과 인프라 계획에 대한 문제
+              해결력 강화
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i> 공공 및 민간 분야에서의 기술 적용을 위한 현장 중심
+              교육 진행 
+            </li>
+          </ul>
+          <div class="detail-card-tags">
+            <span class="tag tag-blue">#도시인프라</span>
+            <span class="tag tag-purple">#GIS기술</span>
+            <span class="tag tag-green">#친환경설계</span>
+            <span class="tag tag-blue">#공학해석</span>
+          </div>
+          <a href="index.html#majors" class="back-button">
+            <i class="fas fa-arrow-left"></i> 학부/전공 목록으로 돌아가기
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="main-footer">
+      <p>&copy; 2025 Handong Connect. 한동대학교를 위한 학생 개발 플랫폼.</p>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
