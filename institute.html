@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>한동대학교 연결 플랫폼 - Handong Connect</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* General Body and Font Styles */
+      body {
+        font-family: "Noto Sans KR", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f2f5; /* Light grey background */
+        color: #333;
+      }
+
+      /* --- Navbar Styles --- */
+      .navbar {
+        background-color: #fff; /* White background for the navbar */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+        padding: 10px 0; /* Vertical padding */
+        position: sticky; /* Makes the navbar stick to the top when scrolling */
+        top: 0;
+        width: 100%;
+        z-index: 1000; /* Ensures the navbar stays on top of other content */
+      }
+
+      .nav-container {
+        max-width: 1200px; /* Adjust based on your overall content width */
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px; /* Horizontal padding */
+      }
+
+      .navbar .logo img {
+        height: 40px; /* Adjust logo height as needed */
+        vertical-align: middle; /* Align image vertically */
+      }
+
+      .navbar .nav-links {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        gap: 30px; /* Space between navigation items */
+      }
+
+      .navbar .nav-links li a {
+        text-decoration: none;
+        color: #555; /* Default link color */
+        font-weight: 500;
+        font-size: 1.05em; /* Slightly larger font */
+        padding: 10px 0;
+        position: relative;
+        transition: color 0.3s ease;
+      }
+
+      .navbar .nav-links li a:hover {
+        color: #8c7ae6; /* Purple hover effect */
+      }
+
+      /* Active link styling (for the "학부/전공" link) */
+      .navbar .nav-links li a[href="majors_all.html"] {
+        /* Target specific active link */
+        color: #8c7ae6; /* Active link color */
+        font-weight: 700; /* Bolder for active */
+      }
+
+      .navbar .nav-links li a[href="majors_all.html"]::after {
+        /* Underline for active link */
+        content: "";
+        position: absolute;
+        left: 0;
+        bottom: -5px;
+        width: 100%;
+        height: 2px;
+        background-color: #8c7ae6;
+      }
+
+      .navbar .user-actions .btn-login {
+        text-decoration: none;
+        color: #555;
+        font-size: 0.95em;
+        font-weight: 500;
+        display: flex; /* To align icon and text */
+        align-items: center;
+        gap: 5px; /* Space between icon and text */
+        transition: color 0.3s ease;
+      }
+
+      .navbar .user-actions .btn-login:hover {
+        color: #8c7ae6; /* Purple hover effect */
+      }
+
+      .navbar .user-actions .btn-login .fas {
+        font-size: 1.1em; /* Adjust icon size */
+      }
+
+      /* Page Header Styling */
+      .page-header {
+        text-align: center;
+        padding: 60px 20px 40px;
+        background-color: #fff;
+        border-bottom: 1px solid #eee;
+        margin-bottom: 40px;
+      }
+
+      .page-header h1 {
+        font-size: 2.5em;
+        color: #4a4a4a;
+        position: relative;
+        display: inline-block;
+        padding-bottom: 10px;
+      }
+
+      .page-header h1::after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        bottom: 0;
+        transform: translateX(-50%);
+        width: 80px;
+        height: 4px;
+        background-color: #8c7ae6; /* Purple line */
+        border-radius: 2px;
+      }
+
+      /* Main Content Area */
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+      }
+
+      /* Department Section Styling */
+      .department-section {
+        background-color: #fff;
+        padding: 30px;
+        margin-bottom: 40px;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .department-section h2 {
+        font-size: 1.8em;
+        color: #6a6a6a;
+        margin-bottom: 30px;
+        border-bottom: 2px solid #e0e0e0;
+        padding-bottom: 10px;
+      }
+
+      /* Academic Society Cards Container */
+      .society-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 30px;
+      }
+
+      /* Individual Academic Society Card Styling */
+      .society-card {
+        background-color: #fdfdfd;
+        border: 1px solid #e9e9e9;
+        border-radius: 8px;
+        padding: 25px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 200px; /* Ensure cards have similar height, adjust as needed */
+      }
+
+      .society-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+      }
+
+      .society-card h3 {
+        font-size: 1.4em;
+        color: #333;
+        margin-top: 0;
+        margin-bottom: 15px;
+        word-break: keep-all;
+      }
+
+      .society-card p {
+        font-size: 0.95em;
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 0;
+        flex-grow: 1;
+      }
+
+      /* Responsive Adjustments */
+      @media (max-width: 768px) {
+        .nav-container {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+        .navbar .nav-links {
+          flex-direction: column;
+          width: 100%; /* Full width for stacked links */
+          gap: 5px; /* Smaller gap for stacked links */
+          margin-top: 15px; /* Space below logo */
+        }
+        .navbar .nav-links li {
+          width: 100%; /* Ensure each li takes full width */
+        }
+        .navbar .nav-links li a {
+          padding: 8px 0; /* Adjust padding for stacked links */
+          display: block; /* Make link fill the li width */
+        }
+        .navbar .user-actions {
+          margin-top: 10px;
+          width: 100%; /* Full width for user actions */
+          text-align: right; /* Align to the right if desired */
+        }
+
+        .page-header h1 {
+          font-size: 2em;
+        }
+
+        .department-section h2 {
+          font-size: 1.5em;
+        }
+
+        .society-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .society-card {
+          min-height: auto;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="#" class="logo">
+          <img src="./images/logo.png" alt="HANDONG CONNECT 로고" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="#sections">둘러보기</a></li>
+          <section id="major-1">
+            <li><a href="majors_all.html">학부/전공</a></li>
+          </section>
+          <li><a href="#institute">학회/연구실</a></li>
+          <li><a href="#clubs">(전공)동아리</a></li>
+          <li><a href="#community">커뮤니티</a></li>
+          <li><a href="#contact">문의</a></li>
+        </ul>
+        <div class="user-actions">
+          <a href="my.html" class="btn-login">
+            <i class="fas fa-user-circle"></i> My 계정
+          </a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="page-header">
+      <h1>한동대학교 학회 소개</h1>
+    </div>
+
+    <div class="container">
+      <div class="department-section">
+        <h2>경영경제학부 학회</h2>
+        <div class="society-grid">
+          <div class="society-card">
+            <h3>NFGS (Nehemiah Finance for Good Society)</h3>
+            <p>
+              '금융의 선한 영향력으로 세상을 회복한다'는 비전을 가진 퀀트·데이터
+              기반 금융 프로젝트 중심 학회. 매 학기 머신러닝, AI, 경제모델링
+              등을 활용한 금융 예측 프로젝트(예: 암호화폐, 주식시장 변동성 분석
+              등)를 수행하며, 학회 자체 논문 작성 및 외부 공모전·학술대회 출전도
+              병행함. 금융과 기술의 융합에 관심 있는 학생들을 위한 실전 중심
+              학회.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>정치경제학회</h3>
+            <p>
+              경제 이론과 정책, 정치 이슈를 접목한 종합적 시각을 기르기 위한
+              학회. 미시·거시·통화정책 등 경제 전반을 스터디하며, 발표와 논문
+              작성, 정책 제안, 토론 활동 등을 수행함. 공모전이나 대학생
+              경제논문대회 등을 준비하는 팀 활동도 병행. 경제를 학문적으로
+              심화하고 싶은 학생에게 적합.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>Colorz (컬러즈)</h3>
+            <p>
+              실전형 마케터 양성을 목표로 하는 마케팅 전문 학회. 브랜드 리서치,
+              마케팅 캠페인 기획, SNS 콘텐츠 제작 등 프로젝트 중심 활동을
+              수행하며, 삼성, 무신사 등 실제 기업 사례를 기반으로 실무 감각을
+              익힘. 인스타그램 운영 경험(1.6만 팔로워)과 릴스 영상(200만 뷰
+              등)을 바탕으로 브랜딩과 퍼포먼스를 함께 학습.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>IMC (Innovation Management Club)</h3>
+            <p>
+              기술경영 융합에 중점을 둔 전략적 문제 해결형 학회. CRM+AI,
+              ERP+빅데이터, SCM+IoT 등 혁신 기술을 활용한 기업 사례 분석과
+              실무형 프로젝트를 진행. 논문, 공모전, 자격증 취득과 같은 산출물
+              중심 학습과 기업탐방, 졸업생 멘토링도 병행함.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>ACTS</h3>
+            <p>
+              회계 전문 자격증(CPA/CTA) 준비생을 위한 집중형 학회. 회계학
+              스터디와 기출 풀이, 모의고사 학습을 함께하며, 유예생/선배들의
+              컨설팅, 회계 독서실 공간, 교재/응시료 지원 등 실질적인 지원이
+              제공됨. 회계 진로를 고려하는 학생들에게 실질적 도움 제공.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>DIVE (Data In Value)</h3>
+            <p>
+              데이터 분석 및 통계·코딩 학습을 기반으로 한 실무 프로젝트형 학회.
+              기초 Python/R 교육부터 Kaggle Dacon 대회, 실제 기업 데이터 분석
+              프로젝트에 이르기까지 전 과정 실습 중심으로 구성. 오주희 교수 지도
+              아래 개별 연구도 가능하며, 데이터사이언스에 관심 있는 학생들에게
+              적합.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>청지기투자학회</h3>
+            <p>
+              가치·성장주 중심의 포트폴리오 분석, 산업 분석, 주식 리서치 등을
+              수행하는 투자 중심 학회. 리서치보고서 작성, 국내외 시황 분석, 기업
+              탐방 등 실전 감각 중심의 학습을 진행하며, 금융권 진출 선배들과의
+              네트워크도 활발함. 주식과 자산운용에 실질적인 관심이 있는 학생에게
+              적합.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>금융경제연구학회 (금경)</h3>
+            <p>
+              경제 현상과 금융 이슈를 거시경제 관점에서 분석하는 학술 중심의
+              학회. 주기적 시사발표, 통계자료 해석, 경제보고서 작성 훈련을
+              진행하며, 공모전 준비와 자격증, 인턴 정보도 공유. 조규봉 교수님의
+              직접 지도 아래 학문적·실무적 성장을 함께 추구함.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="department-section">
+        <h2>국제어문학부 학회</h2>
+        <div class="society-grid">
+          <div class="society-card">
+            <h3>HIDA (국제개발협력학회)</h3>
+            <p>
+              국제개발협력(ODA)에 관심 있는 학생들이 모여 개발이슈를 공부하고
+              실천하는 활동 중심 학회. ODA 자격증 스터디, 세계시민교육 멘토링,
+              국제 NGO 협력 프로젝트, 해외 탐방 등 이론과 실천을 균형 있게 수행.
+              외부 기관과의 연계와 컨퍼런스도 활발히 진행되어 국제개발 진로에
+              실질적인 도움을 줌.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>한동교육학회</h3>
+            <p>
+              교육학 이론과 실제 교육 실습을 함께 다루는 교육 전문 학회. 교수법
+              연구, 수업 시연, 교육철학 세미나, 지역사회 교육 봉사 등 이론-실천
+              통합형 학습을 중시함. 졸업 후 교육계 진출을 준비하거나 교육에 관심
+              있는 학생에게 적합.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>한동국제정치학회</h3>
+            <p>
+              국제정치이론과 세계 시사 이슈를 학문적으로 탐구하는 학회. 모의
+              유엔, 주간 시사 분석, 국제법학회와의 공동 토론, 연합 컨퍼런스 개최
+              등 다양한 학술적 활동을 통해 국제정치와 외교에 대한 이해를 심화.
+              정치외교 진로를 고려하거나 국제 시사에 관심 있는 학생들에게
+              추천됨.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="department-section">
+        <h2>상담심리사회복지학부 학회</h2>
+        <div class="society-grid">
+          <div class="society-card">
+            <h3>한동 임상심리학회</h3>
+            <p>
+              김혜정 교수님 지도 하에 기독교 정신에 기반한 임상심리 전문가
+              양성을 목표로 하는 학습 공동체. DSM-5 및 사례집 학습, 논문 스터디,
+              멘토-멘티 활동, 포스터 논문 등 다양한 임상 심리 활동을 기획함.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>한가족학회</h3>
+            <p>
+              가족학/가족상담 중심의 이론 및 실천을 배우는 학회. 가족 관련
+              기관과의 협업, 프로그램 개발, 전시/캠페인 및 공모전 참여를 통해
+              건강한 공동체 형성을 도모함.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>TRUST(트라우마회복연구학회)</h3>
+            <p>
+              전명희 교수님 지도 아래 트라우마 회복과 치유 공동체 형성을 지향.
+              남북한 사회의 트라우마 및 치료에 대한 책 스터디, 강연 참여,
+              공모전, 캠프, 부스 운영 등 실천적 활동 수행.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>코칭네이버스</h3>
+            <p>
+              포항 지역 소외 아동·청소년을 위한 1:1 멘토링 중심 학회. 긍정심리학
+              기반 북스터디, 김혜정 교수님의 슈퍼비전, 정서적 지지 활동을 통해
+              멘토와 멘티 모두의 성장을 추구함.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>CARIS(의료사회복지학회)</h3>
+            <p>
+              의료와 복지의 교차점을 중심으로 활동하는 학회. 소아암 환자 멘토링,
+              의료복지 관련 기사 토론, 영화·다큐 감상, 다양한 질병 관련 스터디
+              및 병원 봉사활동을 진행함.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>FAMM(한동예술심리치료학회)</h3>
+            <p>
+              예술심리치료(Film, Art, Music, Movement)를 실천하는 학회. 예술심리
+              이론 및 기법 스터디, 치료 프로그램 개발 및 실습, 통계 스터디,
+              세미나 진행 등 다양한 실천 기반 활동 수행.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>사회 및 산업조직심리학회</h3>
+            <p>
+              이혜주 교수님 지도 아래 심리 실험 설계, 논문 작성, 이론 탐구에
+              초점을 둔 학회. 소규모 교류를 통해 사회심리·산업조직심리에 관심
+              있는 학생들의 학문적 성장을 추구함.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>리싸치 (reSSArch)(사회조사분석학회)</h3>
+            <p>
+              통계 및 SPSS 기반 사회조사 분석 학회. 외부기관 데이터 분석, 연구
+              보고서 작성, 사회복지조사방법론 학습, 사회조사분석사 2급 대비 등
+              실무 중심의 학술활동을 수행함.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>한동 인지심리학회</h3>
+            <p>
+              2025년 1학기 신설 학회. 인지심리학을 뇌과학, 언어학, 임상, 생물학,
+              데이터사이언스 등 다양한 관점에서 탐구하며, 인간의 인지, 지각,
+              사고 과정을 이해하고 상담 및 정신장애 치료에 적용하고자 함.
+              한국어와 영어를 공용어로 사용하며, 국제학생도 환영. 초기에는 이론
+              스터디 및 토론을 진행하고, 이후 실험·연구, 학술지 게재, 학회
+              발표를 목표로 함.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="department-section">
+        <h2>법학부 학회</h2>
+        <div class="society-grid">
+          <div class="society-card">
+            <h3>UIL(International Law-Focused Academic Society)</h3>
+            <p>
+              국제법을 중심으로 공부하는 법학부 학회. 학기 중에는 국제법 세미나
+              수업을 통해 이론적 이해를 쌓고, 여름에는 해외 프로젝트(국제법 관련
+              연구 또는 탐방 등)를 준비함. 3학기 이상 참여 가능한 열정적이고
+              책임감 있는 학생을 모집함.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>LnA (Law & Advocacy)</h3>
+            <p>
+              Moot Court(모의법정) 대회를 준비하는 학회로, 국제법 지식과 함께
+              논리적 글쓰기, 말하기 능력을 기르는 데 중점을 둠. UIL 수업과도
+              연계되며, 매주 화요일 저녁 정기 모임을 통해 국제법 및 Mooting
+              실력을 함께 학습함. 말하기와 글쓰기에 관심 있는 학생에게 적합.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>경제법학회</h3>
+            <p>
+              조혜신 교수님 지도 아래, 하나님의 경제질서 관점에서 경제법을 학습.
+              정기 세미나, 경제 주제 토의, 모의공정거래위원회 대회 등의 활동을
+              통해 실무적 역량도 함께 기름.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>통일법학회</h3>
+            <p>
+              송인호 교수님 지도 아래 3학기 커리큘럼(기초-연구-심화)을 통해
+              통일과 법을 공부. 개별 발제, 논문 토론, 통일 관련 공모전 참여 등
+              다양한 연구 및 실천 활동 수행.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>한동아시아인권법학회 (하나인)</h3>
+            <p>
+              이국운 교수님의 인도 아래 인권·기독교·아시아·법을 주제로 공부하는
+              인권학회. 각종 인권 관련 서적을 발제·토론하며 학문적 통찰을
+              키우고, 수요일에는 신입 학회원 대상 별도 교육도 운영됨.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="department-section">
+        <h2>콘텐츠융합디자인학부 학회</h2>
+        <div class="society-grid">
+          <div class="society-card">
+            <h3>GROOVY (영상디자인학회)</h3>
+            <p>
+              After Effects와 Cinema 4D를 활용해 2D·3D 모션그래픽을 실험하며,
+              광고, 뮤직비디오 등 촬영 기반의 영상 제작까지 아우르는 영상 중심
+              디자인 학회. 개성 있는 시각 언어를 탐구하며, 포트폴리오 유무와
+              무관하게 다양한 배경의 학생들이 함께 활동함.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>THE ANSWER (UX/UI 학회)</h3>
+            <p>
+              UX(User Experience) 관점에서 사용자 중심의 디자인 솔루션을
+              기획하고 실험하는 학회. 학기 중에는 팀별 프로젝트, 북스터디, 선배
+              피드백 세션 등을 운영하며, 방학 중에는 실무 기반의 디자인
+              프로젝트를 수행함. 디자인 사고와 통찰을 함께 키우는 것이 목표.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>MAGIC (3D 그래픽학회)</h3>
+            <p>
+              Blender를 기반으로 캐릭터 디자인, 공간 구성, 3D 모션그래픽 등
+              컴퓨터 그래픽 분야를 깊이 있게 탐구하는 학회. 각종 실습과 아트워크
+              작업을 통해 실전 역량을 기르며, 입체적이고 창의적인 표현을 원하는
+              디자이너들에게 적합함.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>DOT (시각디자인학회)</h3>
+            <p>
+              편집디자인을 중심으로 타이포그래피, 그래픽 디자인 등 시각 디자인
+              전반을 다루는 학회. 실험적이고 확장적인 시각언어를 기반으로 전시
+              및 디자인 프로젝트를 수행하며, 디자인 철학과 조형적 사고를 함께
+              심화하는 데 중점을 둠.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>GYM (시각커뮤니케이션디자인학회)</h3>
+            <p>
+              체육관처럼 자유로운 분위기 속에서 그래픽·커뮤니케이션 디자인을
+              주도적으로 기획하고 실험하는 학회. 북스터디, 워크숍, 전시 등을
+              통해 메시지를 시각적으로 효과 있게 표현하는 방법을 연구하며,
+              커뮤니케이션 중심의 디자인 역량을 키움.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>VAC (Visual Archivists Corpus)</h3>
+            <p>
+              GROOVY, DOT, GYM 세 학회의 연합으로 운영되는 시각디자인 아카이브
+              기반 학회조합. 디자인 전시 아카이빙, 오픈 커뮤니티 운영, 졸업생
+              강연, 학술 세미나 등을 통해 디자인 작업의 사회적·철학적 의미를
+              성찰하고 함께 나누는 확장형 플랫폼 역할을 수행함. 학회 소속 여부와
+              무관하게 참여 가능.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="department-section">
+        <h2>ICT 창업학부 학회</h2>
+        <div class="society-grid">
+          <div class="society-card">
+            <h3>BEST (Business Enjoy Study Together)</h3>
+            <p>
+              DBR·비즈니스 서적을 읽고 인사이트를 나누며, SNS로 최신 트렌드를
+              공유하고 작은 질문으로 토론을 이어 가는 비즈니스 인사이트 학회.
+              토론 중심 커뮤니티에서 '비즈니스 감각'을 기르고 시야를 넓힘.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>메타몽</h3>
+            <p>
+              메타버스를 선교·사회적 가치 창출 도구로 활용하는 메타버스 학회.
+              Unity 스터디, AR·VR-XR-Web 3.0 필드리서치, 관련 공모전 논문·박람회
+              참여 등을 통해 가상세계 프로젝트를 진행.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>Sirius</h3>
+            <p>
+              기획·디자인·프로그래밍 파트가 협업해 다양한 장르의 게임을
+              연구·개발하는 학회. 정기 세미나, 아이디어 워크숍, 팀 프로젝트와
+              공모전 출전을 통해 실전형 게임 개발 경험을 쌓음.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>PARD</h3>
+            <p>
+              서비스 기획·UX/UI 디자인·iOS-웹 서버 개발자가 한 팀이 되어 실제
+              앱/웹을 기획·개발·배포하는 프로덕트 제작 학회. 포트폴리오 구축과
+              실무 협업 경험을 중시.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>T-LAB(기술창업연구실)</h3>
+            <p>
+              정두희 교수 지도 아래 기술 창업 아이디어를 연구·검증하는 랩. 창업
+              아이템 발굴, 시장 분석, 프로토타입 제작 등 연구 기반 창업
+              프로젝트를 수행.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>CG LAB</h3>
+            <p>
+              한다성 교수 지도 아래 컴퓨터 그래픽스(2D/3D 애니메이션·인터랙티브
+              전시·게임) 연구를 통해 창의적 콘텐츠를 제작하고 학술대회·전시회에
+              참여하는 연구 랩.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>HCIE (Human Computer Interaction & Ergonomics)</h3>
+            <p>
+              인간 중심 기술(HCI, 인지공학, UX 등)을 주제로 연구와 프로젝트를
+              수행하는 연구실. 이원섭 교수님 지도하에 실제 실험 및 설계 기반
+              연구가 진행됨. 방학 프로젝트와 정기 연구활동 포함.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="department-section">
+        <h2>전산전자공학부 학회</h2>
+        <div class="society-grid">
+          <div class="society-card">
+            <h3>칩스칩스 (ChipsChips)</h3>
+            <p>
+              전자공학 전공자 및 관심자들의 모임. AI, FPGA 하드웨어 설계
+              프로젝트, 전공 탐색 및 논문 심화, 세미나, 졸업생 특강, 방학
+              프로젝트 등 다양한 연구와 교류 활동 진행.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>CRAIST 90%</h3>
+            <p>
+              크리스천 학생들이 모여 개발도상국 공동체 자립 지원 적정기술 및
+              소셜벤처 연구 단체. 현지 대학생 협업, 아이디어 제안, 현지 파견 등
+              활동 수행.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>(e)이론 전자학회</h3>
+            <p>
+              전자공학 이론 중심 학회 학업·진로 멘토링, 선배 특강, 공모전 및
+              프로젝트 준비, 다양한 전자공학 분야 연구·세미나 활동 진행.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>SODA (SOftware Development Academy)</h3>
+            <p>
+              앱 서비스 개발 및 디자인 학회. 개발자 디자이너 양성, 교육부터 실전
+              프로젝트 및 협업, 공모전 참여까지 지원하는 체계적 활동.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>시선 (See 善)</h3>
+            <p>
+              사회 소외 이웃을 위한 IT 솔루션 기획 및 개발 학회. 문제해결 토의,
+              프로젝트 기획·개발, 공모전 참가, 교수 코칭, 타 학회·동아리와 협업
+              활동 진행.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>일본 IT 학회</h3>
+            <p>
+              일본 IT 업계 취업 준비, 일본어 및 JLPT 스터디, 일본인 교류, 일본
+              문화·선교, 일본 관련 코딩 프로젝트를 수행하는 한동유일 일본 관련
+              IT 학회.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="department-section">
+        <h2>생명과학부 학회</h2>
+        <div class="society-grid">
+          <div class="society-card">
+            <h3>로직 디자이너스 (Logic Designers)</h3>
+            <p>
+              생명과학부 유일의 논문 학회. 장혜령 교수님 지도 아래 논문 읽기,
+              발표, 실험 제안서 작성 등을 통해 논리적 사고와 과학자로서의 연구
+              역량 향상을 목표로 함.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="department-section">
+        <h2>커뮤니케이션 학회</h2>
+        <div class="society-grid">
+          <div class="society-card">
+            <h3>언로너스</h3>
+            <p>
+              언론사 및 미디어 관련 기업 입사를 준비하는 학생들이 모인 언론 트랙
+              학회. 논술, 작문, 시사상식, 토론, 신문읽기, 라디오 활동 등
+              언론고시와 관련된 실전 활동을 중심으로 운영됨.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>HIM (Handong International Media)</h3>
+            <p>
+              글로벌 뉴스 및 시사에 관심 있는 학생들이 모여 영어로 토론하고 뉴스
+              콘텐츠를 제작하는 글로벌 언론 학회. 외국인 학생들과 협업하며,
+              영상·디자인·글쓰기 역량을 함께 키움.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>CHERK</h3>
+            <p>
+              커뮤니케이션학부 소속 영화 제작 학회로, 시나리오 작업, 단편영화
+              제작, 공모전 참여 등을 통해 영화 제작 전반을 직접 경험하며 실력을
+              쌓는 실습 중심의 학회.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>KHAZON</h3>
+            <p>
+              다양한 형태의 영상을 기획·제작하고, 공모전 및 외부 협업 프로젝트에
+              참여하는 영상 콘텐츠 제작 학회. 실제 영상 촬영 및 편집을 통한 실전
+              중심 운영.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>한공기 (한동공연기획학회)</h3>
+            <p>
+              공연, 전시, 방탈출 등 다양한 문화 콘텐츠를 기획하고 실제로
+              실행해보는 창의적 프로젝트 중심의 학회. 기획력과 실행력을 바탕으로
+              '상상을 현실로' 실현하는 활동을 펼침.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="department-section">
+        <h2>공간환경시스템공학부 학회</h2>
+        <div class="society-grid">
+          <div class="society-card">
+            <h3>Global City Lab</h3>
+            <p>
+              국제 개발 계획, 스마트시티, 친환경 도시 건축 등 도시 건축과 관련된
+              연구를 진행하는 학부생 연구실. 도시 관련 프로젝트 및 학술 서적
+              강독, 토론회, 세미나, 해외 대학과의 협업 활동을 통해 학술적 성장과
+              영성 훈련을 함께 추구함.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>HIA (한동건축학회)</h3>
+            <p>
+              한동 최초의 순수 건축 학회로 건축 스터디, 답사, 건축가 탐구, 모형
+              제작, 포트폴리오 및 툴 스터디 등 다양한 건축 활동 수행. 방학 중
+              농촌 집 고쳐주기 봉사 및 공모전 참여. 졸업생 네트워크와 인턴
+              기회도 활발함.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>UAL (도시해석연구실)</h3>
+            <p>
+              도시 계획 및 공간 분석 연구 중심의 연구실. 학술대회 참가,
+              논문투고, 공공데이터 활용 아이디어 공모 등 실질적 연구성과 창출을
+              목표로 활동. 연구방법론, GIS, 파이썬 등 기초학문과 데이터 분석
+              능력을 함께 기름.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>URBAN CAFE</h3>
+            <p>
+              도시와 건축에 대한 관심을 바탕으로 주제 발표, 툴스터디, 공모전,
+              답사, 프로젝트 등을 진행하는 학회. 연구 참여 기회도 제공하며 도시
+              관련 실무 경험과 이론을 함께 쌓는 데 초점을 둠.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>AQUASEN</h3>
+            <p>
+              수자원과 환경 토목을 중심으로 한 학회. MATLAB, Python, Revit 등
+              기술 스터디와 생태환경, 폐기물, 토양, 해양, 건설재료 등 다양한
+              분야 연구 진행. 산학협력 및 공공 프로젝트, 해외개발형 연구도
+              활발하게 수행됨.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>SEEBIM</h3>
+            <p>
+              BIM(Building Information Modeling)을 중심으로 건설 및 설계 프
+              로세스를 학습하는 학회. 여름 BIM 캠프, 공모전 수상, 해외 연계 캠프
+              등을 통해 BIM 기술의 실제 적용 능력 배양.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>COHA (Cornerstone of Handong Architecture)</h3>
+            <p>
+              건축 설계에서의 표현 기법과 디자인 컨셉 연구에 중점을 둔 학회.
+              스케치, 2D/3D 드로잉, 모형 제작 등을 통해 설계 표현 능력 향상을
+              도모함.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>공기</h3>
+            <p>
+              건축 인테리어를 중심으로 한 학회로, 디자인, 시공, 공간 구성에 대한
+              스터디 및 프로젝트를 진행. 잡지 제작, 인터뷰, 칼럼, 공간 분석 등
+              실무적이고 창의적인 활동에 초점.
+            </p>
+          </div>
+          <div class="society-card">
+            <h3>MnA (Metaverse and Architecture)</h3>
+            <p>
+              메타버스를 활용한 건축 표현을 연구하는 학회. Unity, C# 학습을
+              기반으로 가상 공간 속 건축 구현 및 미러월드(한동 캠퍼스 재현)
+              프로젝트 등 메타버스 기반 실험적 표현 활동 수행.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="department-section">
+        <h2>창의융합교육원 학회</h2>
+        <div class="society-grid">
+          <div class="society-card">
+            <h3>한국어교육학회</h3>
+            <p>
+              글로벌 한국학 전공 학회로, 외국인을 위한 한국어 교육에 관심 있는
+              학생들이 모여 활동함. 전공 수업에서 다루지 않는 한국어 교육 이론과
+              사례를 스터디하고, 이를 활용해 교육 프로그램과 콘텐츠를 개발함.
+              실질적인 한국어 교수법에 대한 적용과 실습 중심의 활동을 통해
+              교육적 역량을 기름.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="department-section">
+        <h2>기계제어공학부 학회</h2>
+        <div class="society-grid">
+          <div class="society-card">
+            <h3>HADA (자율주행자동차 학회)</h3>
+            <p>
+              자작 전기자동차 동아리(AMG)의 경험을 기반으로 설립된
+              자율주행자동차 학회로, 딥러닝 머신러닝 기반의 환경 인식
+              알고리즘(카메라, 라이다 등) 개발과 자율주행 센서를 활용한 유도제어
+              소프트웨어 개발을 수행함. 실제 자율주행 자동차 시스템을
+              설계·제작하며, 2021년 국제대학생 자동차경진대회 자율주행 부문에서
+              장려상을 수상하는 등 대외적 성과도 있음.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="department-section">
+        <h2>트랙별, 프로그램별 학회 추천</h2>
+        <div class="society-grid">
+          <div class="society-card">
+            <h3>글로벌 한국학 한국어 교육 트랙</h3>
+            <p>한국어교육학회.</p>
+          </div>
+          <div class="society-card">
+            <h3>일반한국학 트랙</h3>
+            <p>한국어교육학회, 언로너스(커뮤니케이션 학회).</p>
+          </div>
+          <div class="society-card">
+            <h3>T)EP - 기독교사 특화 트랙</h3>
+            <p>한동교육학회(상담심리학부 학회).</p>
+          </div>
+          <div class="society-card">
+            <h3>국제 관련 트랙</h3>
+            <p>국제개발학회(국제어문학부 학회).</p>
+          </div>
+          <div class="society-card">
+            <h3>기업 창업 트랙</h3>
+            <p>CRAIST 90%(전산전자학부 학회).</p>
+          </div>
+          <div class="society-card">
+            <h3>통일 트랙</h3>
+            <p>통일법학회(법학부 학회).</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
