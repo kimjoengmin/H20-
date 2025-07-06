@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>한동대학교 학부 & 전공 목록 - Handong Connect</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* majors_list.html 페이지 전용 스타일 */
+      .majors-list-section {
+        padding: 80px 0;
+        background-color: #f9f9f9;
+        min-height: calc(100vh - 180px); /* 푸터 제외 최소 높이 */
+      }
+      .majors-list-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      .majors-list-container h1 {
+        text-align: center;
+        color: #333;
+        font-size: 2.8em;
+        margin-bottom: 50px;
+        position: relative;
+      }
+      .majors-list-container h1::after {
+        content: "";
+        width: 80px;
+        height: 4px;
+        background-color: #6a1b9a;
+        position: absolute;
+        bottom: -15px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 2px;
+      }
+
+      .majors-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 30px;
+        padding: 20px 0;
+      }
+
+      .major-card {
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        overflow: hidden;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        display: flex;
+        flex-direction: column;
+        text-decoration: none; /* 링크 스타일 제거 */
+        color: inherit; /* 폰트 색상 상속 */
+      }
+      .major-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.12);
+      }
+
+      .major-card img {
+        width: 100%;
+        height: 180px; /* 이미지 높이 고정 */
+        object-fit: cover; /* 이미지가 카드에 맞게 채워지도록 */
+        border-bottom: 1px solid #eee;
+      }
+
+      .major-card .card-content {
+        padding: 20px;
+        flex-grow: 1; /* 내용이 카드 공간을 채우도록 */
+        display: flex;
+        flex-direction: column;
+      }
+
+      .major-card h3 {
+        font-size: 1.6em;
+        color: #6a1b9a; /* 보라색 */
+        margin-bottom: 10px;
+        text-align: left;
+      }
+
+      .major-card .card-description {
+        font-size: 0.95em;
+        color: #555;
+        line-height: 1.5;
+        margin-bottom: 15px;
+        flex-grow: 1; /* 설명이 남은 공간을 차지하도록 */
+      }
+
+      .major-card .card-meta {
+        display: flex;
+        gap: 15px;
+        margin-top: 10px;
+        margin-bottom: 15px;
+        color: #777;
+        font-size: 0.9em;
+        flex-wrap: wrap; /* 메타 정보가 길어지면 줄바꿈 */
+      }
+      .major-card .card-meta .meta-item {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+      }
+      .major-card .card-meta .meta-item i {
+        color: #039be5; /* 아이콘 색상 */
+      }
+
+      .major-card .card-tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin-top: auto; /* 태그를 카드 하단에 붙임 */
+      }
+      .major-card .tag {
+        padding: 6px 12px;
+        border-radius: 15px;
+        font-size: 0.85em;
+        font-weight: 500;
+      }
+      .major-card .tag-blue {
+        background-color: #e3f2fd;
+        color: #2196f3;
+      }
+      .major-card .tag-purple {
+        background-color: #ede7f6;
+        color: #673ab7;
+      }
+      .major-card .tag-green {
+        background-color: #e8f5e9;
+        color: #4caf50;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="logo">
+          <img src="./images/logo.png" alt="HANDONG CONNECT 로고" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#sections">둘러보기</a></li>
+          <li><a href="majors_list.html">학부/전공</a></li>
+          <li><a href="index.html#clubs">동아리/학회</a></li>
+          <li><a href="index.html#community">커뮤니티</a></li>
+          <li><a href="index.html#contact">문의</a></li>
+        </ul>
+        <div class="user-actions">
+          <a href="#" class="btn-login"
+            ><i class="fas fa-user-circle"></i> My 계정</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <section class="majors-list-section">
+        <div class="majors-list-container">
+          <h1>한동대학교 학부 & 전공</h1>
+          <div class="majors-grid">
+            <a href="global_leadership.html" class="major-card">
+              <img
+                src="./images/글로벌리더쉽학부 (2).png"
+                alt="글로벌리더십학부 이미지"
+              />
+              <div class="card-content">
+                <h3>글로벌리더십학부</h3>
+                <p class="card-description">
+                  글로벌 시대에 필요한 리더십 역량과 세계 시민 의식을
+                  함양합니다.
+                </p>
+                <div class="card-meta">
+                  <span class="meta-item"
+                    ><i class="fas fa-earth-americas"></i> 국제 이슈</span
+                  >
+                  <span class="meta-item"
+                    ><i class="fas fa-handshake"></i> 협력</span
+                  >
+                </div>
+                <div class="card-tags">
+                  <span class="tag tag-blue">#리더십</span>
+                  <span class="tag tag-purple">#글로벌</span>
+                  <span class="tag tag-green">#세계시민</span>
+                </div>
+              </div>
+            </a>
+
+            <a href="#" class="major-card">
+              <img src="./images/국제어문학부.png" alt="국제어문학부 이미지" />
+              <div class="card-content">
+                <h3>국제어문학부</h3>
+                <p class="card-description">
+                  한국어, 영어, 국제지역학 등 어문 및 인문학적 소양을 기반으로
+                  글로벌 전문가를 양성합니다.
+                </p>
+                <div class="card-meta">
+                  <span class="meta-item"
+                    ><i class="fas fa-language"></i> 어학</span
+                  >
+                  <span class="meta-item"
+                    ><i class="fas fa-globe"></i> 국제</span
+                  >
+                </div>
+                <div class="card-tags">
+                  <span class="tag tag-blue">#어문</span>
+                  <span class="tag tag-purple">#인문</span>
+                  <span class="tag tag-green">#국제지역</span>
+                </div>
+              </div>
+            </a>
+
+            <a href="#" class="major-card">
+              <img src="./images/경영경제학부.png" alt="경영경제학부 이미지" />
+              <div class="card-content">
+                <h3>경영경제학부</h3>
+                <p class="card-description">
+                  경영학, 경제학, 국제경영학 등을 통해 글로벌 비즈니스 리더를
+                  양성합니다.
+                </p>
+                <div class="card-meta">
+                  <span class="meta-item"
+                    ><i class="fas fa-chart-line"></i> 비즈니스</span
+                  >
+                  <span class="meta-item"
+                    ><i class="fas fa-money-bill-wave"></i> 경제</span
+                  >
+                </div>
+                <div class="card-tags">
+                  <span class="tag tag-blue">#경영</span>
+                  <span class="tag tag-purple">#경제</span>
+                  <span class="tag tag-green">#국제경영</span>
+                </div>
+              </div>
+            </a>
+
+            <a href="#" class="major-card">
+              <img src="./images/법학부.png" alt="법학부 이미지" />
+              <div class="card-content">
+                <h3>법학부</h3>
+                <p class="card-description">
+                  법률 전문가로서 정의롭고 공정한 사회 구현에 기여하는 인재를
+                  양성합니다.
+                </p>
+                <div class="card-meta">
+                  <span class="meta-item"
+                    ><i class="fas fa-balance-scale-right"></i> 정의</span
+                  >
+                  <span class="meta-item"
+                    ><i class="fas fa-gavel"></i> 법률</span
+                  >
+                </div>
+                <div class="card-tags">
+                  <span class="tag tag-blue">#법</span>
+                  <span class="tag tag-purple">#사회정의</span>
+                  <span class="tag tag-green">#법률가</span>
+                </div>
+              </div>
+            </a>
+
+            <a href="#" class="major-card">
+              <img
+                src="./images/커뮤니케이션학부.png"
+                alt="커뮤니케이션학부 이미지"
+              />
+              <div class="card-content">
+                <h3>커뮤니케이션학부</h3>
+                <p class="card-description">
+                  미디어, 홍보, 저널리즘 등 다양한 커뮤니케이션 분야의 전문가를
+                  양성합니다.
+                </p>
+                <div class="card-meta">
+                  <span class="meta-item"
+                    ><i class="fas fa-bullhorn"></i> 미디어</span
+                  >
+                  <span class="meta-item"
+                    ><i class="fas fa-microphone-alt"></i> 홍보</span
+                  >
+                </div>
+                <div class="card-tags">
+                  <span class="tag tag-blue">#커뮤니케이션</span>
+                  <span class="tag tag-purple">#미디어</span>
+                  <span class="tag tag-green">#저널리즘</span>
+                </div>
+              </div>
+            </a>
+
+            <a href="#" class="major-card">
+              <img
+                src="./images/공간환경시스템공학부.png"
+                alt="공간환경시스템공학부 이미지"
+              />
+              <div class="card-content">
+                <h3>공간환경시스템공학부</h3>
+                <p class="card-description">
+                  지속 가능한 도시 및 인프라 구축을 위한 건설 기술과 공학적
+                  지식을 습득합니다.
+                </p>
+                <div class="card-meta">
+                  <span class="meta-item"
+                    ><i class="fas fa-city"></i> 도시</span
+                  >
+                  <span class="meta-item"
+                    ><i class="fas fa-leaf"></i> 환경</span
+                  >
+                </div>
+                <div class="card-tags">
+                  <span class="tag tag-blue">#건설</span>
+                  <span class="tag tag-purple">#환경</span>
+                  <span class="tag tag-green">#시스템</span>
+                </div>
+              </div>
+            </a>
+
+            <a href="#" class="major-card">
+              <img
+                src="./images/기계제어공학부.png"
+                alt="기계제어공학부 이미지"
+              />
+              <div class="card-content">
+                <h3>기계제어공학부</h3>
+                <p class="card-description">
+                  기계, 로봇, 제어 시스템 분야의 핵심 기술을 습득하여 창의적인
+                  문제 해결 능력을 키웁니다.
+                </p>
+                <div class="card-meta">
+                  <span class="meta-item"
+                    ><i class="fas fa-robot"></i> 로봇</span
+                  >
+                  <span class="meta-item"
+                    ><i class="fas fa-cogs"></i> 제어</span
+                  >
+                </div>
+                <div class="card-tags">
+                  <span class="tag tag-blue">#기계</span>
+                  <span class="tag tag-purple">#로봇</span>
+                  <span class="tag tag-green">#자동화</span>
+                </div>
+              </div>
+            </a>
+
+            <a href="#" class="major-card">
+              <img
+                src="./images/콘텐츠융합디자인학부.png"
+                alt="콘텐츠융합디자인학부 이미지"
+              />
+              <div class="card-content">
+                <h3>콘텐츠융합디자인학부</h3>
+                <p class="card-description">
+                  시각, UX/UI, 미디어 아트 등 융합적 디자인 역량을 통해 새로운
+                  콘텐츠를 창조합니다.
+                </p>
+                <div class="card-meta">
+                  <span class="meta-item"
+                    ><i class="fas fa-brush"></i> 디자인</span
+                  >
+                  <span class="meta-item"
+                    ><i class="fas fa-desktop"></i> 미디어</span
+                  >
+                </div>
+                <div class="card-tags">
+                  <span class="tag tag-blue">#디자인</span>
+                  <span class="tag tag-purple">#융합</span>
+                  <span class="tag tag-green">#콘텐츠</span>
+                </div>
+              </div>
+            </a>
+
+            <a href="#" class="major-card">
+              <img src="./images/생명공학부.png" alt="생명과학부 이미지" />
+              <div class="card-content">
+                <h3>생명과학부</h3>
+                <p class="card-description">
+                  생명 현상의 원리를 탐구하고, 바이오 기술 및 환경 문제 해결에
+                  기여하는 전문가를 양성합니다.
+                </p>
+                <div class="card-meta">
+                  <span class="meta-item"
+                    ><i class="fas fa-dna"></i> 생명공학</span
+                  >
+                  <span class="meta-item"
+                    ><i class="fas fa-flask"></i> 연구</span
+                  >
+                </div>
+                <div class="card-tags">
+                  <span class="tag tag-blue">#생명</span>
+                  <span class="tag tag-purple">#과학</span>
+                  <span class="tag tag-green">#바이오</span>
+                </div>
+              </div>
+            </a>
+
+            <a href="#" class="major-card">
+              <img
+                src="./images/전산전자공학부.png"
+                alt="전산전자공학부 이미지"
+              />
+              <div class="card-content">
+                <h3>전산전자공학부</h3>
+                <p class="card-description">
+                  컴퓨터공학, 전자공학 분야의 전문 지식을 바탕으로 IT 산업을
+                  선도하는 인재를 양성합니다.
+                </p>
+                <div class="card-meta">
+                  <span class="meta-item"
+                    ><i class="fas fa-code"></i> 프로그래밍</span
+                  >
+                  <span class="meta-item"
+                    ><i class="fas fa-microchip"></i> 반도체</span
+                  >
+                </div>
+                <div class="card-tags">
+                  <span class="tag tag-blue">#IT</span>
+                  <span class="tag tag-purple">#전자</span>
+                  <span class="tag tag-green">#컴퓨터</span>
+                </div>
+              </div>
+            </a>
+
+            <a href="#" class="major-card">
+              <img
+                src="./images/상담심리사회복지학부.png"
+                alt="상담심리사회복지학부 이미지"
+              />
+              <div class="card-content">
+                <h3>상담심리사회복지학부</h3>
+                <p class="card-description">
+                  상담 심리 및 사회 복지 분야의 전문가를 양성하여 개인과 사회의
+                  웰빙에 기여합니다.
+                </p>
+                <div class="card-meta">
+                  <span class="meta-item"
+                    ><i class="fas fa-brain"></i> 심리</span
+                  >
+                  <span class="meta-item"
+                    ><i class="fas fa-hand-holding-heart"></i> 복지</span
+                  >
+                </div>
+                <div class="card-tags">
+                  <span class="tag tag-blue">#상담</span>
+                  <span class="tag tag-purple">#사회복지</span>
+                  <span class="tag tag-green">#치유</span>
+                </div>
+              </div>
+            </a>
+
+            <a href="#" class="major-card">
+              <img src="./images/ICT창업학부.png" alt="ICT창업학부 이미지" />
+              <div class="card-content">
+                <h3>ICT창업학부</h3>
+                <p class="card-description">
+                  ICT 기술을 기반으로 혁신적인 창업 아이디어를 현실화하는 미래의
+                  창업가를 양성합니다.
+                </p>
+                <div class="card-meta">
+                  <span class="meta-item"
+                    ><i class="fas fa-rocket"></i> 창업</span
+                  >
+                  <span class="meta-item"
+                    ><i class="fas fa-lightbulb"></i> 혁신</span
+                  >
+                </div>
+                <div class="card-tags">
+                  <span class="tag tag-blue">#ICT</span>
+                  <span class="tag tag-purple">#창업</span>
+                  <span class="tag tag-green">#스타트업</span>
+                </div>
+              </div>
+            </a>
+
+            <a href="#" class="major-card">
+              <img
+                src="./images/창의융합교육원.png"
+                alt="창의융합교육원 이미지"
+              />
+              <div class="card-content">
+                <h3>창의융합교육원</h3>
+                <p class="card-description">
+                  융합적 사고와 문제 해결 능력을 키우는 다양한 창의 교육
+                  프로그램을 제공합니다.
+                </p>
+                <div class="card-meta">
+                  <span class="meta-item"
+                    ><i class="fas fa-brain"></i> 창의력</span
+                  >
+                  <span class="meta-item"
+                    ><i class="fas fa-cubes"></i> 융합</span
+                  >
+                </div>
+                <div class="card-tags">
+                  <span class="tag tag-blue">#창의</span>
+                  <span class="tag tag-purple">#융합</span>
+                  <span class="tag tag-green">#교육</span>
+                </div>
+              </div>
+            </a>
+
+            <a href="#" class="major-card">
+              <img src="./images/AI융합교육원.png" alt="AI 융합교육원 이미지" />
+              <div class="card-content">
+                <h3>AI 융합교육원</h3>
+                <p class="card-description">
+                  인공지능 핵심 기술과 다양한 분야의 융합을 통해 AI 시대의 선두
+                  주자를 양성합니다.
+                </p>
+                <div class="card-meta">
+                  <span class="meta-item"
+                    ><i class="fas fa-robot"></i> 인공지능</span
+                  >
+                  <span class="meta-item"
+                    ><i class="fas fa-laptop-code"></i> 코딩</span
+                  >
+                </div>
+                <div class="card-tags">
+                  <span class="tag tag-blue">#AI</span>
+                  <span class="tag tag-purple">#융합</span>
+                  <span class="tag tag-green">#데이터과학</span>
+                </div>
+              </div>
+            </a>
+
+            <a href="#" class="major-card">
+              <img src="./images/신앙교육원.png" alt="신앙 교육원 이미지" />
+              <div class="card-content">
+                <h3>신앙 교육원</h3>
+                <p class="card-description">
+                  기독교 세계관을 바탕으로 인성과 영성을 겸비한 리더를
+                  양성합니다.
+                </p>
+                <div class="card-meta">
+                  <span class="meta-item"
+                    ><i class="fas fa-cross"></i> 기독교</span
+                  >
+                  <span class="meta-item"
+                    ><i class="fas fa-heart"></i> 인성</span
+                  >
+                </div>
+                <div class="card-tags">
+                  <span class="tag tag-blue">#신앙</span>
+                  <span class="tag tag-purple">#교육</span>
+                  <span class="tag tag-green">#리더십</span>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="main-footer">
+      <p>&copy; 2025 Handong Connect. 한동대학교를 위한 학생 개발 플랫폼.</p>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>
