@@ -159,7 +159,7 @@
           <li><a href="majors_all.html">학부/전공</a></li>
           <li><a href="institute.html">동아리/학회</a></li>
           <li>
-            <a href="index.html#community.html" class="active">커뮤니티</a>
+            <a href="community.html" class="active">커뮤니티</a>
           </li>
           <li><a href="inquiry.html">문의</a></li>
         </ul>
@@ -181,7 +181,7 @@
               type="text"
               id="studyTitle"
               name="studyTitle"
-              placeholder=""
+              placeholder="예: 파이썬 알고리즘 스터디"
               required
             />
           </div>
@@ -193,7 +193,7 @@
               <option value="major">전공 스터디</option>
               <option value="language">어학 스터디</option>
               <option value="job">취업 스터디</option>
-              <option value="license">자격증 스터디</option>
+              <option value="certificate">자격증 스터디</option>
               <option value="etc">기타</option>
             </select>
           </div>
@@ -203,7 +203,7 @@
             <textarea
               id="studyDescription"
               name="studyDescription"
-              placeholder=""
+              placeholder="스터디 목표, 진행 방식, 필수 역량 등을 자세히 작성해주세요."
               rows="6"
               required
             ></textarea>
@@ -215,7 +215,7 @@
               type="text"
               id="meetingSchedule"
               name="meetingSchedule"
-              placeholder=""
+              placeholder="예: 매주 화요일 19시, 비대면"
             />
           </div>
 
@@ -227,7 +227,7 @@
               name="requiredMembers"
               min="1"
               max="20"
-              placeholder=""
+              placeholder="예: 4"
               required
             />
           </div>
@@ -240,7 +240,7 @@
               type="text"
               id="contactInfo"
               name="contactInfo"
-              placeholder=""
+              placeholder="예: 카카오톡 ID: myid123 또는 오픈채팅 링크"
               required
             />
           </div>
@@ -271,29 +271,80 @@
       referrerpolicy="no-referrer"
     ></script>
 
-    <script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        addDoc,
+        serverTimestamp, // 서버 시간을 사용하기 위한 import
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+      // Firebase 설정 (이전에 study.html에서 사용한 것과 동일)
+      const firebaseConfig = {
+        apiKey: "AIzaSyCIdDH-9l80GCu_PRz7LPyQmKvcIL6nPyg",
+        authDomain: "team-h20.firebaseapp.com",
+        projectId: "team-h20",
+        storageBucket: "team-h20.firebasestorage.app",
+        messagingSenderId: "845558888214",
+        appId: "1:845558888214:web:73959e7ab377fd03620237",
+        measurementId: "G-KZ1MQMH2EK",
+      };
+
+      // Firebase 앱 초기화
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      // 폼 제출 이벤트 리스너
       document
         .getElementById("createStudyForm")
-        .addEventListener("submit", function (event) {
+        .addEventListener("submit", async function (event) {
           event.preventDefault(); // 폼 기본 제출 동작 방지
 
-          // 폼 데이터 가져오기 (간단한 예시)
+          // 폼 데이터 가져오기
           const title = document.getElementById("studyTitle").value;
           const category = document.getElementById("studyCategory").value;
           const description = document.getElementById("studyDescription").value;
-          const members = document.getElementById("requiredMembers").value;
+          const capacity = parseInt(
+            document.getElementById("requiredMembers").value,
+            10
+          ); // 숫자로 변환
+          const schedule = document.getElementById("meetingSchedule").value;
           const contact = document.getElementById("contactInfo").value;
 
-          // 실제로는 이 데이터를 서버로 전송합니다.
-          // 여기서는 간단히 알림창으로 성공 메시지를 보여줍니다.
-          if (title && category && description && members && contact) {
+          // 필수 필드 유효성 검사
+          if (
+            !title ||
+            !category ||
+            !description ||
+            isNaN(capacity) ||
+            !contact
+          ) {
+            alert("모든 필수 정보를 입력해주세요.");
+            return; // 함수 종료
+          }
+
+          try {
+            // Firestore 'studies' 컬렉션에 새 문서 추가
+            await addDoc(collection(db, "studies"), {
+              title: title,
+              category: category,
+              description: description,
+              capacity: capacity,
+              schedule: schedule,
+              contact: contact,
+              createdAt: serverTimestamp(), // 서버 시간으로 생성 시간 기록
+              // 추후 필요하다면 작성자 정보, 조회수, 상태(모집 중/완료) 등을 추가할 수 있습니다.
+            });
+
             alert(
               '"' + title + '" 스터디 모집 글이 성공적으로 등록되었습니다!'
             );
-            // 성공 후 스터디 목록 페이지로 리다이렉트 (예시)
-            window.location.href = "study_recruitment.html";
-          } else {
-            alert("모든 필수 정보를 입력해주세요.");
+            // 성공 후 스터디 목록 페이지로 리다이렉트
+            window.location.href = "study.html"; // 이 부분이 스터디 화면으로 넘어가는 로직입니다.
+          } catch (e) {
+            console.error("스터디 모집 글 추가 중 오류 발생: ", e);
+            alert("스터디 모집 글 등록에 실패했습니다. 다시 시도해주세요.");
           }
         });
     </script>

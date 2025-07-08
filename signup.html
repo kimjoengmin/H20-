@@ -1,11 +1,14 @@
-<!-- My Account Page (Handong Connect) -->
 <!DOCTYPE html>
 <html lang="ko">
   <head>
     <meta charset="UTF-8" />
-    <meta http‑equiv="X‑UA‑Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device‑width, initial‑scale=1.0" />
-    <title>My 계정 – Handong Connect</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>회원가입 – Handong Connect</title>
+    <link
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css"
+      rel="stylesheet"
+    />
     <style>
       :root {
         --primary: #5b6dff;
@@ -23,6 +26,10 @@
         background-repeat: no-repeat;
         background-attachment: fixed;
         color: #2d2d2d;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
       }
 
       .container {
@@ -33,7 +40,6 @@
         padding: 0 16px;
       }
 
-      /* ───────────── Left: Form Section ───────────── */
       .card {
         flex: 1 1 0;
         background: #fff;
@@ -41,6 +47,7 @@
         border-radius: var(--radius);
         box-shadow: var(--shadow);
         padding: 32px 40px;
+        min-width: 400px;
       }
 
       .card h1 {
@@ -113,64 +120,29 @@
         background: #e4e6ff;
       }
 
-      /* ───────────── Right: Sidebar ───────────── */
-      .sidebar {
-        width: 280px;
-        display: flex;
-        flex-direction: column;
-        gap: 24px;
+      #errorMessage,
+      #passwordMatchMessage {
+        margin-top: 10px;
+        text-align: center;
+        font-weight: 500;
+      }
+      #errorMessage {
+        color: red;
+      }
+      #passwordMatchMessage {
+        font-size: 0.9em;
       }
 
-      .side-card {
-        flex: none;
-        background: #fff;
-        border: 1px solid var(--border);
-        border-radius: var(--radius);
-        box-shadow: var(--shadow);
-        padding: 20px 24px;
-      }
-
-      .side-card h2 {
-        margin: 0 0 12px;
-        font-size: 1.1rem;
-        color: var(--primary);
-      }
-
-      .side-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-
-      .side-list li {
-        padding: 6px 0;
-        border-bottom: 1px dashed #ddd;
-        font-size: 0.9rem;
-      }
-
-      .side-list li:last-child {
-        border-bottom: none;
-      }
-
-      @media (max-width: 900px) {
-        .container {
-          flex-direction: column;
-        }
-        .sidebar {
-          width: 100%;
-          flex-direction: row;
-          gap: 16px;
-        }
-        .side-card {
-          flex: 1 1 0;
-        }
+      /* 회원가입 완료 화면 스타일은 이제 사용되지 않으므로 제거하거나 display: none으로 유지합니다. */
+      #signup-success-section {
+        display: none; /* 초기에는 숨김 */
+        /* 이 섹션은 이제 JavaScript에서 직접 사용하지 않습니다. */
       }
     </style>
   </head>
 
   <body>
     <div class="container">
-      <!-- ───────────── Main Form ───────────── -->
       <section class="card" id="account-form">
         <a
           href="login,membership.html"
@@ -190,18 +162,28 @@
           <div class="form-row">
             <div class="form-group">
               <label for="name">이름</label>
-              <input id="name" type="text" placeholder="" required />
+              <input
+                id="name"
+                type="text"
+                placeholder="이름을 입력하세요 (예: 홍길동)"
+                required
+              />
             </div>
             <div class="form-group">
               <label for="studentId">학번</label>
-              <input id="studentId" type="text" placeholder="" required />
+              <input
+                id="studentId"
+                type="text"
+                placeholder="학번을 입력하세요 (예: 20240001)"
+                required
+              />
             </div>
           </div>
 
           <div class="form-group">
             <label for="department">학부</label>
             <select id="department" onchange="toggleMajorFields()" required>
-              <option value="">학부 선택</option>
+              <option value="">학부를 선택하세요</option>
               <option value="글로벌리더십학부">글로벌리더십학부</option>
               <option value="경영경제학부">경영경제학부</option>
               <option value="ICT창업학부">ICT창업학부</option>
@@ -216,83 +198,310 @@
               <option value="상담심리사회복지학부">상담심리사회복지학부</option>
               <option value="창의융합교육원">창의융합교육원</option>
               <option value="AI융합교육원">AI융합교육원</option>
-              <!-- … other departments … -->
             </select>
           </div>
 
           <div class="form-row" id="major-row">
             <div class="form-group">
               <label for="major1">제1전공</label>
-              <input id="major1" type="text" placeholder="" />
+              <input
+                id="major1"
+                type="text"
+                placeholder="제1전공을 입력하세요"
+              />
             </div>
             <div class="form-group">
               <label for="major2">제2전공</label>
-              <input id="major2" type="text" placeholder="" />
+              <input
+                id="major2"
+                type="text"
+                placeholder="제2전공을 입력하세요 (선택 사항)"
+              />
             </div>
           </div>
 
+          <div class="form-row">
+            <div class="form-group">
+              <label for="password">비밀번호</label>
+              <input
+                id="password"
+                type="password"
+                placeholder="6자 이상의 비밀번호를 입력하세요"
+                required
+                onkeyup="checkPasswordMatch()"
+              />
+            </div>
+            <div class="form-group">
+              <label for="confirmPassword">비밀번호 확인</label>
+              <input
+                id="confirmPassword"
+                type="password"
+                placeholder="비밀번호를 다시 입력하세요"
+                required
+                onkeyup="checkPasswordMatch()"
+              />
+            </div>
+          </div>
+          <p id="passwordMatchMessage"></p>
           <div class="form-group">
             <label for="email">이메일</label>
             <input
               id="email"
               type="email"
-              placeholder=""
+              placeholder="한동대학교 이메일(@handong.ac.kr)을 입력하세요"
               required
             />
           </div>
+
           <div class="form-group">
             <label for="phone">전화번호</label>
-            <input id="phone" type="tel" placeholder="" required />
+            <input
+              id="phone"
+              type="tel"
+              placeholder="전화번호를 입력하세요 (예: 010-1234-5678)"
+              required
+            />
           </div>
 
+          <p id="errorMessage"></p>
           <div class="button-row">
-            <button type="button" class="btn-edit" onclick="enableEditing()">
-              수정
+            <button type="button" class="btn-edit" onclick="resetForm()">
+              초기화
             </button>
             <button type="submit" class="btn-save">저장</button>
           </div>
         </form>
       </section>
-    <script>
-      // 간단한 예시 로직: 글로벌리더십학부 선택 시 전공 입력란 비활성화
+
+      <section class="card" id="signup-success-section" style="display: none">
+        <h2>🎉 회원가입이 완료되었습니다!</h2>
+        <p>이제 로그인하여 Handong Connect를 이용하실 수 있습니다.</p>
+        <a href="login.html" class="btn-login">로그인 하러 가기</a>
+      </section>
+    </div>
+
+    <script type="module">
+      // Firebase 관련 모듈들을 가져옵니다.
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+      import {
+        getAuth,
+        createUserWithEmailAndPassword,
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+      import {
+        getFirestore,
+        doc,
+        setDoc,
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+      // getAnalytics는 사용자 분석을 위한 것이므로, 필요 없으면 이 줄은 삭제해도 됩니다.
+      // import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+
+      // Firebase 콘솔에서 복사한 firebaseConfig 객체 내용을 여기에 붙여넣으세요!
+      // 스크린샷 `image_365c5d.jpg`의 실제 값을 사용합니다.
+      const firebaseConfig = {
+        apiKey: "AIzaSyCIdDH-9l80GCu_PRz7LPyQmKvcIL6nPyg",
+        authDomain: "team-h20.firebaseapp.com",
+        projectId: "team-h20",
+        storageBucket: "team-h20.firebasestorage.app",
+        messagingSenderId: "845558888214",
+        appId: "1:845558888214:web:73959e7ab377fd03620237",
+        measurementId: "G-KZ1MQMH2EK",
+      };
+
+      // Firebase 앱 초기화
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app); // 인증 서비스 가져오기
+      const db = getFirestore(app); // Firestore 데이터베이스 서비스 가져오기
+
+      // analytics를 사용하지 않는다면 아래 줄은 삭제해도 됩니다.
+      // const analytics = getAnalytics(app);
+
+      // 학부에 따라 전공 필드 활성화/비활성화
       function toggleMajorFields() {
         const dept = document.getElementById("department").value;
         const majorsDisabled = dept === "글로벌리더십학부";
         ["major1", "major2"].forEach((id) => {
           const field = document.getElementById(id);
           field.disabled = majorsDisabled;
+          field.value = majorsDisabled ? "" : field.value;
           field.placeholder = majorsDisabled
             ? "글로벌리더십학부는 전공 입력이 필요 없습니다."
-            : "";
+            : id === "major1"
+            ? "제1전공을 입력하세요"
+            : "제2전공을 입력하세요 (선택 사항)";
+          field.required = !majorsDisabled && id === "major1"; // 제1전공은 필수, 제2전공은 선택
         });
       }
 
-      // 폼 초기 상태: 읽기 전용 (수정 버튼 클릭 전까지)
-      window.addEventListener("DOMContentLoaded", () => {
-        setFieldsDisabled(true);
-      });
+      // 비밀번호 일치 여부 실시간 확인
+      function checkPasswordMatch() {
+        const password = document.getElementById("password").value;
+        const confirmPassword =
+          document.getElementById("confirmPassword").value;
+        const messageDisplay = document.getElementById("passwordMatchMessage");
 
-      function setFieldsDisabled(state) {
-        document
-          .querySelectorAll("#account-form input, #account-form select")
-          .forEach((el) => {
-            el.disabled = state;
-          });
-        // 수정 버튼은 반대 상태로
-        document.querySelector(".btn-edit").disabled = !state;
+        if (password.length === 0 && confirmPassword.length === 0) {
+          messageDisplay.textContent = "";
+          messageDisplay.style.color = "";
+          return;
+        }
+
+        if (password === confirmPassword) {
+          messageDisplay.textContent = "비밀번호가 일치합니다.";
+          messageDisplay.style.color = "green";
+        } else {
+          messageDisplay.textContent = "비밀번호가 일치하지 않습니다.";
+          messageDisplay.style.color = "red";
+        }
       }
 
-      function enableEditing() {
-        setFieldsDisabled(false);
-        document.getElementById("name").focus();
+      // 폼 필드 초기화 함수
+      function resetForm() {
+        document.getElementById("name").value = "";
+        document.getElementById("studentId").value = "";
+        document.getElementById("department").value = "";
+        document.getElementById("major1").value = "";
+        document.getElementById("major2").value = "";
+        document.getElementById("password").value = "";
+        document.getElementById("confirmPassword").value = "";
+        document.getElementById("email").value = "";
+        document.getElementById("phone").value = "";
+        document.getElementById("errorMessage").textContent = "";
+        document.getElementById("passwordMatchMessage").textContent = "";
+        toggleMajorFields(); // 초기화 후 전공 필드 상태 다시 설정
       }
 
-      function saveAccount(event) {
+      // 회원가입 로직 (Firebase 연동)
+      async function saveAccount(event) {
         event.preventDefault();
-        // TODO: 저장 로직 (API 호출 등) – 현재는 alert만
-        alert("계정 정보가 저장되었습니다!");
-        setFieldsDisabled(true);
+
+        const name = document.getElementById("name").value.trim();
+        const studentId = document.getElementById("studentId").value.trim();
+        const department = document.getElementById("department").value.trim();
+        const major1 = document.getElementById("major1").value.trim();
+        const major2 = document.getElementById("major2").value.trim();
+        const password = document.getElementById("password").value;
+        const confirmPassword =
+          document.getElementById("confirmPassword").value;
+        const email = document.getElementById("email").value.trim();
+        const phone = document.getElementById("phone").value.trim();
+        const errorMessageDisplay = document.getElementById("errorMessage");
+        const passwordMatchMessageDisplay = document.getElementById(
+          "passwordMatchMessage"
+        );
+
+        errorMessageDisplay.textContent = "";
+        passwordMatchMessageDisplay.textContent = "";
+
+        // 1. 클라이언트 측 유효성 검사
+        if (
+          !name ||
+          !studentId ||
+          !department ||
+          !password ||
+          !confirmPassword ||
+          !email ||
+          !phone
+        ) {
+          errorMessageDisplay.textContent = "모든 필수 정보를 입력해주세요.";
+          return;
+        }
+
+        if (department !== "글로벌리더십학부" && !major1) {
+          errorMessageDisplay.textContent = "제1전공을 입력해주세요.";
+          return;
+        }
+
+        if (password.length < 6) {
+          errorMessageDisplay.textContent = "비밀번호는 6자 이상이어야 합니다.";
+          return;
+        }
+
+        if (password !== confirmPassword) {
+          errorMessageDisplay.textContent = "비밀번호가 일치하지 않습니다.";
+          return;
+        }
+
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+          errorMessageDisplay.textContent =
+            "유효한 이메일 주소를 입력해주세요.";
+          return;
+        }
+
+        if (!email.endsWith("@handong.ac.kr")) {
+          errorMessageDisplay.textContent =
+            "한동대학교 이메일(@handong.ac.kr)만 사용 가능합니다.";
+          return;
+        }
+
+        try {
+          // 2. Firebase Authentication으로 사용자 계정 생성
+          const userCredential = await createUserWithEmailAndPassword(
+            auth,
+            email,
+            password
+          );
+          const user = userCredential.user;
+          console.log("Firebase Auth 계정 생성 성공:", user.uid);
+
+          // 3. Firestore에 추가 사용자 정보 저장
+          await setDoc(doc(db, "users", user.uid), {
+            name: name,
+            studentId: studentId,
+            department: department,
+            major1: major1,
+            major2: major2,
+            email: email,
+            phone: phone,
+            createdAt: new Date(),
+          });
+
+          // **회원가입 성공 시 alert 후 로그인 페이지로 이동**
+          alert("회원가입이 완료되었습니다!"); // 알림 메시지
+          window.location.href = "login.html"; // 로그인 페이지로 이동
+        } catch (error) {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          console.error("회원가입 실패:", errorCode, errorMessage);
+
+          let displayMessage = "회원가입 중 오류가 발생했습니다.";
+          switch (errorCode) {
+            case "auth/email-already-in-use":
+              displayMessage = "이미 가입된 이메일 주소입니다.";
+              break;
+            case "auth/invalid-email":
+              displayMessage = "유효하지 않은 이메일 주소입니다.";
+              break;
+            case "auth/weak-password":
+              displayMessage =
+                "비밀번호가 너무 약합니다. 6자 이상이어야 합니다.";
+              break;
+            case "auth/operation-not-allowed":
+              displayMessage =
+                "이메일/비밀번호 로그인이 Firebase 콘솔에서 비활성화되어 있습니다.";
+              break;
+            case "auth/network-request-failed":
+              displayMessage = "네트워크 연결 상태를 확인해주세요.";
+              break;
+            case "auth/api-key-not-valid":
+              displayMessage =
+                "Firebase 설정 오류: API 키가 유효하지 않습니다. Firebase 콘솔에서 구성 정보를 다시 확인해주세요.";
+              break;
+            default:
+              displayMessage = `오류: ${errorMessage}`;
+          }
+          errorMessageDisplay.textContent = displayMessage;
+        }
       }
+
+      // 전역 스코프에 노출해야 하는 함수들 (onchange, onclick 등 HTML 이벤트 핸들러에서 호출될 함수)
+      window.toggleMajorFields = toggleMajorFields;
+      window.checkPasswordMatch = checkPasswordMatch;
+      window.resetForm = resetForm;
+      window.saveAccount = saveAccount;
+
+      // 페이지 로드 시 전공 필드 초기 상태 설정
+      document.addEventListener("DOMContentLoaded", toggleMajorFields);
     </script>
   </body>
 </html>

@@ -280,6 +280,18 @@
           padding: 8px 12px;
         }
       }
+
+      .no-studies-message {
+        /* 추가된 CSS - 스터디 없을 때 메시지 */
+        text-align: center;
+        color: var(--text-medium);
+        font-size: 1.1em;
+        padding: 50px;
+        background: var(--bg-white);
+        border: 1px solid var(--border-light);
+        border-radius: var(--border-radius-base);
+        grid-column: 1 / -1; /* 그리드 전체 너비 차지 */
+      }
     </style>
   </head>
   <body>
@@ -310,7 +322,11 @@
           <p>함께 성장할 스터디 팀원을 찾아보세요!</p>
           <div class="search-and-create">
             <div class="search-bar">
-              <input type="text" placeholder="스터디 검색..." />
+              <input
+                type="text"
+                placeholder="스터디 검색..."
+                id="studySearchInput"
+              />
               <i class="fas fa-search"></i>
             </div>
             <a href="makestudy.html" class="btn-create-study">
@@ -320,15 +336,27 @@
         </div>
 
         <div class="category-filters">
-          <button class="filter-btn active">전체</button>
-          <button class="filter-btn">전공 스터디</button>
-          <button class="filter-btn">어학 스터디</button>
-          <button class="filter-btn">취업 스터디</button>
-          <button class="filter-btn">자격증 스터디</button>
-          <button class="filter-btn">기타</button>
+          <button class="filter-btn active" data-category="all">전체</button>
+          <button class="filter-btn" data-category="major">전공 스터디</button>
+          <button class="filter-btn" data-category="language">
+            어학 스터디
+          </button>
+          <button class="filter-btn" data-category="job">취업 스터디</button>
+          <button class="filter-btn" data-category="certificate">
+            자격증 스터디
+          </button>
+          <button class="filter-btn" data-category="etc">기타</button>
         </div>
 
-        <div class="study-grid"></div>
+        <div class="study-grid" id="studyGrid">
+          <div
+            class="no-studies-message"
+            id="noStudiesMessage"
+            style="display: none"
+          >
+            현재 모집 중인 스터디가 없습니다. 새로운 스터디를 등록해보세요!
+          </div>
+        </div>
       </div>
     </main>
 
@@ -341,5 +369,158 @@
       crossorigin="anonymous"
       referrerpolicy="no-referrer"
     ></script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+      import {
+        getFirestore,
+        collection,
+        query,
+        orderBy,
+        onSnapshot,
+        where,
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+      // Firebase 설정 - 여기에 본인의 Firebase 프로젝트 설정을 입력하세요
+      const firebaseConfig = {
+        apiKey: "AIzaSyCIdDH-9l80GCu_PRz7LPyQmKvcIL6nPyg",
+        authDomain: "team-h20.firebaseapp.com",
+        projectId: "team-h20",
+        storageBucket: "team-h20.firebasestorage.app",
+        messagingSenderId: "845558888214",
+        appId: "1:845558888214:web:73959e7ab377fd03620237",
+        measurementId: "G-KZ1MQMH2EK",
+      };
+
+      // Firebase 앱 초기화
+      const app = initializeApp(firebaseConfig);
+      const db = getFirestore(app);
+
+      // 'studies' 컬렉션 참조
+      const studyCollectionRef = collection(db, "studies");
+
+      // DOM 요소 가져오기
+      const studyGridContainer = document.getElementById("studyGrid");
+      const noStudiesMessage = document.getElementById("noStudiesMessage");
+      const categoryButtons = document.querySelectorAll(".filter-btn");
+      const studySearchInput = document.getElementById("studySearchInput");
+
+      // 현재 필터링 및 검색 상태를 저장할 변수
+      let currentCategory = "all"; // 기본값은 '전체'
+      let currentSearchTerm = ""; // 기본값은 빈 문자열
+
+      // 스터디 카테고리 한글 라벨 (Firebase에 저장된 영문 카테고리를 한글로 표시하기 위함)
+      const categoryLabels = {
+        major: "전공 스터디",
+        language: "어학 스터디",
+        job: "취업 스터디",
+        certificate: "자격증 스터디",
+        etc: "기타",
+        all: "전체", // '전체'는 실제 Firestore 필터링에는 사용되지 않지만, 라벨 표시를 위해 포함
+      };
+
+      // 스터디 목록을 실시간으로 가져와서 표시하는 함수
+      function loadStudies() {
+        // 기본 쿼리: 생성 시간 역순으로 정렬
+        let q = query(studyCollectionRef, orderBy("createdAt", "desc"));
+
+        // 카테고리 필터링 적용
+        if (currentCategory !== "all") {
+          q = query(q, where("category", "==", currentCategory));
+        }
+
+        // onSnapshot을 사용하여 실시간으로 데이터 변경 감지
+        onSnapshot(q, (snapshot) => {
+          studyGridContainer.innerHTML = ""; // 기존 목록 비우기
+          let hasResults = false; // 검색/필터링 결과가 있는지 여부
+
+          // 스냅샷이 비어있으면 "스터디 없음" 메시지 표시
+          if (snapshot.empty && currentSearchTerm === "") {
+            noStudiesMessage.style.display = "block";
+            return;
+          }
+
+          snapshot.forEach((doc) => {
+            const study = doc.data();
+            const studyId = doc.id; // 문서 ID도 필요할 수 있으니 가져옴
+
+            // 검색어 필터링 (Firestore 쿼리 대신 클라이언트 측에서 처리)
+            const matchesSearch =
+              !currentSearchTerm || // 검색어가 없으면 항상 true
+              study.title
+                .toLowerCase()
+                .includes(currentSearchTerm.toLowerCase()) ||
+              study.description
+                .toLowerCase()
+                .includes(currentSearchTerm.toLowerCase()) ||
+              (study.schedule &&
+                study.schedule
+                  .toLowerCase()
+                  .includes(currentSearchTerm.toLowerCase())); // 일정에도 검색 적용
+
+            if (matchesSearch) {
+              hasResults = true; // 결과가 있음을 표시
+              const studyCard = document.createElement("div");
+              studyCard.classList.add("study-card");
+
+              // 스터디 상태 결정 (capacity가 0보다 크면 '모집 중', 아니면 '모집 완료' 또는 '모집 마감' 등)
+              // 실제 모집 인원이 차는 로직이 없으므로, 현재는 capacity만으로 판단.
+              const statusClass = study.capacity > 0 ? "recruiting" : "full"; // full 클래스 대신 closed도 가능
+              const statusText = study.capacity > 0 ? "모집 중" : "모집 마감";
+
+              studyCard.innerHTML = `
+                <h3>${study.title}</h3>
+                <div class="study-meta">
+                  <span>모집: ${study.capacity}명</span>
+                  <span>기간: ${study.schedule || "미정"}</span>
+                </div>
+                <p class="study-description">${study.description}</p>
+                <div class="study-tags">
+                  <span class="tag">${
+                    categoryLabels[study.category] || "기타"
+                  }</span>
+                </div>
+                <span class="status ${statusClass}">${statusText}</span>
+                <a href="#" class="btn-view-details" data-id="${studyId}">상세 보기</a>
+              `;
+              studyGridContainer.appendChild(studyCard);
+            }
+          });
+
+          // 검색/필터링 결과가 없으면 메시지 표시
+          if (!hasResults) {
+            noStudiesMessage.style.display = "block";
+          } else {
+            noStudiesMessage.style.display = "none";
+          }
+        });
+      }
+
+      // 카테고리 버튼 클릭 이벤트 리스너 설정
+      categoryButtons.forEach((button) => {
+        button.addEventListener("click", () => {
+          // 모든 버튼의 'active' 클래스 제거
+          categoryButtons.forEach((btn) => btn.classList.remove("active"));
+          // 클릭된 버튼에 'active' 클래스 추가
+          button.classList.add("active");
+          // 현재 카테고리 업데이트
+          currentCategory = button.dataset.category;
+          // 스터디 목록 다시 로드
+          loadStudies();
+        });
+      });
+
+      // 검색 입력 필드 변경 이벤트 (디바운싱 적용)
+      let searchTimeout;
+      studySearchInput.addEventListener("input", () => {
+        clearTimeout(searchTimeout); // 이전 타이머 클리어
+        searchTimeout = setTimeout(() => {
+          currentSearchTerm = studySearchInput.value.trim(); // 현재 검색어 업데이트
+          loadStudies(); // 스터디 목록 다시 로드
+        }, 300); // 300ms 후에 검색 실행
+      });
+
+      // 페이지 로드 시 스터디 목록 로드 함수 호출
+      document.addEventListener("DOMContentLoaded", loadStudies);
+    </script>
   </body>
 </html>
