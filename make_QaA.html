@@ -192,10 +192,15 @@
     <main class="main-content create-question-section">
       <div class="create-question-container">
         <h1>새 질문 작성</h1>
-        <form>
+        <form id="questionForm">
           <div class="form-group">
             <label for="questionTitle">질문 제목</label>
-            <input type="text" id="questionTitle" placeholder="" required />
+            <input
+              type="text"
+              id="questionTitle"
+              placeholder="질문의 제목을 입력하세요."
+              required
+            />
           </div>
 
           <div class="form-group">
@@ -215,7 +220,7 @@
             <textarea
               id="questionContent"
               rows="8"
-              placeholder=""
+              placeholder="자세한 질문 내용을 입력하세요."
               required
             ></textarea>
           </div>
@@ -245,10 +250,96 @@
       <p>&copy; 2025 Handong Connect. All rights reserved.</p>
     </footer>
 
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <script>
+      // Firebase 설정 (main.js 또는 별도의 config.js 파일에서 가져오는 것이 좋음)
+      const firebaseConfig = {
+        apiKey: "YOUR_API_KEY", // 여기에 실제 Firebase 프로젝트의 API Key를 입력하세요.
+        authDomain: "team-h20.firebaseapp.com",
+        projectId: "team-h20",
+        storageBucket: "team-h20.appspot.com",
+        messagingSenderId: "YOUR_MESSAGING_SENDER_ID", // 여기에 실제 Messaging Sender ID를 입력하세요.
+        appId: "YOUR_APP_ID", // 여기에 실제 App ID를 입력하세요.
+      };
+
+      // Firebase 초기화
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore(); // Firestore 인스턴스
+      const auth = firebase.auth(); // Authentication 인스턴스
+
+      // 폼 제출 핸들러
+      document
+        .getElementById("questionForm")
+        .addEventListener("submit", async (e) => {
+          e.preventDefault(); // 기본 폼 제출 동작 방지
+
+          const questionTitle = document
+            .getElementById("questionTitle")
+            .value.trim();
+          const questionCategory =
+            document.getElementById("questionCategory").value;
+          const questionContent = document
+            .getElementById("questionContent")
+            .value.trim();
+          const isAnonymous = document.getElementById("anonymous").checked;
+
+          if (!questionTitle || !questionContent) {
+            alert("제목과 내용을 모두 입력해주세요.");
+            return;
+          }
+
+          let authorUid = null;
+          let authorEmail = null;
+          let authorName = "익명"; // 기본값은 익명
+
+          // 현재 로그인된 사용자 정보 가져오기
+          const user = auth.currentUser;
+          if (user) {
+            authorUid = user.uid;
+            authorEmail = user.email;
+            if (!isAnonymous) {
+              // 익명이 아니면 사용자 이메일의 로컬파트 (예: test@handong.ac.kr -> test) 또는 별명 사용
+              authorName = user.email ? user.email.split("@")[0] : "알 수 없음";
+              // 만약 사용자 프로필에 'displayName'이 있다면 그것을 사용
+              if (user.displayName) {
+                authorName = user.displayName;
+              }
+            }
+          } else {
+            // 로그인하지 않은 사용자가 익명 질문을 하지 않는 경우 (선택적)
+            if (!isAnonymous) {
+              alert("로그인 후 질문하시거나 익명으로 질문해 주세요.");
+              return;
+            }
+          }
+
+          const newQuestion = {
+            title: questionTitle,
+            category: questionCategory,
+            content: questionContent,
+            isAnonymous: isAnonymous,
+            authorUid: authorUid, // 로그인한 사용자 UID (익명이어도 저장)
+            authorEmail: authorEmail, // 로그인한 사용자 이메일 (익명이어도 저장)
+            authorName: authorName, // 질문에 표시될 이름 (익명 여부에 따라 달라짐)
+            createdAt: firebase.firestore.FieldValue.serverTimestamp(), // 서버 시간 스탬프
+            views: 0, // 조회수
+            answersCount: 0, // 답변 수
+          };
+
+          try {
+            await db.collection("questions").add(newQuestion);
+            alert("질문이 성공적으로 등록되었습니다!");
+            window.location.href = "QnA_board.html"; // 질문 등록 후 Q&A 게시판으로 이동
+          } catch (error) {
+            console.error("질문 등록 중 오류 발생:", error);
+            alert("질문 등록 중 오류가 발생했습니다: " + error.message);
+          }
+        });
+
+      // Font Awesome 스크립트 수정: integrity 및 crossorigin 속성 제거
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
   </body>
 </html>
