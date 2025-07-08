@@ -87,6 +87,7 @@
         display: flex;
         align-items: center;
         gap: 8px;
+        text-decoration: none; /* Add this to remove underline for <a> */
       }
 
       .btn-create-question:hover {
@@ -157,7 +158,7 @@
       .qna-item .col-views,
       .qna-item .col-answers {
         flex-grow: 1;
-        text-align: center;
+        text-align: center; /* 기본적으로 중앙 정렬 */
         color: var(--text-medium);
       }
       .qna-item .col-answers {
@@ -172,9 +173,8 @@
         padding: 50px;
         font-size: 1.2em;
         color: var(--text-medium);
-        /* If you want the icon and enhanced style, add back styles from previous "prettify" turn */
-        min-height: 300px; /* Q&A List의 최소 높이와 일치하게 */
-        display: flex;
+        min-height: 200px; /* Q&A List의 최소 높이와 일치하게 */
+        display: flex; /* 초기에는 숨겨져 있다가 필요할 때 flex로 */
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -217,11 +217,13 @@
         .qna-item {
           flex-wrap: wrap; /* Allow items to wrap */
           padding: 15px 20px;
+          text-align: left; /* 작은 화면에서는 전체적으로 왼쪽 정렬 */
         }
         .qna-item .col-title {
           width: 100%;
           order: 1; /* Title first */
           margin-bottom: 5px;
+          text-align: left; /* 제목은 왼쪽 정렬 유지 */
         }
         .qna-item .col-author,
         .qna-item .col-date,
@@ -229,10 +231,19 @@
         .qna-item .col-answers {
           flex-grow: 1;
           width: 50%; /* Take half width */
-          text-align: left; /* Align info to left */
           font-size: 0.9em;
           order: 2; /* Info below title */
           margin-top: 5px;
+        }
+        /* 작성자만 중앙으로 다시 정렬 (가장 중요한 부분) */
+        .qna-item .col-author {
+          text-align: center; /* 모바일에서 작성자 중앙 정렬 */
+        }
+        .qna-item .col-date {
+          text-align: center; /* 작성일도 중앙 정렬 */
+        }
+        .qna-item .col-views {
+          text-align: center; /* 조회수도 중앙 정렬 */
         }
         .qna-item .col-author::before {
           content: "작성자: ";
@@ -278,6 +289,15 @@
           padding: 12px 20px;
           font-size: 0.95em;
         }
+        .qna-item .col-author {
+          text-align: center; /* 가장 작은 화면에서도 작성자 중앙 정렬 */
+        }
+        .qna-item .col-date {
+          text-align: center; /* 작성일도 중앙 정렬 */
+        }
+        .qna-item .col-views {
+          text-align: center; /* 조회수도 중앙 정렬 */
+        }
       }
     </style>
   </head>
@@ -311,7 +331,11 @@
           <p>궁금한 점을 질문하고, 아는 것을 공유해주세요!</p>
           <div class="search-and-create">
             <div class="search-bar">
-              <input type="text" placeholder="질문 검색..." />
+              <input
+                type="text"
+                id="searchQuestion"
+                placeholder="질문 검색..."
+              />
               <i class="fas fa-search"></i>
             </div>
             <a href="make_QaA.html" class="btn-create-question">
@@ -320,7 +344,7 @@
           </div>
         </div>
 
-        <div class="qna-list">
+        <div class="qna-list" id="qnaList">
           <div class="qna-list-header">
             <span class="col-title">제목</span>
             <span class="col-author">작성자</span>
@@ -328,8 +352,7 @@
             <span class="col-views">조회수</span>
             <span class="col-answers">답변</span>
           </div>
-
-          <div class="no-questions-message">
+          <div class="no-questions-message" id="noQuestionsMessage">
             <i class="far fa-comment-dots"></i>
             <p>
               아직 등록된 질문이 없습니다.<br /><span class="highlight"
@@ -345,11 +368,141 @@
       <p>&copy; 2025 Handong Connect. All rights reserved.</p>
     </footer>
 
-    <script
-      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"
-      crossorigin="anonymous"
-      referrerpolicy="no-referrer"
-    ></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <script>
+      // Firebase 설정 (main.js 또는 별도의 config.js 파일에서 가져오는 것이 좋음)
+      const firebaseConfig = {
+        apiKey: "YOUR_API_KEY", // 여기에 실제 Firebase 프로젝트의 API Key를 입력하세요.
+        authDomain: "team-h20.firebaseapp.com",
+        projectId: "team-h20",
+        storageBucket: "team-h20.appspot.com",
+        messagingSenderId: "YOUR_MESSAGING_SENDER_ID", // 여기에 실제 Messaging Sender ID를 입력하세요.
+        appId: "YOUR_APP_ID", // 여기에 실제 App ID를 입력하세요.
+      };
+
+      // Firebase 초기화
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+
+      // DOM 요소 가져오기
+      const qnaListElement = document.getElementById("qnaList");
+      const noQuestionsMessage = document.getElementById("noQuestionsMessage");
+      const searchInput = document.getElementById("searchQuestion");
+
+      let allQuestions = []; // 모든 질문 데이터를 저장할 배열
+
+      // 날짜 포맷 함수
+      const formatDate = (timestamp) => {
+        if (!timestamp) return "N/A";
+        const date = timestamp.toDate(); // Firebase Timestamp 객체를 Date 객체로 변환
+        const year = date.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        const day = String(date.getDate()).padStart(2, "0");
+        return `${year}-${month}-${day}`;
+      };
+
+      // 질문을 화면에 렌더링하는 함수
+      const renderQuestions = (questionsToRender) => {
+        // 기존 질문 항목 모두 제거 (헤더 제외)
+        const existingItems = qnaListElement.querySelectorAll(".qna-item");
+        existingItems.forEach((item) => item.remove());
+
+        if (questionsToRender.length === 0) {
+          noQuestionsMessage.style.display = "flex"; // 질문이 없으면 메시지 표시
+          return;
+        }
+
+        noQuestionsMessage.style.display = "none"; // 질문이 있으면 메시지 숨김
+
+        questionsToRender.forEach((question) => {
+          const itemDiv = document.createElement("a"); // <a> 태그로 변경하여 클릭 시 상세 페이지로 이동하도록
+          itemDiv.href = `qna_detail.html?id=${question.id}`; // 상세 페이지 URL (추후 구현)
+          itemDiv.classList.add("qna-item");
+
+          const titleSpan = document.createElement("span");
+          titleSpan.classList.add("col-title");
+          titleSpan.textContent = question.title;
+
+          const authorSpan = document.createElement("span");
+          authorSpan.classList.add("col-author");
+          // isAnonymous 필드를 확인하여 익명 또는 작성자 이름 표시
+          authorSpan.textContent = question.isAnonymous
+            ? "익명"
+            : question.authorName || "알 수 없음";
+
+          const dateSpan = document.createElement("span");
+          dateSpan.classList.add("col-date");
+          dateSpan.textContent = formatDate(question.createdAt);
+
+          const viewsSpan = document.createElement("span");
+          viewsSpan.classList.add("col-views");
+          viewsSpan.textContent = question.views || 0; // 조회수가 없으면 0
+
+          const answersSpan = document.createElement("span");
+          answersSpan.classList.add("col-answers");
+          answersSpan.textContent = question.answersCount || 0; // 답변수가 없으면 0
+
+          itemDiv.appendChild(titleSpan);
+          itemDiv.appendChild(authorSpan);
+          itemDiv.appendChild(dateSpan);
+          itemDiv.appendChild(viewsSpan);
+          itemDiv.appendChild(answersSpan);
+
+          // 헤더(qna-list-header) 바로 다음에 추가
+          qnaListElement.insertBefore(itemDiv, noQuestionsMessage);
+        });
+      };
+
+      // 질문을 로드하는 함수
+      const loadQuestions = async () => {
+        try {
+          // 'questions' 컬렉션에서 'createdAt' 필드를 기준으로 최신순으로 정렬하여 가져오기
+          const querySnapshot = await db
+            .collection("questions")
+            .orderBy("createdAt", "desc")
+            .get();
+
+          allQuestions = []; // 전체 질문 데이터를 초기화
+          querySnapshot.forEach((doc) => {
+            // 문서 ID와 데이터를 함께 저장
+            allQuestions.push({ id: doc.id, ...doc.data() });
+          });
+
+          filterAndRenderQuestions(); // 초기 로드 시 필터링 및 렌더링
+        } catch (error) {
+          console.error("질문을 로드하는 중 오류 발생:", error);
+          alert("질문을 불러오는 중 오류가 발생했습니다: " + error.message);
+          noQuestionsMessage.style.display = "flex"; // 오류 발생 시 메시지 다시 표시
+          noQuestionsMessage.innerHTML = `<i class="fas fa-exclamation-triangle"></i><p>질문을 불러오는 데 실패했습니다.<br>새로고침하거나 잠시 후 다시 시도해주세요.</p>`;
+        }
+      };
+
+      // 질문을 필터링하고 렌더링하는 함수 (검색 기능 포함)
+      const filterAndRenderQuestions = () => {
+        let filteredQuestions = allQuestions;
+
+        const searchTerm = searchInput.value.toLowerCase();
+        if (searchTerm) {
+          filteredQuestions = filteredQuestions.filter(
+            (question) =>
+              question.title.toLowerCase().includes(searchTerm) ||
+              question.description.toLowerCase().includes(searchTerm) // description 필드가 있다고 가정
+          );
+        }
+
+        renderQuestions(filteredQuestions);
+      };
+
+      // 검색 입력 필드 이벤트 리스너
+      searchInput.addEventListener("input", () => {
+        filterAndRenderQuestions(); // 검색어 입력 시 필터링하여 다시 렌더링
+      });
+
+      // 페이지 로드 시 질문 로드
+      document.addEventListener("DOMContentLoaded", loadQuestions);
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
   </body>
 </html>
 
