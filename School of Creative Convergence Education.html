@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>한동대학교 창의융합교육원 - Handong Connect</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* 이 페이지를 위한 특정 스타일 (기존 style.css에 추가해도 좋음) */
+      .major-detail-section {
+        padding: 80px 0; /* 네비게이션바 아래 여유 공간 */
+      }
+      .major-detail-container {
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 40px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+      .major-detail-container h1 {
+        color: #6a1b9a; /* 보라색 */
+        margin-bottom: 25px;
+        font-size: 2.8em;
+        font-weight: 700;
+      }
+      .major-detail-container h2 {
+        color: #333;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        font-size: 2em;
+        font-weight: 600;
+        text-align: left; /* 제목 왼쪽 정렬 */
+      }
+      .major-detail-container h3 {
+        color: #555;
+        margin-top: 25px;
+        margin-bottom: 15px;
+        font-size: 1.5em;
+        font-weight: 500;
+        text-align: left; /* 제목 왼쪽 정렬 */
+      }
+      .major-detail-container img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        margin-bottom: 40px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      }
+      .major-detail-container p {
+        font-size: 1.15em;
+        line-height: 1.7;
+        color: #444;
+        margin-bottom: 20px;
+        text-align: justify; /* 양쪽 정렬 */
+      }
+      .major-detail-container .features-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 35px;
+        text-align: left;
+      }
+      .major-detail-container .features-list li {
+        background: #f0f8ff; /* 연한 하늘색 배경 */
+        margin-bottom: 12px;
+        padding: 18px 20px;
+        border-left: 6px solid #03a9f4; /* 파란색 왼쪽 테두리 */
+        border-radius: 8px;
+        font-size: 1.05em;
+        color: #333;
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+      .major-detail-container .features-list li i {
+        color: #03a9f4; /* 아이콘 색상 */
+        font-size: 1.2em;
+      }
+
+      /* 정보 섹션 스타일 (원장, 부원장, 사무실 등) */
+      .info-section {
+        background-color: #f9f9f9;
+        border-left: 5px solid #6a1b9a;
+        padding: 25px;
+        margin: 30px 0;
+        border-radius: 8px;
+        text-align: left;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+      .info-section p {
+        margin: 10px 0;
+        font-size: 1.1em;
+        color: #333;
+        text-align: left;
+      }
+      .info-section p strong {
+        color: #6a1b9a;
+      }
+
+      .detail-card-tags {
+        margin-top: 30px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      .detail-card-tags .tag {
+        display: inline-block;
+        padding: 10px 18px;
+        margin: 6px;
+        border-radius: 25px;
+        font-size: 0.95em;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+      .detail-card-tags .tag-blue {
+        background-color: #e3f2fd;
+        color: #2196f3;
+      }
+      .detail-card-tags .tag-purple {
+        background-color: #ede7f6;
+        color: #673ab7;
+      }
+      .detail-card-tags .tag-green {
+        background-color: #e8f5e9;
+        color: #4caf50;
+      }
+      .major-detail-container .back-button {
+        display: inline-flex; /* 아이콘과 텍스트 정렬을 위해 */
+        align-items: center;
+        gap: 8px;
+        margin-top: 40px;
+        padding: 14px 30px;
+        background-color: #6a1b9a;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 1.05em;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+      .major-detail-container .back-button:hover {
+        background-color: #4a148c;
+        transform: translateY(-2px); /* 약간의 호버 효과 */
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="logo">
+          <img src="./images/logo.png" alt="HANDONG CONNECT 로고" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#sections">둘러보기</a></li>
+          <li><a href="majors_all.html">학부/전공</a></li>
+          <li><a href="institute.html">동아리/학회</a></li>
+          <li><a href="index.html#community">커뮤니티</a></li>
+          <li><a href="inquiry.html">문의</a></li>
+        </ul>
+        <div class="user-actions">
+          <a href="login,membership.html" class="btn-login"
+            ><i class="fas fa-user-circle"></i> My 계정</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <section class="major-detail-section">
+        <div class="major-detail-container">
+          <h1>창의융합교육원</h1>
+          <img src="./images/창의융합교육원.png" alt="창의융합교육원 이미지" />
+          <div class="info-section">
+            <p><strong>원장:</strong> 가요한 교수</p>
+            <p><strong>부원장:</strong> 김세영 교수</p>
+            <p><strong>사무실 위치:</strong> 올네이션스홀 402호</p>
+            <p><strong>사무실 전화번호:</strong> 054) 260 - 3306~7</p>
+          </div>
+
+          <h2>학부 소개 및 전망</h2>
+          <p>
+            창의융합교육원은 다 학제간 융합을 위해 필요한 이론적 토대와 실습을
+            통한 융합 경험을 제공하는 학부입니다. 인문학, 사회학, 경영학,
+            자연과학, 공학 등 학문간 경계를 허물고, 학제 간 화학적 통합을
+            바탕으로 창의적 시각으로 복잡한 문제에 접근할 수 있는 융합형 인재
+            양성을 목표로 합니다.
+          </p>
+
+          <h2>교육 목표</h2>
+          <p>
+            창의융합 교육원은 기독교적 세계관 아래 학문간 융합에 기반하여 인류
+            사회의 문제를 해결할 수 있는 지성과 올바른 인성을 겸비한 전문 인재
+            양성을 지향합니다. 창의융합교육원이 길러낼 인재상은 다음과 같습니다:
+          </p>
+          <ul class="features-list">
+            <li>
+              <i class="fas fa-check-circle"></i> 기독교적 세계관과 윤리관을
+              갖춘 인재
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i> 인문사회와 과학기술의 융합으로
+              새로운 가치를 창출함으로써 미래 융·복합 산업을 선도할 인재
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i> 융·복합에 기반한 구체적인
+              실무능력을 갖춘 인재
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i> 탁월한 의사 소통 능력과
+              리더십을 지닌 인재
+            </li>
+          </ul>
+
+          <h2>전공 소개</h2>
+          <ul class="features-list">
+            <li><i class="fas fa-flask"></i> 학생설계융합전공</li>
+            <li><i class="fas fa-globe-americas"></i> 글로벌융합전공</li>
+            <li>
+              <i class="fas fa-language"></i> 글로벌한국학(한국어교육)전공(33) /
+              글로벌한국학(한국어교육)전공(45)
+            </li>
+            <li>
+              <i class="fas fa-book-open"></i> 글로벌한국학(한국언어문화)전공
+            </li>
+            <li><i class="fas fa-calculator"></i> 수학통계전공</li>
+            <li><i class="fas fa-church"></i> 기독교사 특화 프로그램(TEP)</li>
+            <li>
+              <i class="fas fa-users-cog"></i> 전인적 세계시민 특화
+              프로그램(HGCP)
+            </li>
+            <li>
+              <i class="fas fa-lightbulb"></i> 글로벌문제해결 프로그램(GPSP)
+            </li>
+            <li><i class="fas fa-unity"></i> 통일한국 특화 프로그램(SPUK)</li>
+          </ul>
+
+          <div class="detail-card-tags">
+            <span class="tag tag-blue">#창의융합</span>
+            <span class="tag tag-purple">#미래인재</span>
+            <span class="tag tag-green">#문제해결</span>
+            <span class="tag tag-blue">#학제간융합</span>
+            <span class="tag tag-purple">#글로벌리더</span>
+          </div>
+
+          <a href="index.html#majors" class="back-button">
+            <i class="fas fa-arrow-left"></i> 학부/전공 목록으로 돌아가기
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="main-footer">
+      <p>&copy; 2025 Handong Connect. 한동대학교를 위한 학생 개발 플랫폼.</p>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

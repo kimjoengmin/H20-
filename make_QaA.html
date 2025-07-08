@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>새 질문 작성 - Handong Connect Q&A</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* 이 페이지를 위한 특정 스타일 */
+      .create-question-section {
+        padding: 60px 0;
+      }
+
+      .create-question-container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 40px;
+        background-color: var(--bg-white);
+        border-radius: var(--border-radius-base);
+        box-shadow: var(--shadow-medium);
+      }
+
+      .create-question-container h1 {
+        font-size: 2.5em;
+        color: var(--primary-purple);
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: 700;
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 1.1em;
+        color: var(--text-dark);
+        margin-bottom: 10px;
+        font-weight: 600;
+      }
+
+      .form-group input[type="text"],
+      .form-group textarea,
+      .form-group select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid var(--border-light);
+        border-radius: var(--border-radius-sm);
+        font-size: 1em;
+        color: var(--text-dark);
+        background-color: var(--bg-light);
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus,
+      .form-group select:focus {
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+        outline: none;
+      }
+
+      .form-group textarea {
+        resize: vertical;
+        min-height: 150px; /* 질문 내용 입력 칸 높이 조절 */
+      }
+
+      .checkbox-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-top: -10px; /* 위에 폼 그룹과 간격 조절 */
+        margin-bottom: 25px;
+      }
+
+      .checkbox-group input[type="checkbox"] {
+        width: 20px;
+        height: 20px;
+        accent-color: var(--primary-purple); /* 체크박스 색상 */
+      }
+
+      .checkbox-group label {
+        margin-bottom: 0;
+        font-weight: 500;
+        font-size: 1em;
+        color: var(--text-medium);
+      }
+
+      .form-actions {
+        display: flex;
+        justify-content: flex-end; /* 버튼들을 오른쪽으로 정렬 */
+        gap: 15px;
+        margin-top: 40px;
+      }
+
+      .btn-submit-question,
+      .btn-cancel-question {
+        padding: 14px 25px;
+        border-radius: var(--border-radius-base);
+        font-weight: 600;
+        font-size: 1.05em;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        cursor: pointer;
+        border: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-submit-question {
+        background-color: var(--primary-purple);
+        color: var(--bg-white);
+      }
+
+      .btn-submit-question:hover {
+        background-color: #5b0f8e; /* 좀 더 진한 보라색 */
+        transform: translateY(-2px);
+      }
+
+      .btn-cancel-question {
+        background-color: var(--text-light); /* 회색 */
+        color: var(--bg-white);
+      }
+
+      .btn-cancel-question:hover {
+        background-color: #555;
+        transform: translateY(-2px);
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .create-question-container {
+          margin: 30px 15px;
+          padding: 25px;
+        }
+        .create-question-container h1 {
+          font-size: 2em;
+        }
+        .form-group label {
+          font-size: 1em;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+          padding: 10px 12px;
+          font-size: 0.95em;
+        }
+        .form-actions {
+          flex-direction: column;
+          gap: 10px;
+        }
+        .btn-submit-question,
+        .btn-cancel-question {
+          width: 100%;
+          justify-content: center;
+          padding: 12px 20px;
+          font-size: 1em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="logo">
+          <img src="./images/logo.png" alt="HANDONG CONNECT 로고" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#sections">둘러보기</a></li>
+          <li><a href="majors_all.html">학부/전공</a></li>
+          <li><a href="institute.html">동아리/학회</a></li>
+          <li><a href="index.html#community" class="active">커뮤니티</a></li>
+          <li><a href="inquiry.html">문의</a></li>
+        </ul>
+        <div class="user-actions">
+          <a href="login,membership.html" class="btn-login"
+            ><i class="fas fa-user-circle"></i> My 계정</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <main class="main-content create-question-section">
+      <div class="create-question-container">
+        <h1>새 질문 작성</h1>
+        <form>
+          <div class="form-group">
+            <label for="questionTitle">질문 제목</label>
+            <input type="text" id="questionTitle" placeholder="" required />
+          </div>
+
+          <div class="form-group">
+            <label for="questionCategory">카테고리 (선택)</label>
+            <select id="questionCategory">
+              <option value="">카테고리 선택</option>
+              <option value="campus_life">학교생활</option>
+              <option value="academics">학업/전공</option>
+              <option value="dormitory">기숙사</option>
+              <option value="facilities">시설</option>
+              <option value="etc">기타</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="questionContent">질문 내용</label>
+            <textarea
+              id="questionContent"
+              rows="8"
+              placeholder=""
+              required
+            ></textarea>
+          </div>
+
+          <div class="checkbox-group">
+            <input type="checkbox" id="anonymous" />
+            <label for="anonymous">익명으로 질문하기</label>
+          </div>
+
+          <div class="form-actions">
+            <button
+              type="button"
+              class="btn-cancel-question"
+              onclick="location.href='qna_board.html'"
+            >
+              <i class="fas fa-times-circle"></i> 취소
+            </button>
+            <button type="submit" class="btn-submit-question">
+              <i class="fas fa-paper-plane"></i> 질문 등록
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <footer class="main-footer">
+      <p>&copy; 2025 Handong Connect. All rights reserved.</p>
+    </footer>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </body>
+</html>

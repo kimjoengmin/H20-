@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>한동대학교 기계제어공학부 - Handong Connect</title>
+    <title>한동대학교 생명공학부 - Handong Connect</title>
     <link rel="stylesheet" href="style.css" />
     <link
       href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
@@ -114,6 +114,122 @@
         background-color: #4a148c;
         transform: translateY(-2px); /* 약간의 호버 효과 */
       }
+
+      /* 테이블 관련 스타일 */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 30px; /* 제목과의 간격 */
+        background-color: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      th,
+      td {
+        border: 1px solid #dee2e6;
+        padding: 15px;
+        text-align: center;
+      }
+      th {
+        background-color: #343a40;
+        color: #fff;
+      }
+      tr:nth-child(even) {
+        background-color: #f1f3f5;
+      }
+      tr:hover {
+        background-color: #e9ecef;
+      }
+      @media (max-width: 768px) {
+        table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+          display: block;
+        }
+        thead tr {
+          display: none;
+        }
+        tr {
+          margin-bottom: 15px;
+        }
+        td {
+          text-align: right;
+          padding-left: 50%;
+          position: relative;
+        }
+        td::before {
+          content: attr(data-label);
+          position: absolute;
+          left: 15px;
+          width: 45%;
+          text-align: left;
+          font-weight: bold;
+        }
+      }
+
+      /* 추천 교양 및 활동 관련 스타일 (콘텐츠융합디자인학부 및 경영경제학부와 동일하게) */
+      .recommendation-section {
+        margin-top: 50px; /* 이전 섹션과의 간격 */
+        text-align: left; /* 텍스트 정렬 */
+      }
+      .recommendation-section h1 {
+        /* 상위 제목 스타일 */
+        color: #6a1b9a; /* 보라색 */
+        margin-bottom: 25px;
+        font-size: 2.2em; /* h1보다 약간 작게 */
+        font-weight: 700;
+        text-align: center; /* 가운데 정렬 */
+      }
+      .recommendation-section h2 {
+        color: #555;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        font-size: 1.8em;
+        display: flex; /* 아이콘과 텍스트를 한 줄에 정렬 */
+        align-items: center; /* 세로 중앙 정렬 */
+        gap: 10px; /* 아이콘과 텍스트 사이 간격 */
+      }
+      .recommendation-section h2 i.fa-check-square {
+        color: #4caf50; /* 체크 아이콘 색상 */
+        font-size: 1.2em; /* 아이콘 크기 */
+      }
+      .recommendation-section ul {
+        list-style-type: none; /* 기본 리스트 스타일 제거 */
+        padding-left: 0;
+        margin-bottom: 30px;
+      }
+      .recommendation-section ul li {
+        background-color: #f8f8f8; /* 연한 회색 배경 (콘텐츠융합디자인학부/경영경제학부 이미지와 동일) */
+        padding: 12px 20px;
+        margin-bottom: 8px;
+        border-radius: 8px; /* 둥근 모서리 */
+        font-size: 1.05em;
+        color: #333;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* 은은한 그림자 */
+        border-left: none; /* 좌측 테두리 제거 */
+      }
+
+      /* 정보 섹션 스타일 (원하시는 보라색 사진처럼 보이도록 수정) */
+      .info-section {
+        background-color: #f9f9f9;
+        border-left: 5px solid #6a1b9a;
+        padding: 25px;
+        margin: 30px 0;
+        border-radius: 8px;
+        text-align: left;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+      .info-section p {
+        margin: 10px 0;
+        font-size: 1.1em;
+        color: #333;
+        text-align: left;
+      }
+      .info-section p strong {
+        color: #6a1b9a;
+      }
     </style>
   </head>
   <body>
@@ -124,13 +240,13 @@
         </a>
         <ul class="nav-links">
           <li><a href="index.html#sections">둘러보기</a></li>
-          <li><a href="index.html#majors">학부/전공</a></li>
-          <li><a href="index.html#clubs">동아리/학회</a></li>
+          <li><a href="majors_all.html">학부/전공</a></li>
+          <li><a href="institute.html">동아리/학회</a></li>
           <li><a href="index.html#community">커뮤니티</a></li>
-          <li><a href="index.html#contact">문의</a></li>
+          <li><a href="inquiry.html">문의</a></li>
         </ul>
         <div class="user-actions">
-          <a href="#" class="btn-login"
+          <a href="login,membership.html" class="btn-login"
             ><i class="fas fa-user-circle"></i> My 계정</a
           >
         </div>
@@ -141,193 +257,184 @@
       <section class="major-detail-section">
         <div class="major-detail-container">
           <h1>생명공학부</h1>
-          <img
-            src="life.png"
-            alt="생명공학부 이미지"
-         >
-           
- <style>
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      border: 1px solid #333;
-      padding: 8px;
-      text-align: center;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-  </style>
-</head>
-<body>
-  <h1>생명공학부 커리큘럼</h1>
-   <style>
-    body {
-      font-family: 'Pretendard', Arial, sans-serif;
-      background-color: #f8f9fa;
-      padding: 40px;
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-      margin-bottom: 30px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background-color: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    th, td {
-      border: 1px solid #dee2e6;
-      padding: 15px;
-      text-align: center;
-    }
-    th {
-      background-color: #343a40;
-      color: #fff;
-    }
-    tr:nth-child(even) {
-      background-color: #f1f3f5;
-    }
-    tr:hover {
-      background-color: #e9ecef;
-    }
-    @media (max-width: 768px) {
-      table, thead, tbody, th, td, tr {
-        display: block;
-      }
-      thead tr {
-        display: none;
-      }
-      tr {
-        margin-bottom: 15px;
-      }
-      td {
-        text-align: right;
-        padding-left: 50%;
-        position: relative;
-      }
-      td::before {
-        content: attr(data-label);
-        position: absolute;
-        left: 15px;
-        width: 45%;
-        text-align: left;
-        font-weight: bold;
-      }
-    }
-    
-  </style>
-  
-</head>
-<body>
-
-  <table>
-    <thead>
-      <tr>
-        <th>학년</th>
-        <th>학기</th>
-        <th>과목</th>
-      </tr>
-    </thead>
-   <tbody>
-  <tr>
-    <td data-label="학년" rowspan="2">1학년</td>
-    <td data-label="학기">1학기</td>
-    <td data-label="과목">일반생물학</td>
-  </tr>
-  <tr>
-    <!-- 학년 칸은 생략 -->
-    <td data-label="학기">2학기</td>
-    <td data-label="과목">일반화학, 질병과 건강</td>
-  </tr>
-  
-  <tr>
-    <td data-label="학년" rowspan="2">2학년</td>
-    <td data-label="학기">1학기</td>
-    <td data-label="과목">일반미생물 유기화학</td>
-  </tr>
-  <tr>
-    <td data-label="학기">2학기</td>
-    <td data-label="과목">생화학  세미나1*, 분자생물학1 및 실습*, 생명과학 진로개발 세미나, 일반미생물학실습</td>
-  </tr>
-
-  <tr>
-    <td data-label="학년" rowspan="2">3학년</td>
-    <td data-label="학기">1학기</td>
-    <td data-label="과목">생리학, 생화학2*, 세미나2*,단백질 분리 및 정제*,생명과학 미래기술 세미나, 항생물질학</td>
-  </tr>
-  <tr>
-    <td data-label="학기">2학기</td>
-    <td data-label="과목">발생학, 세미나3*, 세포생물학 및 실습,생물화학공학, 생명과학 캡스톤 설계1,신약연구개발, 암생물학</td>
-  </tr>
-
-  <tr>
-    <td data-label="학년" rowspan="2">4학년</td>
-    <td data-label="학기">1학기</td>
-    <td data-label="과목"> 면역학 및 실습*, 세미나4*, 유전학,세포생물학2, 생명과학 캡스톤 설계2</td>
-  </tr>
-  <tr>
-    <td data-label="학기">2학기</td>
-    <td data-label="과목">신경생물학, 졸업과제2*, ESRR(English Scientific ResearchReport)</td>
-  </tr>
-</tbody>
-
-
-  </table>
-
-        
-
-  </style>
-  <br><br>
-</head>
-<body>
-  <h1>생명제어공학부 추천 교양 및 활동</h1>
-<br>
-  <h2>✅ 추천 교양</h2>
-  <ul>
-    <li> 일반생물학, 일반화학, 유기화학, 질병과 건강, 일반미생물, 일반미생물학실습, 생화학1·2, 세미나1~4, 분자생물학1 및 실습, 생리학, 단백질 분리 및 정제, 발생학, 세포생물학 및 실습, 유전학, 면역학 및 실습, 신경생물학, 내분비 및 생식, 생물화학공학, 생명과학 진로개발 세미나, 스마트 바이오기술 세미나, 생명과학 미래기술 세미나, 생명과학 캡스톤 설계1·2, 졸업과제2, ESRR, 시스템생물학, 바이오데이터 분석, 응용유전체학, 생물정보학, 경영학입문, 통계학</li>
-    
-  </ul>
-<br><br><br><br>
-  <h2>✅ 추천 교내활동</h2>
-  <ul>
-    <li>로직학회 활동</li>
-    <li>교내 연구실 인턴 활동</li>
-    <li>학과 연구실 RA 활동</li>
-    <li>교수님 랩실 참여</li>
-    <li>교내 진로 세미나 참여</li>
-  </ul>
-<br><br><br><br>
-  <h2>✅ 추천 교외활동</h2>
-  <ul>
-    <li>외부 대학 연구실 인턴 활동</li>
-    <li>국내외 학술 세미나 참가</li>
-    <li>전국 대학생 생물학 심포지엄 참가</li>
-    <li> 학술 모임과 학술 토론회 발표</li>
-    
-  </ul>
-  </ul>
-          <div class="detail-card-tags">
-            <span class="tag tag-blue">#느헤미야</span>
-            <span class="tag tag-purple">#실습의 끝판왕</span>
-            <span class="tag tag-green">#AI를 사용한 생명기술</span>
-            <span class="tag tag-blue">#생명이 중요하지요</span>
+          <img src="./images/생명공학부.png" alt="생명공학부 이미지" />
+          <div class="info-section">
+            <p><strong>학부장:</strong> 백재현 교수</p>
+            <p><strong>사무실 위치:</strong> 느헤미야홀 317B호</p>
+            <p><strong>사무실 전화번호:</strong> 054) 260 - 1340</p>
+            <p>
+              <strong>학부 홈페이지:</strong>
+              <a href="https://bio.handong.edu" target="_blank"
+                >bio.handong.edu (예시)</a
+              >
+            </p>
           </div>
-           <style>
-<br><br><br><br>
-  <h2>✅ 추천 자격증</h2>
-  <ul>
-    <li>별도의 자격증보다는 대학원 진학과 연구실 경험, 논문 작성 경험이 중요하다.</li>
-  </ul>
-          <a href="index.html#majors" class="back-button">
+
+          <h2>생명공학부 커리큘럼</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>학년</th>
+                <th>학기</th>
+                <th>과목</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td data-label="학년" rowspan="2">1학년</td>
+                <td data-label="학기">1학기</td>
+                <td data-label="과목">일반생물학</td>
+              </tr>
+              <tr>
+                <td data-label="학기">2학기</td>
+                <td data-label="과목">일반화학, 질병과 건강</td>
+              </tr>
+
+              <tr>
+                <td data-label="학년" rowspan="2">2학년</td>
+                <td data-label="학기">1학기</td>
+                <td data-label="과목">일반미생물, 유기화학</td>
+              </tr>
+              <tr>
+                <td data-label="학기">2학기</td>
+                <td data-label="과목">
+                  생화학, 세미나1, 분자생물학1 및 실습, 생명과학 진로개발
+                  세미나, 일반미생물학실습
+                </td>
+              </tr>
+
+              <tr>
+                <td data-label="학년" rowspan="2">3학년</td>
+                <td data-label="학기">1학기</td>
+                <td data-label="과목">
+                  생리학, 생화학2, 세미나2, 단백질 분리 및 정제, 생명과학
+                  미래기술 세미나, 항생물질학
+                </td>
+              </tr>
+              <tr>
+                <td data-label="학기">2학기</td>
+                <td data-label="과목">
+                  발생학, 세미나3, 세포생물학 및 실습, 생물화학공학, 생명과학
+                  캡스톤 설계1, 신약연구개발, 암생물학
+                </td>
+              </tr>
+
+              <tr>
+                <td data-label="학년" rowspan="2">4학년</td>
+                <td data-label="학기">1학기</td>
+                <td data-label="과목">
+                  면역학 및 실습, 세미나4, 유전학, 세포생물학2, 생명과학 캡스톤
+                  설계2
+                </td>
+              </tr>
+              <tr>
+                <td data-label="학기">2학기</td>
+                <td data-label="과목">
+                  신경생물학, 졸업과제2, ESRR(English Scientific Research
+                  Report)
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <ul class="features-list">
+            <li>
+              <i class="fas fa-check-circle"></i> 생명 현상의 심층적 이해를 통한
+              생명공학 기초 및 응용 역량 강화
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i> 분자생물학, 유전학 등 핵심
+              생명과학 분야의 이론 및 실습 교육
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i> 바이오 산업 발전에 필요한 최신
+              기술 및 트렌드 학습
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i> 실험 및 연구 중심 교육을 통한
+              문제 해결 및 실무 능력 배양
+            </li>
+            <li>
+              <i class="fas fa-check-circle"></i> 졸업 후 다양한 생명공학 관련
+              분야로의 진출 기회 제공
+            </li>
+          </ul>
+
+          <div class="detail-card-tags">
+            <span class="tag tag-blue">#생명과학</span>
+            <span class="tag tag-purple">#바이오기술</span>
+            <span class="tag tag-green">#실험실</span>
+            <span class="tag tag-blue">#의약</span>
+          </div>
+
+          <div class="recommendation-section">
+            <h1>생명공학부 추천 교양 및 활동</h1>
+
+            <h2><i class="fas fa-check-square"></i> 추천 교양</h2>
+            <ul>
+              <li>일반생물학</li>
+              <li>일반화학</li>
+              <li>유기화학</li>
+              <li>질병과 건강</li>
+              <li>일반미생물</li>
+              <li>일반미생물학실습</li>
+              <li>생화학1·2</li>
+              <li>세미나1~4</li>
+              <li>분자생물학1 및 실습</li>
+              <li>생리학</li>
+              <li>단백질 분리 및 정제</li>
+              <li>발생학</li>
+              <li>세포생물학 및 실습</li>
+              <li>유전학</li>
+              <li>면역학 및 실습</li>
+              <li>신경생물학</li>
+              <li>내분비 및 생식</li>
+              <li>생물화학공학</li>
+              <li>생명과학 진로개발 세미나</li>
+              <li>스마트 바이오기술 세미나</li>
+              <li>생명과학 미래기술 세미나</li>
+              <li>생명과학 캡스톤 설계1·2</li>
+              <li>졸업과제2</li>
+              <li>ESRR</li>
+              <li>시스템생물학</li>
+              <li>바이오데이터 분석</li>
+              <li>응용유전체학</li>
+              <li>생물정보학</li>
+              <li>경영학입문</li>
+              <li>통계학</li>
+            </ul>
+
+            <h2><i class="fas fa-check-square"></i> 추천 교내활동</h2>
+            <ul>
+              <li>로직학회 활동</li>
+              <li>교내 연구실 인턴 활동</li>
+              <li>학과 연구실 RA 활동</li>
+              <li>교수님 랩실 참여</li>
+              <li>교내 진로 세미나 참여</li>
+            </ul>
+
+            <h2><i class="fas fa-check-square"></i> 추천 교외활동</h2>
+            <ul>
+              <li>외부 대학 연구실 인턴 활동</li>
+              <li>국내외 학술 세미나 참가</li>
+              <li>전국 대학생 생물학 심포지엄 참가</li>
+              <li>학술 모임과 학술 토론회 발표</li>
+            </ul>
+
+            <h2><i class="fas fa-check-square"></i> 추천 자격증/시험</h2>
+            <ul>
+              <li>
+                생명공학 분야는 별도의 특정 자격증보다는 대학원 진학과 연구실
+                경험, 논문 작성 경험이 더 중요하게 평가됩니다.
+              </li>
+              <li>생물공학기사 (관련 분야 관심 시)</li>
+              <li>실험실 안전 관련 교육 이수증</li>
+            </ul>
+          </div>
+
+          <a href="majors_all.html" class="back-button">
             <i class="fas fa-arrow-left"></i> 학부/전공 목록으로 돌아가기
           </a>
-          
-      
         </div>
       </section>
     </main>

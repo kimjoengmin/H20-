@@ -114,23 +114,139 @@
         background-color: #4a148c;
         transform: translateY(-2px); /* 약간의 호버 효과 */
       }
+
+      /* 테이블 관련 스타일 */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 30px; /* 제목과의 간격 */
+        background-color: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      th,
+      td {
+        border: 1px solid #dee2e6;
+        padding: 15px;
+        text-align: center;
+      }
+      th {
+        background-color: #343a40;
+        color: #fff;
+      }
+      tr:nth-child(even) {
+        background-color: #f1f3f5;
+      }
+      tr:hover {
+        background-color: #e9ecef;
+      }
+      @media (max-width: 768px) {
+        table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+          display: block;
+        }
+        thead tr {
+          display: none;
+        }
+        tr {
+          margin-bottom: 15px;
+        }
+        td {
+          text-align: right;
+          padding-left: 50%;
+          position: relative;
+        }
+        td::before {
+          content: attr(data-label);
+          position: absolute;
+          left: 15px;
+          width: 45%;
+          text-align: left;
+          font-weight: bold;
+        }
+      }
+
+      /* 추천 교양 및 활동 관련 스타일 (콘텐츠융합디자인학부 및 경영경제학부와 동일하게) */
+      .recommendation-section {
+        margin-top: 50px; /* 이전 섹션과의 간격 */
+        text-align: left; /* 텍스트 정렬 */
+      }
+      .recommendation-section h1 {
+        /* 상위 제목 스타일 */
+        color: #6a1b9a; /* 보라색 */
+        margin-bottom: 25px;
+        font-size: 2.2em; /* h1보다 약간 작게 */
+        font-weight: 700;
+        text-align: center; /* 가운데 정렬 */
+      }
+      .recommendation-section h2 {
+        color: #555;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        font-size: 1.8em;
+        display: flex; /* 아이콘과 텍스트를 한 줄에 정렬 */
+        align-items: center; /* 세로 중앙 정렬 */
+        gap: 10px; /* 아이콘과 텍스트 사이 간격 */
+      }
+      .recommendation-section h2 i.fa-check-square {
+        color: #4caf50; /* 체크 아이콘 색상 */
+        font-size: 1.2em; /* 아이콘 크기 */
+      }
+      .recommendation-section ul {
+        list-style-type: none; /* 기본 리스트 스타일 제거 */
+        padding-left: 0;
+        margin-bottom: 30px;
+      }
+      .recommendation-section ul li {
+        background-color: #f8f8f8; /* 연한 회색 배경 (콘텐츠융합디자인학부/경영경제학부 이미지와 동일) */
+        padding: 12px 20px;
+        margin-bottom: 8px;
+        border-radius: 8px; /* 둥근 모서리 */
+        font-size: 1.05em;
+        color: #333;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* 은은한 그림자 */
+        border-left: none; /* 좌측 테두리 제거 */
+      }
+
+      /* 정보 섹션 스타일 (원하시는 보라색 사진처럼 보이도록 수정) */
+      .info-section {
+        background-color: #f9f9f9;
+        border-left: 5px solid #6a1b9a;
+        padding: 25px;
+        margin: 30px 0;
+        border-radius: 8px;
+        text-align: left;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+      .info-section p {
+        margin: 10px 0;
+        font-size: 1.1em;
+        color: #333;
+        text-align: left;
+      }
+      .info-section p strong {
+        color: #6a1b9a;
+      }
     </style>
   </head>
   <body>
     <nav class="navbar">
       <div class="nav-container">
         <a href="index.html" class="logo">
-          <img src="./logo.png" alt="HANDONG CONNECT 로고" />
+          <img src="./images/logo.png" alt="HANDONG CONNECT 로고" />
         </a>
         <ul class="nav-links">
           <li><a href="index.html#sections">둘러보기</a></li>
-          <li><a href="index.html#majors">학부/전공</a></li>
-          <li><a href="index.html#clubs">동아리/학회</a></li>
+          <li><a href="majors_all.html">학부/전공</a></li>
+          <li><a href="institute.html">동아리/학회</a></li>
           <li><a href="index.html#community">커뮤니티</a></li>
-          <li><a href="index.html#contact">문의</a></li>
+          <li><a href="inquiry.html">문의</a></li>
         </ul>
         <div class="user-actions">
-          <a href="#" class="btn-login"
+          <a href="login,membership.html" class="btn-login"
             ><i class="fas fa-user-circle"></i> My 계정</a
           >
         </div>
@@ -141,231 +257,168 @@
       <section class="major-detail-section">
         <div class="major-detail-container">
           <h1>국제어문학부</h1>
-          <img
-            src="./language.png"
-            alt="국제어문학부 이미지"
-         >
-           
- <style>
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    th, td {
-      border: 1px solid #333;
-      padding: 8px;
-      text-align: center;
-    }
-    th {
-      background-color: #f2f2f2;
-    }
-  </style>
-</head>
-<body>
-  <h1>국제어문학부 커리큘럼</h1>
-   <style>
-    body {
-      font-family: 'Pretendard', Arial, sans-serif;
-      background-color: #f8f9fa;
-      padding: 40px;
-    }
-    h1 {
-      text-align: center;
-      color: #333;
-      margin-bottom: 30px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background-color: #fff;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-    th, td {
-      border: 1px solid #dee2e6;
-      padding: 15px;
-      text-align: center;
-    }
-    th {
-      background-color: #343a40;
-      color: #fff;
-    }
-    tr:nth-child(even) {
-      background-color: #f1f3f5;
-    }
-    tr:hover {
-      background-color: #e9ecef;
-    }
-    @media (max-width: 768px) {
-      table, thead, tbody, th, td, tr {
-        display: block;
-      }
-      thead tr {
-        display: none;
-      }
-      tr {
-        margin-bottom: 15px;
-      }
-      td {
-        text-align: right;
-        padding-left: 50%;
-        position: relative;
-      }
-      td::before {
-        content: attr(data-label);
-        position: absolute;
-        left: 15px;
-        width: 45%;
-        text-align: left;
-        font-weight: bold;
-      }
-    }
-  </style>
-</head>
-<body>
+          <img src="./images/국제어문학부.png" alt="국제어문학부 이미지" />
+          <div class="info-section">
+            <p><strong>학부장:</strong> 윤상헌 교수</p>
+            <p><strong>사무실 위치:</strong> 현동홀 322B호</p>
+            <p><strong>사무실 전화번호:</strong> 054) 260 - 1355</p>
+            <p>
+              <strong>학부 홈페이지:</strong>
+              <a href="https://sis.handong.edu" target="_blank"
+                >sis.handong.edu (예시)</a
+              >
+            </p>
+          </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>학년</th>
-        <th>학기</th>
-        <th>과목</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td rowspan="2">1학년</td>
-        <td>1학기</td>
-        <td>국제개발협력의 이해, 정치학개론, 언어학개론, 영문법</td>
-      </tr>
-      <tr>
-        <td>2학기</td>
-        <td>국제관계학 입문, 지역학 입문</td>
-      </tr>
-      <tr>
-        <td rowspan="2">2학년</td>
-        <td>1학기</td>
-        <td>일본사회의 이해, 유럽사회의 이해, 한국대외정책론</td>
-      </tr>
-      <tr>
-        <td>2학기</td>
-        <td>중국사회의 이해, Intercultural studies 전공 진로 및 비전발전</td>
-      </tr>
-      <tr>
-        <td rowspan="2">3학년</td>
-        <td>1학기</td>
-        <td>국제기구론, 평화안보연구, 중국정치외교론, 비교정치학개론</td>
-      </tr>
-      <tr>
-        <td>2학기</td>
-        <td>국제정치경제, 미국대외정책론, 중국경제론 </td>
-      </tr>
-      <tr>
-        <td rowspan="2">4학년</td>
-        <td>1학기</td>
-        <td>국제지역학 세미나, 동북아국제관계론, 국제협상론</td>
-      </tr>
-      <tr>
-        <td>2학기</td>
-        <td>국제현장실습 (GTR)</td>
-      </tr>
-    </tbody>
-  </table>
+          <h2>국제어문학부 커리큘럼</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>학년</th>
+                <th>학기</th>
+                <th>과목</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td rowspan="2" data-label="학년">1학년</td>
+                <td data-label="학기">1학기</td>
+                <td data-label="과목">
+                  국제개발협력의 이해, 정치학개론, 언어학개론, 영문법
+                </td>
+              </tr>
+              <tr>
+                <td data-label="학기">2학기</td>
+                <td data-label="과목">
+                  국제관계학 입문, 지역학 입문, 세계문학의 이해
+                </td>
+              </tr>
+              <tr>
+                <td rowspan="2" data-label="학년">2학년</td>
+                <td data-label="학기">1학기</td>
+                <td data-label="과목">
+                  일본사회의 이해, 유럽사회의 이해, 한국대외정책론, 영미문화연구
+                </td>
+              </tr>
+              <tr>
+                <td data-label="학기">2학기</td>
+                <td data-label="과목">
+                  중국사회의 이해, Intercultural studies 전공 진로 및 비전발전,
+                  TESOL 개론
+                </td>
+              </tr>
+              <tr>
+                <td rowspan="2" data-label="학년">3학년</td>
+                <td data-label="학기">1학기</td>
+                <td data-label="과목">
+                  국제기구론, 평화안보연구, 중국정치외교론, 비교정치학개론,
+                  영어교육론
+                </td>
+              </tr>
+              <tr>
+                <td data-label="학기">2학기</td>
+                <td data-label="과목">
+                  국제정치경제, 미국대외정책론, 중국경제론, 번역학개론
+                </td>
+              </tr>
+              <tr>
+                <td rowspan="2" data-label="학년">4학년</td>
+                <td data-label="학기">1학기</td>
+                <td data-label="과목">
+                  국제지역학 세미나, 동북아국제관계론, 국제협상론, 통역학개론
+                </td>
+              </tr>
+              <tr>
+                <td data-label="학기">2학기</td>
+                <td data-label="과목">
+                  국제현장실습 (GTR), 고급영어번역/통역, 졸업논문
+                </td>
+              </tr>
+            </tbody>
+          </table>
 
           <ul class="features-list">
             <li>
-              <i class="fas fa-check-circle"></i> 국제 정세와 지역 이슈를 이해하는 글로벌
-              인문학적 소양 습득
+              <i class="fas fa-check-circle"></i> 국제 정세와 지역 이슈를
+              이해하는 글로벌 인문학적 소양 습득
             </li>
             <li>
-              <i class="fas fa-check-circle"></i> 영어의 구조와 문법부터 문학, 통번역까지 
-              심화된 언어 능력 강화
+              <i class="fas fa-check-circle"></i> 영어의 구조와 문법부터 문학,
+              통번역까지 심화된 언어 능력 강화
             </li>
             <li>
-              <i class="fas fa-check-circle"></i> 국제개발협력과 외교정책 등 현실 세계에
-              적용 가능한 지식 학습
+              <i class="fas fa-check-circle"></i> 국제개발협력과 외교정책 등
+              현실 세계에 적용 가능한 지식 학습
             </li>
             <li>
-              <i class="fas fa-check-circle"></i> 다양한 문화와 세계관에 대한 비판적 사고와
-              비교문화 역량 함양
+              <i class="fas fa-check-circle"></i> 다양한 문화와 세계관에 대한
+              비판적 사고와 비교문화 역량 함양
             </li>
             <li>
-              <i class="fas fa-check-circle"></i> 실전 중심 TESOL 교육과 통번역 실습을
-              통한 교육 및 소통 능력 배양
+              <i class="fas fa-check-circle"></i> 실전 중심 TESOL 교육과 통번역
+              실습을 통한 교육 및 소통 능력 배양
             </li>
           </ul>
+
           <div class="detail-card-tags">
             <span class="tag tag-blue">#영어심화</span>
             <span class="tag tag-purple">#국제개발협력</span>
             <span class="tag tag-green">#통번역</span>
             <span class="tag tag-blue">#글로벌소통</span>
           </div>
-           <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
-      margin: 40px;
-    }
-    h1 {
-      color: #333;
-    }
-    h2 {
-      margin-top: 30px;
-      color: #555;
-    }
-    ul {
-      list-style-type: none;
-      margin-left: 30px;
-    }
-  </style>
-</head>
-<body>
-  <h1>국제어문학부 추천 교양 및 활동</h1>
 
-  <h2>✅ 추천 교양</h2>
-  <ul>
-    <li>통일한국개론</li>
-    <li>철학개론</li>
-    <li>동양의 역사와 문화</li>
-    <li>중국어 1</li>
-    <li>고급영어회화</li>
-    <li>경제발전론</li>
-    <li>법과 정치</li>
-  </ul>
+          <div class="recommendation-section">
+            <h1>국제어문학부 추천 교양 및 활동</h1>
 
-  <h2>✅ 추천 교내활동</h2>
-  <ul>
-    <li>학회 (한동국제개발학회, 한동국제정치학회, 베네딕트 등)</li>
-    <li>동아리 (Craist, UNAI Aspire 등)</li>
-    <li>강연</li>
-    <li>유니트윈</li>
-    <li>한동신문사</li>
-    <li>총학생회 글로벌국</li>
-    <li>GEM 사업</li>
-  </ul>
+            <h2><i class="fas fa-check-square"></i> 추천 교양</h2>
+            <ul>
+              <li>통일한국개론</li>
+              <li>철학개론</li>
+              <li>동양의 역사와 문화</li>
+              <li>중국어 1</li>
+              <li>고급영어회화</li>
+              <li>경제발전론</li>
+              <li>법과 정치</li>
+            </ul>
 
-  <h2>✅ 추천 교외활동</h2>
-  <ul>
-    <li>인턴 (KOICA ODA 영프로페셔널, 월드프렌즈코리아, 영어마을 등)</li>
-    <li>해외 및 영어 수업 봉사 (KOICA, 해피무브)</li>
-    <li>CSR 관련 서포터즈</li>
-    <li>정당정치캠프</li>
-    <li>WEST 프로그램</li>
-    <li>교환학생 프로그램</li>
-    <li>자유학교</li>
-  </ul>
+            <h2><i class="fas fa-check-square"></i> 추천 교내활동</h2>
+            <ul>
+              <li>학회 (한동국제개발학회, 한동국제정치학회, 베네딕트 등)</li>
+              <li>동아리 (Craist, UNAI Aspire 등)</li>
+              <li>강연</li>
+              <li>유니트윈</li>
+              <li>한동신문사</li>
+              <li>총학생회 글로벌국</li>
+              <li>GEM 사업</li>
+            </ul>
 
-  <h2>✅ 추천 자격증</h2>
-  <ul>
-    <li>언어관련 점수</li>
-    <li>ODA 일반 자격증</li>
-    <li>ACSI 기독교사자격증</li>
-    <li>TESOL</li>
-  </ul>
-          <a href="index.html#majors" class="back-button">
+            <h2><i class="fas fa-check-square"></i> 추천 교외활동</h2>
+            <ul>
+              <li>
+                인턴 (KOICA ODA 영프로페셔널, 월드프렌즈코리아, 영어마을 등)
+              </li>
+              <li>해외 및 영어 수업 봉사 (KOICA, 해피무브)</li>
+              <li>CSR 관련 서포터즈</li>
+              <li>정당정치캠프</li>
+              <li>WEST 프로그램</li>
+              <li>교환학생 프로그램</li>
+              <li>자유학교</li>
+            </ul>
+
+            <h2><i class="fas fa-check-square"></i> 추천 자격증/시험</h2>
+            <ul>
+              <li>공인 영어 시험 점수 (TOEFL, IELTS, TOEIC 등)</li>
+              <li>ODA 일반 자격증</li>
+              <li>ACSI 기독교사자격증</li>
+              <li>TESOL 자격증</li>
+              <li>번역능력 인정 시험</li>
+              <li>외교관 후보자 선발 시험</li>
+            </ul>
+          </div>
+
+          <a href="majors_all.html" class="back-button">
             <i class="fas fa-arrow-left"></i> 학부/전공 목록으로 돌아가기
           </a>
-          
-      
         </div>
       </section>
     </main>

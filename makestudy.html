@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>새 스터디 모집 - Handong Connect</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* 이 페이지를 위한 특정 스타일 */
+      .create-study-section {
+        padding: 60px 0;
+      }
+
+      .create-study-container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 40px;
+        background-color: var(--bg-white);
+        border-radius: var(--border-radius-base);
+        box-shadow: var(--shadow-medium);
+      }
+
+      .create-study-container h1 {
+        font-size: 2.5em;
+        color: var(--primary-purple);
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: 700;
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 1.1em;
+        color: var(--text-dark);
+        margin-bottom: 10px;
+        font-weight: 600;
+      }
+
+      .form-group input[type="text"],
+      .form-group input[type="number"],
+      .form-group textarea,
+      .form-group select {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid var(--border-light);
+        border-radius: var(--border-radius-sm);
+        font-size: 1em;
+        color: var(--text-dark);
+        background-color: var(--bg-light);
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus,
+      .form-group select:focus {
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+        outline: none;
+      }
+
+      .form-group textarea {
+        resize: vertical;
+        min-height: 120px;
+      }
+
+      .form-actions {
+        display: flex;
+        justify-content: flex-end; /* 버튼들을 오른쪽으로 정렬 */
+        gap: 15px;
+        margin-top: 40px;
+      }
+
+      .btn-submit-study,
+      .btn-cancel-study {
+        padding: 14px 25px;
+        border-radius: var(--border-radius-base);
+        font-weight: 600;
+        font-size: 1.05em;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        cursor: pointer;
+        border: none;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-submit-study {
+        background-color: var(--primary-purple);
+        color: var(--bg-white);
+      }
+
+      .btn-submit-study:hover {
+        background-color: #5b0f8e; /* 좀 더 진한 보라색 */
+        transform: translateY(-2px);
+      }
+
+      .btn-cancel-study {
+        background-color: var(--text-light); /* 회색 */
+        color: var(--bg-white);
+      }
+
+      .btn-cancel-study:hover {
+        background-color: #555;
+        transform: translateY(-2px);
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .create-study-container {
+          margin: 30px 15px;
+          padding: 25px;
+        }
+        .create-study-container h1 {
+          font-size: 2em;
+        }
+        .form-group label {
+          font-size: 1em;
+        }
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+          padding: 10px 12px;
+          font-size: 0.95em;
+        }
+        .form-actions {
+          flex-direction: column;
+          gap: 10px;
+        }
+        .btn-submit-study,
+        .btn-cancel-study {
+          width: 100%;
+          justify-content: center;
+          padding: 12px 20px;
+          font-size: 1em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="logo">
+          <img src="./images/logo.png" alt="HANDONG CONNECT 로고" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#sections">둘러보기</a></li>
+          <li><a href="majors_all.html">학부/전공</a></li>
+          <li><a href="institute.html">동아리/학회</a></li>
+          <li>
+            <a href="index.html#community.html" class="active">커뮤니티</a>
+          </li>
+          <li><a href="inquiry.html">문의</a></li>
+        </ul>
+        <div class="user-actions">
+          <a href="login,membership.html" class="btn-login"
+            ><i class="fas fa-user-circle"></i> My 계정</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <main class="main-content create-study-section">
+      <div class="create-study-container">
+        <h1>새 스터디 모집</h1>
+        <form id="createStudyForm">
+          <div class="form-group">
+            <label for="studyTitle">스터디 제목</label>
+            <input
+              type="text"
+              id="studyTitle"
+              name="studyTitle"
+              placeholder=""
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="studyCategory">카테고리</label>
+            <select id="studyCategory" name="studyCategory" required>
+              <option value="">-- 카테고리 선택 --</option>
+              <option value="major">전공 스터디</option>
+              <option value="language">어학 스터디</option>
+              <option value="job">취업 스터디</option>
+              <option value="license">자격증 스터디</option>
+              <option value="etc">기타</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="studyDescription">스터디 설명</label>
+            <textarea
+              id="studyDescription"
+              name="studyDescription"
+              placeholder=""
+              rows="6"
+              required
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="meetingSchedule">진행 요일/시간</label>
+            <input
+              type="text"
+              id="meetingSchedule"
+              name="meetingSchedule"
+              placeholder=""
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="requiredMembers">모집 인원 (명)</label>
+            <input
+              type="number"
+              id="requiredMembers"
+              name="requiredMembers"
+              min="1"
+              max="20"
+              placeholder=""
+              required
+            />
+          </div>
+
+          <div class="form-group">
+            <label for="contactInfo"
+              >연락 방법 (카카오톡 ID 또는 오픈채팅 링크)</label
+            >
+            <input
+              type="text"
+              id="contactInfo"
+              name="contactInfo"
+              placeholder=""
+              required
+            />
+          </div>
+
+          <div class="form-actions">
+            <button
+              type="button"
+              class="btn-cancel-study"
+              onclick="history.back()"
+            >
+              <i class="fas fa-times-circle"></i> 취소
+            </button>
+            <button type="submit" class="btn-submit-study">
+              <i class="fas fa-paper-plane"></i> 스터디 모집하기
+            </button>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <footer class="main-footer">
+      <p>&copy; 2025 Handong Connect. All rights reserved.</p>
+    </footer>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+
+    <script>
+      document
+        .getElementById("createStudyForm")
+        .addEventListener("submit", function (event) {
+          event.preventDefault(); // 폼 기본 제출 동작 방지
+
+          // 폼 데이터 가져오기 (간단한 예시)
+          const title = document.getElementById("studyTitle").value;
+          const category = document.getElementById("studyCategory").value;
+          const description = document.getElementById("studyDescription").value;
+          const members = document.getElementById("requiredMembers").value;
+          const contact = document.getElementById("contactInfo").value;
+
+          // 실제로는 이 데이터를 서버로 전송합니다.
+          // 여기서는 간단히 알림창으로 성공 메시지를 보여줍니다.
+          if (title && category && description && members && contact) {
+            alert(
+              '"' + title + '" 스터디 모집 글이 성공적으로 등록되었습니다!'
+            );
+            // 성공 후 스터디 목록 페이지로 리다이렉트 (예시)
+            window.location.href = "study_recruitment.html";
+          } else {
+            alert("모든 필수 정보를 입력해주세요.");
+          }
+        });
+    </script>
+  </body>
+</html>

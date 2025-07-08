@@ -269,6 +269,8 @@ ul {
 
 /* Info Overview Section (새롭게 추가된 정보 요약 섹션) */
 .info-overview-section {
+  scroll-margin-top: 50px;
+  position: top;
   background-color: var(--bg-white); /* 배경색 흰색 */
   padding: 60px 40px; /* 안쪽 여백 */
   margin-bottom: 50px; /* 아래 여백 */
@@ -549,6 +551,7 @@ ul {
 
 /* Community Section (새롭게 추가된 커뮤니티 섹션) */
 .community-section {
+  scroll-margin-top: 150px;
   background-color: var(--bg-white); /* 배경색 흰색 */
   padding: 60px 40px; /* 안쪽 여백 */
   margin-top: 60px; /* 위 여백 */

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>문의하기 - Handong Connect</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* 이 페이지를 위한 특정 스타일 */
+      .contact-section {
+        padding: 60px 0;
+      }
+
+      .contact-container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 40px;
+        background-color: var(--bg-white);
+        border-radius: var(--border-radius-base);
+        box-shadow: var(--shadow-medium);
+      }
+
+      .contact-container h1 {
+        font-size: 2.5em;
+        color: var(--primary-purple);
+        text-align: center;
+        margin-bottom: 30px;
+        font-weight: 700;
+      }
+
+      .contact-container p {
+        text-align: center;
+        color: var(--text-medium);
+        font-size: 1.1em;
+        margin-bottom: 40px;
+        line-height: 1.6;
+      }
+
+      .form-group {
+        margin-bottom: 25px;
+      }
+
+      .form-group label {
+        display: block;
+        font-size: 1.1em;
+        color: var(--text-dark);
+        margin-bottom: 10px;
+        font-weight: 600;
+      }
+
+      .form-group input[type="text"],
+      .form-group input[type="email"],
+      .form-group textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border: 1px solid var(--border-light);
+        border-radius: var(--border-radius-sm);
+        font-size: 1em;
+        color: var(--text-dark);
+        background-color: var(--bg-light);
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group textarea:focus {
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+        outline: none;
+      }
+
+      .form-group textarea {
+        resize: vertical;
+        min-height: 180px;
+      }
+
+      .btn-submit-contact {
+        display: block; /* 블록 요소로 만들어 너비를 100% 사용 */
+        width: 100%;
+        padding: 15px 25px;
+        border-radius: var(--border-radius-base);
+        background-color: var(--primary-purple);
+        color: var(--bg-white);
+        font-weight: 600;
+        font-size: 1.1em;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        cursor: pointer;
+        border: none;
+        display: flex;
+        align-items: center;
+        justify-content: center; /* 아이콘과 텍스트 중앙 정렬 */
+        gap: 10px;
+        margin-top: 30px;
+      }
+
+      .btn-submit-contact:hover {
+        background-color: #5b0f8e; /* 좀 더 진한 보라색 */
+        transform: translateY(-2px);
+      }
+
+      /* Responsive adjustments */
+      @media (max-width: 768px) {
+        .contact-container {
+          margin: 30px 15px;
+          padding: 25px;
+        }
+        .contact-container h1 {
+          font-size: 2em;
+        }
+        .contact-container p {
+          font-size: 1em;
+        }
+        .form-group label {
+          font-size: 1em;
+        }
+        .form-group input,
+        .form-group textarea {
+          padding: 10px 12px;
+          font-size: 0.95em;
+        }
+        .btn-submit-contact {
+          padding: 12px 20px;
+          font-size: 1em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="logo">
+          <img src="./images/logo.png" alt="HANDONG CONNECT 로고" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#sections">둘러보기</a></li>
+          <li><a href="index.html#majors">학부/전공</a></li>
+          <li><a href="index.html#clubs">동아리/학회</a></li>
+          <li><a href="community.html">커뮤니티</a></li>
+          <li><a href="index.html#contact" class="active">문의</a></li>
+        </ul>
+        <div class="user-actions">
+          <a href="my.html" class="btn-login"
+            ><i class="fas fa-user-circle"></i> My 계정</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <main class="main-content contact-section">
+      <div class="contact-container">
+        <h1>문의하기</h1>
+        <p>
+          Handong Connect에 대한 궁금한 점이나 제안 사항이 있으시면 아래 양식을
+          통해 문의해주세요. 최대한 빠르게 답변드리겠습니다.
+        </p>
+        <form>
+          <div class="form-group">
+            <label for="fullName">이름</label>
+            <input type="text" id="fullName" placeholder="" required />
+          </div>
+
+          <div class="form-group">
+            <label for="email">이메일 주소</label>
+            <input type="email" id="email" placeholder="" required />
+          </div>
+
+          <div class="form-group">
+            <label for="subject">제목</label>
+            <input type="text" id="subject" placeholder="" required />
+          </div>
+
+          <div class="form-group">
+            <label for="message">메시지</label>
+            <textarea id="message" rows="10" placeholder="" required></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit-contact">
+            <i class="fas fa-paper-plane"></i> 문의 보내기
+          </button>
+        </form>
+      </div>
+    </main>
+
+    <footer class="main-footer">
+      <p>&copy; 2025 Handong Connect. All rights reserved.</p>
+    </footer>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </body>
+</html>

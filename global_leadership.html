@@ -114,6 +114,122 @@
         background-color: #4a148c;
         transform: translateY(-2px); /* 약간의 호버 효과 */
       }
+
+      /* 테이블 관련 스타일 */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 30px; /* 제목과의 간격 */
+        background-color: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      th,
+      td {
+        border: 1px solid #dee2e6;
+        padding: 15px;
+        text-align: center;
+      }
+      th {
+        background-color: #343a40;
+        color: #fff;
+      }
+      tr:nth-child(even) {
+        background-color: #f1f3f5;
+      }
+      tr:hover {
+        background-color: #e9ecef;
+      }
+      @media (max-width: 768px) {
+        table,
+        thead,
+        tbody,
+        th,
+        td,
+        tr {
+          display: block;
+        }
+        thead tr {
+          display: none;
+        }
+        tr {
+          margin-bottom: 15px;
+        }
+        td {
+          text-align: right;
+          padding-left: 50%;
+          position: relative;
+        }
+        td::before {
+          content: attr(data-label);
+          position: absolute;
+          left: 15px;
+          width: 45%;
+          text-align: left;
+          font-weight: bold;
+        }
+      }
+
+      /* 추천 교양 및 활동 관련 스타일 (콘텐츠융합디자인학부 및 경영경제학부와 동일하게) */
+      .recommendation-section {
+        margin-top: 50px; /* 이전 섹션과의 간격 */
+        text-align: left; /* 텍스트 정렬 */
+      }
+      .recommendation-section h1 {
+        /* 상위 제목 스타일 */
+        color: #6a1b9a; /* 보라색 */
+        margin-bottom: 25px;
+        font-size: 2.2em; /* h1보다 약간 작게 */
+        font-weight: 700;
+        text-align: center; /* 가운데 정렬 */
+      }
+      .recommendation-section h2 {
+        color: #555;
+        margin-top: 30px;
+        margin-bottom: 15px;
+        font-size: 1.8em;
+        display: flex; /* 아이콘과 텍스트를 한 줄에 정렬 */
+        align-items: center; /* 세로 중앙 정렬 */
+        gap: 10px; /* 아이콘과 텍스트 사이 간격 */
+      }
+      .recommendation-section h2 i.fa-check-square {
+        color: #4caf50; /* 체크 아이콘 색상 */
+        font-size: 1.2em; /* 아이콘 크기 */
+      }
+      .recommendation-section ul {
+        list-style-type: none; /* 기본 리스트 스타일 제거 */
+        padding-left: 0;
+        margin-bottom: 30px;
+      }
+      .recommendation-section ul li {
+        background-color: #f8f8f8; /* 연한 회색 배경 (콘텐츠융합디자인학부/경영경제학부 이미지와 동일) */
+        padding: 12px 20px;
+        margin-bottom: 8px;
+        border-radius: 8px; /* 둥근 모서리 */
+        font-size: 1.05em;
+        color: #333;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05); /* 은은한 그림자 */
+        border-left: none; /* 좌측 테두리 제거 */
+      }
+
+      /* 정보 섹션 스타일 (원하시는 보라색 사진처럼 보이도록 수정) */
+      .info-section {
+        background-color: #f9f9f9;
+        border-left: 5px solid #6a1b9a;
+        padding: 25px;
+        margin: 30px 0;
+        border-radius: 8px;
+        text-align: left;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+      .info-section p {
+        margin: 10px 0;
+        font-size: 1.1em;
+        color: #333;
+        text-align: left;
+      }
+      .info-section p strong {
+        color: #6a1b9a;
+      }
     </style>
   </head>
   <body>
@@ -124,13 +240,13 @@
         </a>
         <ul class="nav-links">
           <li><a href="index.html#sections">둘러보기</a></li>
-          <li><a href="index.html#majors">학부/전공</a></li>
-          <li><a href="index.html#clubs">동아리/학회</a></li>
+          <li><a href="majors_all.html">학부/전공</a></li>
+          <li><a href="institute.html">동아리/학회</a></li>
           <li><a href="index.html#community">커뮤니티</a></li>
-          <li><a href="index.html#contact">문의</a></li>
+          <li><a href="inquiry.html">문의</a></li>
         </ul>
         <div class="user-actions">
-          <a href="#" class="btn-login"
+          <a href="login,membership.html" class="btn-login"
             ><i class="fas fa-user-circle"></i> My 계정</a
           >
         </div>
@@ -157,6 +273,80 @@
             복잡한 이슈들을 다루며, 다문화 환경에서 효과적으로 소통하고 협력할
             수 있는 능력을 배양합니다.
           </p>
+
+          <div class="info-section">
+            <p><strong>학부장:</strong> 손화철 교수</p>
+            <p><strong>사무실 위치:</strong> 현동홀 420호</p>
+            <p><strong>사무실 전화번호:</strong> 054) 260 - 1243</p>
+            <p>
+              <strong>학부 홈페이지:</strong>
+              <a href="https://gl.handong.edu" target="_blank"
+                >gl.handong.edu (예시)</a
+              >
+            </p>
+          </div>
+
+          <h2>글로벌리더십학부 커리큘럼</h2>
+          <table>
+            <thead>
+              <tr>
+                <th>학년</th>
+                <th>학기</th>
+                <th>과목</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td rowspan="2" data-label="학년">1학년</td>
+                <td data-label="학기">1학기</td>
+                <td data-label="과목">글로벌리더십개론, 세계관과리더십</td>
+              </tr>
+              <tr>
+                <td data-label="학기">2학기</td>
+                <td data-label="과목">국제관계론, 거버넌스와윤리</td>
+              </tr>
+              <tr>
+                <td rowspan="2" data-label="학년">2학년</td>
+                <td data-label="학기">1학기</td>
+                <td data-label="과목">
+                  비판적사고와글쓰기, 국제개발협력, 공공정책론, 통계학
+                </td>
+              </tr>
+              <tr>
+                <td data-label="학기">2학기</td>
+                <td data-label="과목">
+                  분쟁해결과평화, 비교정치론, 경제학원론, 세계시민교육
+                </td>
+              </tr>
+              <tr>
+                <td rowspan="2" data-label="학년">3학년</td>
+                <td data-label="학기">1학기</td>
+                <td data-label="과목">
+                  리더십개발론, 국제법, NGO와시민사회, 사회조사방법론
+                </td>
+              </tr>
+              <tr>
+                <td data-label="학기">2학기</td>
+                <td data-label="과목">
+                  글로벌이슈세미나, 글로벌거버넌스, 정책분석론, 국제기구연구
+                </td>
+              </tr>
+              <tr>
+                <td rowspan="2" data-label="학년">4학년</td>
+                <td data-label="학기">1학기</td>
+                <td data-label="과목">
+                  통일학개론, 국제관계사, 리더십특강, 현장실습/인턴십
+                </td>
+              </tr>
+              <tr>
+                <td data-label="학기">2학기</td>
+                <td data-label="과목">
+                  캡스톤프로젝트, 미래사회와리더십, 국제협상과외교
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
           <ul class="features-list">
             <li>
               <i class="fas fa-check-circle"></i> 글로벌 이슈 및 국제 관계 심층
@@ -183,7 +373,7 @@
             <span class="tag tag-green">#세계시민</span>
             <span class="tag tag-blue">#국제협력</span>
           </div>
-          <a href="index.html#majors" class="back-button">
+          <a href="majors_all.html" class="back-button">
             <i class="fas fa-arrow-left"></i> 학부/전공 목록으로 돌아가기
           </a>
         </div>

@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Q&A 게시판 - Handong Connect</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* 이 페이지를 위한 특정 스타일 */
+      .qna-board-section {
+        padding: 60px 0;
+      }
+
+      .qna-board-container {
+        max-width: 1000px;
+        margin: 0 auto;
+        padding: 0 25px;
+      }
+
+      .qna-header {
+        text-align: center;
+        margin-bottom: 50px;
+      }
+
+      .qna-header h1 {
+        font-size: 3em;
+        color: var(--primary-purple);
+        margin-bottom: 15px;
+        font-weight: 700;
+      }
+
+      .qna-header p {
+        font-size: 1.15em;
+        color: var(--text-medium);
+        margin-bottom: 30px;
+      }
+
+      .search-and-create {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 40px;
+      }
+
+      .search-bar {
+        flex-grow: 1;
+        display: flex;
+        position: relative;
+      }
+
+      .search-bar input {
+        width: 100%;
+        padding: 15px 20px;
+        border: 1px solid var(--border-light);
+        border-radius: var(--border-radius-base);
+        font-size: 1.1em;
+        padding-right: 50px; /* 아이콘 공간 확보 */
+      }
+
+      .search-bar i {
+        position: absolute;
+        right: 20px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-light);
+        font-size: 1.2em;
+      }
+
+      .btn-create-question {
+        background-color: var(--primary-blue);
+        color: var(--bg-white);
+        padding: 15px 25px;
+        border-radius: var(--border-radius-base);
+        font-weight: 600;
+        font-size: 1.05em;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+        white-space: nowrap;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-create-question:hover {
+        background-color: #0056b3;
+        transform: translateY(-2px);
+      }
+
+      /* Q&A List styles */
+      .qna-list {
+        background-color: var(--bg-white);
+        border-radius: var(--border-radius-base);
+        box-shadow: var(--shadow-medium);
+        overflow: hidden; /* Ensure borders are rounded */
+      }
+
+      .qna-list-header {
+        display: flex;
+        padding: 20px 30px;
+        background-color: var(--primary-purple);
+        color: var(--bg-white);
+        font-weight: 700;
+        font-size: 1.1em;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      }
+
+      .qna-list-header .col-title {
+        flex-grow: 4;
+        text-align: left;
+      }
+      .qna-list-header .col-author,
+      .qna-list-header .col-date,
+      .qna-list-header .col-views,
+      .qna-list-header .col-answers {
+        flex-grow: 1;
+        text-align: center;
+      }
+      .qna-list-header .col-answers {
+        flex-grow: 0.8; /* 답변 수는 조금 좁게 */
+      }
+
+      .qna-item {
+        display: flex;
+        padding: 15px 30px;
+        border-bottom: 1px solid var(--border-light);
+        color: var(--text-dark);
+        font-size: 1em;
+        align-items: center;
+        transition: background-color 0.2s ease;
+        text-decoration: none; /* Link style */
+      }
+
+      .qna-item:hover {
+        background-color: var(--bg-light);
+      }
+
+      .qna-item:last-child {
+        border-bottom: none;
+      }
+
+      .qna-item .col-title {
+        flex-grow: 4;
+        text-align: left;
+        font-weight: 600;
+        color: var(--primary-blue);
+      }
+      .qna-item .col-author,
+      .qna-item .col-date,
+      .qna-item .col-views,
+      .qna-item .col-answers {
+        flex-grow: 1;
+        text-align: center;
+        color: var(--text-medium);
+      }
+      .qna-item .col-answers {
+        flex-grow: 0.8;
+        font-weight: 700;
+        color: var(--secondary-green);
+      }
+
+      /* No questions message */
+      .no-questions-message {
+        text-align: center;
+        padding: 50px;
+        font-size: 1.2em;
+        color: var(--text-medium);
+        /* If you want the icon and enhanced style, add back styles from previous "prettify" turn */
+        min-height: 300px; /* Q&A List의 최소 높이와 일치하게 */
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+      }
+      .no-questions-message i {
+        font-size: 3em;
+        color: var(--primary-purple);
+        opacity: 0.7;
+        margin-bottom: 15px;
+      }
+      .no-questions-message p {
+        margin: 0;
+        line-height: 1.5;
+      }
+      .no-questions-message .highlight {
+        color: var(--primary-blue);
+        font-weight: 700;
+      }
+
+      /* Responsive Design for Q&A Board */
+      @media (max-width: 768px) {
+        .qna-header h1 {
+          font-size: 2.5em;
+        }
+        .qna-header p {
+          font-size: 1em;
+        }
+        .search-and-create {
+          flex-direction: column;
+          align-items: stretch;
+        }
+        .btn-create-question {
+          width: 100%;
+          text-align: center;
+          justify-content: center;
+        }
+        .qna-list-header {
+          display: none; /* Hide header on small screens */
+        }
+        .qna-item {
+          flex-wrap: wrap; /* Allow items to wrap */
+          padding: 15px 20px;
+        }
+        .qna-item .col-title {
+          width: 100%;
+          order: 1; /* Title first */
+          margin-bottom: 5px;
+        }
+        .qna-item .col-author,
+        .qna-item .col-date,
+        .qna-item .col-views,
+        .qna-item .col-answers {
+          flex-grow: 1;
+          width: 50%; /* Take half width */
+          text-align: left; /* Align info to left */
+          font-size: 0.9em;
+          order: 2; /* Info below title */
+          margin-top: 5px;
+        }
+        .qna-item .col-author::before {
+          content: "작성자: ";
+          font-weight: 500;
+          color: var(--text-light);
+        }
+        .qna-item .col-date::before {
+          content: "작성일: ";
+          font-weight: 500;
+          color: var(--text-light);
+        }
+        .qna-item .col-views::before {
+          content: "조회수: ";
+          font-weight: 500;
+          color: var(--text-light);
+        }
+        .qna-item .col-answers::before {
+          content: "답변: ";
+          font-weight: 500;
+          color: var(--text-light);
+        }
+        .qna-item .col-answers {
+          text-align: right;
+        }
+        .no-questions-message {
+          font-size: 1em; /* 기본 크기로 */
+          padding: 30px;
+        }
+        .no-questions-message i {
+          font-size: 2.5em;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .qna-header h1 {
+          font-size: 2em;
+        }
+        .search-bar input {
+          padding: 12px 15px;
+          font-size: 0.9em;
+        }
+        .btn-create-question {
+          padding: 12px 20px;
+          font-size: 0.95em;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="logo">
+          <img src="./images/logo.png" alt="HANDONG CONNECT 로고" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#sections">둘러보기</a></li>
+          <li><a href="majors_all.html">학부/전공</a></li>
+          <li><a href="institute.html">동아리/학회</a></li>
+          <li>
+            <a href="index.html#community.html">커뮤니티</a>
+          </li>
+          <li><a href="inquiry.html">문의</a></li>
+        </ul>
+        <div class="user-actions">
+          <a href="login,membership.html" class="btn-login"
+            ><i class="fas fa-user-circle"></i> My 계정</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <main class="main-content qna-board-section">
+      <div class="qna-board-container">
+        <div class="qna-header">
+          <h1>Q&A 게시판</h1>
+          <p>궁금한 점을 질문하고, 아는 것을 공유해주세요!</p>
+          <div class="search-and-create">
+            <div class="search-bar">
+              <input type="text" placeholder="질문 검색..." />
+              <i class="fas fa-search"></i>
+            </div>
+            <a href="create_question.html" class="btn-create-question">
+              <i class="fas fa-question-circle"></i> 새 질문 작성
+            </a>
+          </div>
+        </div>
+
+        <div class="qna-list">
+          <div class="qna-list-header">
+            <span class="col-title">제목</span>
+            <span class="col-author">작성자</span>
+            <span class="col-date">작성일</span>
+            <span class="col-views">조회수</span>
+            <span class="col-answers">답변</span>
+          </div>
+
+          <div class="no-questions-message">
+            <i class="far fa-comment-dots"></i>
+            <p>
+              아직 등록된 질문이 없습니다.<br /><span class="highlight"
+                >첫 질문을 작성해보세요!</span
+              >
+            </p>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer class="main-footer">
+      <p>&copy; 2025 Handong Connect. All rights reserved.</p>
+    </footer>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </body>
+</html>

@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>한동대학교 신앙교육원 - Handong Connect</title>
+    <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* 이 페이지를 위한 특정 스타일 (기존 style.css에 추가해도 좋음) */
+      .major-detail-section {
+        padding: 80px 0; /* 네비게이션바 아래 여유 공간 */
+      }
+      .major-detail-container {
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 40px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        text-align: center;
+      }
+      .major-detail-container h1 {
+        color: #6a1b9a; /* 보라색 */
+        margin-bottom: 25px;
+        font-size: 2.8em;
+        font-weight: 700;
+      }
+      .major-detail-container h2 {
+        color: #333;
+        margin-top: 40px;
+        margin-bottom: 20px;
+        font-size: 2em;
+        font-weight: 600;
+        text-align: left; /* 제목 왼쪽 정렬 */
+      }
+      .major-detail-container h3 {
+        color: #555;
+        margin-top: 25px;
+        margin-bottom: 15px;
+        font-size: 1.5em;
+        font-weight: 500;
+        text-align: left; /* 제목 왼쪽 정렬 */
+      }
+      .major-detail-container img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 12px;
+        margin-bottom: 40px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      }
+      .major-detail-container p {
+        font-size: 1.15em;
+        line-height: 1.7;
+        color: #444;
+        margin-bottom: 20px;
+        text-align: justify; /* 양쪽 정렬 */
+      }
+      .major-detail-container .features-list {
+        list-style: none;
+        padding: 0;
+        margin-top: 20px; /* Adjust margin for specific lists */
+        text-align: left;
+      }
+      .major-detail-container .features-list li {
+        background: #f0f8ff; /* 연한 하늘색 배경 */
+        margin-bottom: 12px;
+        padding: 18px 20px;
+        border-left: 6px solid #03a9f4; /* 파란색 왼쪽 테두리 */
+        border-radius: 8px;
+        font-size: 1.05em;
+        color: #333;
+        display: flex;
+        align-items: flex-start; /* Align items to the start for multi-line content */
+        gap: 15px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+      .major-detail-container .features-list li i {
+        color: #03a9f4; /* 아이콘 색상 */
+        font-size: 1.2em;
+        flex-shrink: 0; /* Prevent icon from shrinking */
+        margin-top: 3px; /* Adjust icon vertical alignment */
+      }
+
+      /* 정보 섹션 스타일 (원장, 사무실 등) */
+      .info-section {
+        background-color: #f9f9f9;
+        border-left: 5px solid #6a1b9a;
+        padding: 25px;
+        margin: 30px 0;
+        border-radius: 8px;
+        text-align: left;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+      }
+      .info-section p {
+        margin: 10px 0;
+        font-size: 1.1em;
+        color: #333;
+        text-align: left;
+      }
+      .info-section p strong {
+        color: #6a1b9a;
+      }
+      .info-section a {
+        color: #03a9f4;
+        text-decoration: none;
+        font-weight: bold;
+      }
+      .info-section a:hover {
+        text-decoration: underline;
+      }
+
+      .detail-card-tags {
+        margin-top: 30px;
+        margin-bottom: 20px;
+        text-align: center;
+      }
+      .detail-card-tags .tag {
+        display: inline-block;
+        padding: 10px 18px;
+        margin: 6px;
+        border-radius: 25px;
+        font-size: 0.95em;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+      }
+      .detail-card-tags .tag-blue {
+        background-color: #e3f2fd;
+        color: #2196f3;
+      }
+      .detail-card-tags .tag-purple {
+        background-color: #ede7f6;
+        color: #673ab7;
+      }
+      .detail-card-tags .tag-green {
+        background-color: #e8f5e9;
+        color: #4caf50;
+      }
+      .major-detail-container .back-button {
+        display: inline-flex; /* 아이콘과 텍스트 정렬을 위해 */
+        align-items: center;
+        gap: 8px;
+        margin-top: 40px;
+        padding: 14px 30px;
+        background-color: #6a1b9a;
+        color: white;
+        text-decoration: none;
+        border-radius: 8px;
+        font-weight: bold;
+        font-size: 1.05em;
+        transition: background-color 0.3s ease, transform 0.2s ease;
+      }
+      .major-detail-container .back-button:hover {
+        background-color: #4a148c;
+        transform: translateY(-2px); /* 약간의 호버 효과 */
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="nav-container">
+        <a href="index.html" class="logo">
+          <img src="./images/logo.png" alt="HANDONG CONNECT 로고" />
+        </a>
+        <ul class="nav-links">
+          <li><a href="index.html#sections">둘러보기</a></li>
+          <li><a href="majors_all.html">학부/전공</a></li>
+          <li><a href="institute.html">동아리/학회</a></li>
+          <li><a href="index.html#community">커뮤니티</a></li>
+          <li><a href="inquiry.html">문의</a></li>
+        </ul>
+        <div class="user-actions">
+          <a href="login,membership.html" class="btn-login"
+            ><i class="fas fa-user-circle"></i> My 계정</a
+          >
+        </div>
+      </div>
+    </nav>
+
+    <main class="main-content">
+      <section class="major-detail-section">
+        <div class="major-detail-container">
+          <h1>신앙교육원</h1>
+          <img src="./images/신앙교육원.png" alt="신앙교육원 이미지" />
+          <div class="info-section">
+            <p><strong>원장:</strong> 박은조 교목</p>
+            <p><strong>사무실 위치:</strong> 효암별관 101호</p>
+            <p><strong>사무실 전화번호:</strong> 054) 260 - 1026</p>
+            <p>
+              <strong>학부 홈페이지:</strong>
+              <a href="https://church.handong.edu" target="_blank"
+                >church.handong.edu</a
+              >
+            </p>
+          </div>
+
+          <h2>소개</h2>
+          <p>
+            신앙교육원은 한동대학교가 “하나님의 방법으로 하나님의 인재를
+            양성하는 하나님의 대학교”라는 교육적 사명을 완수할 수 있도록
+            복음주의 신앙교육에 중점을 두고 있습니다.
+          </p>
+          <p>
+            신앙교육원은 신앙과 학문의 유기적 통합과 균형을 통하여 한동대학교
+            학생들이 학문적 탁월함과 인격적인 성숙함을 위해 교양교육 중 기독교
+            신앙 영역의 교과과정을 운영하고 있으며, 신앙 영역에는 기독교
+            신앙기초 1, 기독교 신앙기초 2, 세계관 1, 그리고 세계관 2가 있습니다.
+          </p>
+          <p>
+            신앙교육원은 복음주의 신앙과 신학 교육을 위해서 성경의 이해,
+            기독교의 이해, 기독교와 비교종교, 창조와 진화, 기원과학 논쟁 탐구,
+            기독교 세계관, 기독교 변증학, 기독교 윤리학, 교회사의 이해, 기독교와
+            현대사상, 전공과 신앙 및 신앙특론 등 다양한 기독교 교과목을 운영하고
+            있습니다.
+          </p>
+
+          <div class="detail-card-tags">
+            <span class="tag tag-blue">#기독교신앙</span>
+            <span class="tag tag-purple">#인재양성</span>
+            <span class="tag tag-green">#신앙과학문</span>
+            <span class="tag tag-blue">#세계관교육</span>
+            <span class="tag tag-purple">#복음주의</span>
+          </div>
+
+          <a href="majors_all.html" class="back-button">
+            <i class="fas fa-arrow-left"></i> 학부/전공 목록으로 돌아가기
+          </a>
+        </div>
+      </section>
+    </main>
+
+    <footer class="main-footer">
+      <p>&copy; 2025 Handong Connect. 한동대학교를 위한 학생 개발 플랫폼.</p>
+    </footer>
+    <script src="script.js"></script>
+  </body>
+</html>

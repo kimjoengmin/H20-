@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>로그인 - Handong Connect</title>
+    <link
+      href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.6/dist/web/static/pretendard.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <style>
+      /* 변수 정의 (기존 My 계정 페이지 및 이미지 참고) */
+      :root {
+        --primary-blue: #5b6dff; /* 주 강조 색상 (파랑) */
+        --primary-blue-dark: #4556e8; /* 호버 시 진한 파랑 */
+        --background-gradient-start: #4a6cf7; /* 배경 그라데이션 시작 */
+        --background-gradient-mid: #76b4f9; /* 배경 그라데이션 중간 */
+        --background-gradient-end: #ffe36e; /* 배경 그라데이션 끝 (약간 노랑빛) */
+        --card-bg: #ffffff; /* 카드 배경색 */
+        --card-border: #e0e3ff; /* 카드 테두리 색상 */
+        --card-radius: 12px; /* 카드 둥근 모서리 */
+        --card-shadow: 0 10px 30px rgba(0, 0, 0, 0.1); /* 카드 그림자 */
+        --input-border: #cbd0ff; /* 입력 필드 테두리 */
+        --text-dark: #2d2d2d; /* 어두운 텍스트 색상 */
+        --text-light: #555; /* 연한 텍스트 색상 */
+      }
+
+      body {
+        margin: 0;
+        font-family: "Pretendard", sans-serif;
+        background: linear-gradient(
+          135deg,
+          var(--background-gradient-start),
+          var(--background-gradient-mid),
+          var(--background-gradient-end)
+        );
+        background-size: 150% 150%;
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        color: var(--text-dark);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+
+      .login-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        max-width: 450px;
+        background: var(--card-bg);
+        border: 1px solid var(--card-border);
+        border-radius: var(--card-radius);
+        box-shadow: var(--card-shadow);
+        padding: 40px;
+        text-align: center;
+        position: relative; /* 자식 요소인 back-link의 absolute 위치 지정을 위해 */
+      }
+
+      .back-link {
+        position: absolute; /* 절대 위치 지정 */
+        top: 25px; /* 상단에서 25px 떨어짐 */
+        left: 25px; /* 왼쪽에서 25px 떨어짐 */
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        color: var(--text-light);
+        text-decoration: none;
+        font-size: 0.95rem;
+        transition: color 0.2s ease;
+      }
+
+      .back-link:hover {
+        color: var(--primary-blue);
+      }
+
+      .login-container h1 {
+        font-size: 2.2rem;
+        color: var(--primary-blue);
+        margin: 0 0 35px;
+        font-weight: 700;
+        /* 뒤로가기 링크 때문에 h1이 너무 왼쪽에 치우치지 않도록 padding-top 조절 */
+        padding-top: 20px; /* 뒤로가기 링크 아래로 살짝 내림 */
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 25px;
+        text-align: left;
+      }
+
+      .form-group label {
+        margin-bottom: 8px;
+        font-weight: 600;
+        color: var(--text-dark);
+        font-size: 1rem;
+      }
+
+      .form-group input {
+        padding: 12px 15px;
+        border: 1px solid var(--input-border);
+        border-radius: 8px;
+        font-size: 1.05rem;
+        width: calc(100% - 30px);
+        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      .form-group input:focus {
+        outline: none;
+        border-color: var(--primary-blue);
+        box-shadow: 0 0 0 3px rgba(91, 109, 255, 0.2);
+      }
+
+      .button-row {
+        margin-top: 30px;
+      }
+
+      .btn-login {
+        padding: 14px 30px;
+        font-size: 1.1rem;
+        font-weight: 700;
+        background: var(--primary-blue);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background 0.2s ease, transform 0.2s ease;
+        width: 100%;
+        max-width: 250px;
+      }
+
+      .btn-login:hover {
+        background: var(--primary-blue-dark);
+        transform: translateY(-2px);
+      }
+
+      .extra-links {
+        margin-top: 25px;
+        font-size: 0.95rem;
+        display: flex; /* 링크들을 가로로 정렬하기 위해 flex 사용 */
+        justify-content: center; /* 중앙 정렬 */
+        flex-wrap: wrap; /* 작은 화면에서 줄바꿈 */
+        gap: 15px; /* 링크들 사이의 간격 */
+      }
+
+      .extra-links a {
+        color: var(--primary-blue);
+        text-decoration: none;
+        /* margin: 0 10px; 개별 margin 대신 gap으로 관리 */
+        transition: color 0.2s ease;
+      }
+
+      .extra-links a:hover {
+        text-decoration: underline;
+        color: var(--primary-blue-dark);
+      }
+
+      /* 반응형 디자인 */
+      @media (max-width: 500px) {
+        .login-container {
+          padding: 30px 20px;
+        }
+        .back-link {
+          top: 20px;
+          left: 20px;
+        }
+        .login-container h1 {
+          font-size: 2rem;
+          margin-bottom: 30px;
+          padding-top: 15px; /* 모바일에서 뒤로가기 링크 아래로 살짝 내림 */
+        }
+        .form-group {
+          margin-bottom: 20px;
+        }
+        .form-group input {
+          width: calc(100% - 24px);
+          padding: 10px 12px;
+        }
+        .btn-login {
+          padding: 12px 25px;
+          font-size: 1rem;
+        }
+        .extra-links {
+          gap: 10px; /* 모바일에서 링크 간격 줄임 */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="login-container">
+      <a href="login,membership.html" class="back-link">
+        <i class="fas fa-arrow-left"></i> 뒤로 돌아가기
+      </a>
+
+      <h1>Handong Connect 로그인</h1>
+
+      <form>
+        <div class="form-group">
+          <label for="username">아이디 또는 학번</label>
+          <input
+            type="text"
+            id="username"
+            placeholder="아이디 또는 학번을 입력하세요"
+            required
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">비밀번호</label>
+          <input
+            type="password"
+            id="password"
+            placeholder="비밀번호를 입력하세요"
+            required
+          />
+        </div>
+
+        <div class="button-row">
+          <button type="submit" class="btn-login">로그인</button>
+        </div>
+
+        <div class="extra-links">
+          <a href="#">아이디 찾기</a> | <a href="#">비밀번호 찾기</a> |
+          <a href="signup.html">회원가입</a>
+        </div>
+      </form>
+    </div>
+
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"
+      integrity="sha512-..."
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    ></script>
+  </body>
+</html>

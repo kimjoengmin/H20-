@@ -13,98 +13,128 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
     <style>
-      /* General Body and Font Styles */
-      body {
-        font-family: "Noto Sans KR", sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #f0f2f5; /* Light grey background */
-        color: #333;
+      /* --- GLOBAL STYLES (from style.css & original institute.html, merged carefully) --- */
+      /* Color Palette based on HANDONG CONNECT Logo (from style.css) */
+      :root {
+        --primary-purple: #7b61ff;
+        --primary-blue: #007bff;
+        --accent-yellow: #ffc107;
+        --secondary-green: #28a745;
+        --text-dark: #333;
+        --text-medium: #555;
+        --text-light: #777;
+        --bg-light: #f8f9fa;
+        --bg-white: #ffffff;
+        --border-light: #e9ecef;
+        --shadow-light: 0 2px 5px rgba(0, 0, 0, 0.08);
+        --shadow-medium: 0 5px 15px rgba(0, 0, 0, 0.12);
+        --border-radius-base: 10px;
+        --border-radius-sm: 5px;
       }
 
-      /* --- Navbar Styles --- */
+      /* Basic resets and font styles (merged from both files to preserve institute.html's specifics) */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Noto Sans KR", sans-serif;
+        line-height: 1.6;
+        background-color: #f0f2f5; /* Preserved from original institute.html */
+        color: #333; /* Preserved from original institute.html */
+        scroll-behavior: smooth; /* Added from style.css for smooth scrolling */
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit; /* Preserved from original institute.html to avoid unintended changes */
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      /* --- NAVBAR STYLES (from style.css - index.html's design) --- */
       .navbar {
-        background-color: #fff; /* White background for the navbar */
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-        padding: 10px 0; /* Vertical padding */
-        position: sticky; /* Makes the navbar stick to the top when scrolling */
+        background-color: var(--bg-white);
+        box-shadow: var(--shadow-light);
+        padding: 15px 0;
+        position: sticky;
         top: 0;
-        width: 100%;
-        z-index: 1000; /* Ensures the navbar stays on top of other content */
+        z-index: 1000;
       }
 
       .nav-container {
-        max-width: 1200px; /* Adjust based on your overall content width */
+        max-width: 1200px;
         margin: 0 auto;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 20px; /* Horizontal padding */
+        padding: 0 20px;
       }
 
-      .navbar .logo img {
-        height: 40px; /* Adjust logo height as needed */
-        vertical-align: middle; /* Align image vertically */
+      .logo img {
+        height: 60px; /* Increased logo size as per index.html */
+        vertical-align: middle;
       }
 
-      .navbar .nav-links {
-        list-style: none;
-        margin: 0;
-        padding: 0;
+      .nav-links {
         display: flex;
-        gap: 30px; /* Space between navigation items */
+        flex-grow: 1;
+        justify-content: center;
       }
 
-      .navbar .nav-links li a {
-        text-decoration: none;
-        color: #555; /* Default link color */
+      .nav-links li {
+        margin: 0 20px;
+      }
+
+      .nav-links a {
+        color: var(--text-medium);
         font-weight: 500;
-        font-size: 1.05em; /* Slightly larger font */
-        padding: 10px 0;
-        position: relative;
-        transition: color 0.3s ease;
+        padding: 8px 0;
+        transition: color 0.3s ease, border-bottom 0.3s ease;
+        border-bottom: 2px solid transparent;
       }
 
-      .navbar .nav-links li a:hover {
-        color: #8c7ae6; /* Purple hover effect */
+      .nav-links a:hover {
+        color: var(--primary-purple);
+        border-bottom: 2px solid var(--primary-purple);
       }
 
-      /* Active link styling (for the "학부/전공" link) */
-      .navbar .nav-links li a[href="majors_all.html"] {
-        /* Target specific active link */
-        color: #8c7ae6; /* Active link color */
-        font-weight: 700; /* Bolder for active */
-      }
-
-      .navbar .nav-links li a[href="majors_all.html"]::after {
-        /* Underline for active link */
-        content: "";
-        position: absolute;
-        left: 0;
-        bottom: -5px;
-        width: 100%;
-        height: 2px;
-        background-color: #8c7ae6;
-      }
-
-      .navbar .user-actions .btn-login {
-        text-decoration: none;
-        color: #555;
-        font-size: 0.95em;
-        font-weight: 500;
-        display: flex; /* To align icon and text */
+      .user-actions {
+        display: flex;
         align-items: center;
-        gap: 5px; /* Space between icon and text */
-        transition: color 0.3s ease;
       }
 
-      .navbar .user-actions .btn-login:hover {
-        color: #8c7ae6; /* Purple hover effect */
+      .btn-login {
+        background-color: transparent;
+        border: 1px solid var(--border-light);
+        color: var(--text-medium);
+        padding: 8px 15px;
+        border-radius: var(--border-radius-sm);
+        font-size: 0.9em;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        transition: background-color 0.3s ease, color 0.3s ease;
       }
 
-      .navbar .user-actions .btn-login .fas {
-        font-size: 1.1em; /* Adjust icon size */
+      .btn-login i {
+        margin-right: 8px;
+        font-size: 1.1em;
       }
+
+      .btn-login:hover {
+        background-color: var(--bg-light);
+        color: var(--primary-purple);
+        border-color: var(--primary-purple);
+      }
+
+      /* --- ORIGINAL institute.html STYLES (unmodified, except navbar parts) --- */
 
       /* Page Header Styling */
       .page-header {
@@ -177,7 +207,7 @@
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        min-height: 200px; /* Ensure cards have similar height, adjust as needed */
+        min-height: 200px;
       }
 
       .society-card:hover {
@@ -201,31 +231,33 @@
         flex-grow: 1;
       }
 
-      /* Responsive Adjustments */
+      /* --- RESPONSIVE ADJUSTMENTS (merged for navbar from style.css, others from original institute.html) --- */
       @media (max-width: 768px) {
+        /* Navbar responsive styles (from style.css) */
         .nav-container {
           flex-direction: column;
           align-items: flex-start;
         }
-        .navbar .nav-links {
+        .nav-links {
           flex-direction: column;
-          width: 100%; /* Full width for stacked links */
-          gap: 5px; /* Smaller gap for stacked links */
-          margin-top: 15px; /* Space below logo */
+          width: 100%;
+          justify-content: flex-start;
         }
-        .navbar .nav-links li {
-          width: 100%; /* Ensure each li takes full width */
+        .nav-links li {
+          margin: 5px 0;
         }
-        .navbar .nav-links li a {
-          padding: 8px 0; /* Adjust padding for stacked links */
-          display: block; /* Make link fill the li width */
+        .nav-links a {
+          padding: 10px 0;
+          display: block;
+          text-align: left;
         }
-        .navbar .user-actions {
-          margin-top: 10px;
-          width: 100%; /* Full width for user actions */
-          text-align: right; /* Align to the right if desired */
+        .user-actions {
+          margin-top: 15px;
+          width: 100%;
+          justify-content: flex-start;
         }
 
+        /* Other responsive styles (from original institute.html) */
         .page-header h1 {
           font-size: 2em;
         }
@@ -247,18 +279,15 @@
   <body>
     <nav class="navbar">
       <div class="nav-container">
-        <a href="#" class="logo">
+        <a href="index.html" class="logo">
           <img src="./images/logo.png" alt="HANDONG CONNECT 로고" />
         </a>
         <ul class="nav-links">
           <li><a href="#sections">둘러보기</a></li>
-          <section id="major-1">
-            <li><a href="majors_all.html">학부/전공</a></li>
-          </section>
-          <li><a href="#institute">학회/연구실</a></li>
-          <li><a href="#clubs">(전공)동아리</a></li>
-          <li><a href="#community">커뮤니티</a></li>
-          <li><a href="#contact">문의</a></li>
+          <li><a href="majors_all.html">학부/전공</a></li>
+          <li><a href="institute.html">동아리/학회</a></li>
+          <li><a href="index.html#community">커뮤니티</a></li>
+          <li><a href="inquiry.html">문의</a></li>
         </ul>
         <div class="user-actions">
           <a href="my.html" class="btn-login">
