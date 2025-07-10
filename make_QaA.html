@@ -14,11 +14,73 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
     />
     <style>
-      /* 이 페이지를 위한 특정 스타일 */
+      /* --- (CSS 스타일은 이전과 동일하므로 생략) --- */
+      :root {
+        --primary-purple: #7b61ff;
+        --primary-blue: #007bff;
+        --text-dark: #333;
+        --text-medium: #555;
+        --bg-light: #f8f9fa;
+        --bg-white: #ffffff;
+        --border-light: #e9ecef;
+        --shadow-medium: 0 5px 15px rgba(0, 0, 0, 0.12);
+        --border-radius-base: 10px;
+        --border-radius-sm: 5px;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: "Noto Sans KR", sans-serif;
+        background-color: #f0f2f5;
+      }
+      a {
+        text-decoration: none;
+        color: inherit;
+      }
+      ul {
+        list-style: none;
+      }
+      .navbar {
+        background-color: var(--bg-white);
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.08);
+        padding: 15px 0;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+      }
+      .nav-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+      }
+      .logo img {
+        height: 60px;
+      }
+      .nav-links {
+        display: flex;
+        flex-grow: 1;
+        justify-content: center;
+      }
+      .nav-links li {
+        margin: 0 20px;
+      }
+      .nav-links a {
+        color: var(--text-medium);
+        font-weight: 500;
+      }
+      .user-actions a {
+        display: flex;
+        align-items: center;
+      }
       .create-question-section {
         padding: 60px 0;
       }
-
       .create-question-container {
         max-width: 800px;
         margin: 50px auto;
@@ -27,7 +89,6 @@
         border-radius: var(--border-radius-base);
         box-shadow: var(--shadow-medium);
       }
-
       .create-question-container h1 {
         font-size: 2.5em;
         color: var(--primary-purple);
@@ -35,11 +96,9 @@
         margin-bottom: 30px;
         font-weight: 700;
       }
-
       .form-group {
         margin-bottom: 25px;
       }
-
       .form-group label {
         display: block;
         font-size: 1.1em;
@@ -47,8 +106,7 @@
         margin-bottom: 10px;
         font-weight: 600;
       }
-
-      .form-group input[type="text"],
+      .form-group input,
       .form-group textarea,
       .form-group select {
         width: 100%;
@@ -56,11 +114,9 @@
         border: 1px solid var(--border-light);
         border-radius: var(--border-radius-sm);
         font-size: 1em;
-        color: var(--text-dark);
         background-color: var(--bg-light);
-        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        transition: all 0.3s ease;
       }
-
       .form-group input:focus,
       .form-group textarea:focus,
       .form-group select:focus {
@@ -68,103 +124,61 @@
         box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
         outline: none;
       }
-
       .form-group textarea {
-        resize: vertical;
-        min-height: 150px; /* 질문 내용 입력 칸 높이 조절 */
+        min-height: 150px;
       }
-
       .checkbox-group {
         display: flex;
         align-items: center;
         gap: 10px;
-        margin-top: -10px; /* 위에 폼 그룹과 간격 조절 */
+        margin-top: -10px;
         margin-bottom: 25px;
       }
-
       .checkbox-group input[type="checkbox"] {
         width: 20px;
         height: 20px;
-        accent-color: var(--primary-purple); /* 체크박스 색상 */
+        accent-color: var(--primary-purple);
       }
-
       .checkbox-group label {
         margin-bottom: 0;
         font-weight: 500;
         font-size: 1em;
         color: var(--text-medium);
       }
-
       .form-actions {
         display: flex;
-        justify-content: flex-end; /* 버튼들을 오른쪽으로 정렬 */
+        justify-content: flex-end;
         gap: 15px;
         margin-top: 40px;
       }
-
       .btn-submit-question,
       .btn-cancel-question {
         padding: 14px 25px;
         border-radius: var(--border-radius-base);
         font-weight: 600;
         font-size: 1.05em;
-        transition: background-color 0.3s ease, transform 0.2s ease;
+        transition: all 0.2s ease;
         cursor: pointer;
         border: none;
         display: inline-flex;
         align-items: center;
         gap: 8px;
       }
-
       .btn-submit-question {
         background-color: var(--primary-purple);
         color: var(--bg-white);
       }
-
       .btn-submit-question:hover {
-        background-color: #5b0f8e; /* 좀 더 진한 보라색 */
+        background-color: #5b0f8e;
         transform: translateY(-2px);
       }
-
       .btn-cancel-question {
-        background-color: var(--text-light); /* 회색 */
+        background-color: var(--text-light);
         color: var(--bg-white);
       }
-
       .btn-cancel-question:hover {
         background-color: #555;
         transform: translateY(-2px);
-      }
-
-      /* Responsive adjustments */
-      @media (max-width: 768px) {
-        .create-question-container {
-          margin: 30px 15px;
-          padding: 25px;
-        }
-        .create-question-container h1 {
-          font-size: 2em;
-        }
-        .form-group label {
-          font-size: 1em;
-        }
-        .form-group input,
-        .form-group textarea,
-        .form-group select {
-          padding: 10px 12px;
-          font-size: 0.95em;
-        }
-        .form-actions {
-          flex-direction: column;
-          gap: 10px;
-        }
-        .btn-submit-question,
-        .btn-cancel-question {
-          width: 100%;
-          justify-content: center;
-          padding: 12px 20px;
-          font-size: 1em;
-        }
       }
     </style>
   </head>
@@ -178,7 +192,7 @@
           <li><a href="index.html#sections">둘러보기</a></li>
           <li><a href="majors_all.html">학부/전공</a></li>
           <li><a href="institute.html">동아리/학회</a></li>
-          <li><a href="index.html#community" class="active">커뮤니티</a></li>
+          <li><a href="community.html" class="active">커뮤니티</a></li>
           <li><a href="inquiry.html">문의</a></li>
         </ul>
         <div class="user-actions">
@@ -202,7 +216,6 @@
               required
             />
           </div>
-
           <div class="form-group">
             <label for="questionCategory">카테고리 (선택)</label>
             <select id="questionCategory">
@@ -214,7 +227,6 @@
               <option value="etc">기타</option>
             </select>
           </div>
-
           <div class="form-group">
             <label for="questionContent">질문 내용</label>
             <textarea
@@ -224,17 +236,15 @@
               required
             ></textarea>
           </div>
-
           <div class="checkbox-group">
             <input type="checkbox" id="anonymous" />
             <label for="anonymous">익명으로 질문하기</label>
           </div>
-
           <div class="form-actions">
             <button
               type="button"
               class="btn-cancel-question"
-              onclick="location.href='qna_board.html'"
+              onclick="location.href='QaA_board.html'"
             >
               <i class="fas fa-times-circle"></i> 취소
             </button>
@@ -250,96 +260,113 @@
       <p>&copy; 2025 Handong Connect. All rights reserved.</p>
     </footer>
 
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-auth-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
-    <script>
-      // Firebase 설정 (main.js 또는 별도의 config.js 파일에서 가져오는 것이 좋음)
-      const firebaseConfig = {
-        apiKey: "YOUR_API_KEY", // 여기에 실제 Firebase 프로젝트의 API Key를 입력하세요.
-        authDomain: "team-h20.firebaseapp.com",
-        projectId: "team-h20",
-        storageBucket: "team-h20.appspot.com",
-        messagingSenderId: "YOUR_MESSAGING_SENDER_ID", // 여기에 실제 Messaging Sender ID를 입력하세요.
-        appId: "YOUR_APP_ID", // 여기에 실제 App ID를 입력하세요.
-      };
+    <script type="module">
+      import { auth, db } from "./firebase-config.js";
+      import {
+        onAuthStateChanged,
+        signOut,
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+      import {
+        collection,
+        addDoc,
+        serverTimestamp,
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-      // Firebase 초기화
-      firebase.initializeApp(firebaseConfig);
-      const db = firebase.firestore(); // Firestore 인스턴스
-      const auth = firebase.auth(); // Authentication 인스턴스
-
-      // 폼 제출 핸들러
-      document
-        .getElementById("questionForm")
-        .addEventListener("submit", async (e) => {
-          e.preventDefault(); // 기본 폼 제출 동작 방지
-
-          const questionTitle = document
-            .getElementById("questionTitle")
-            .value.trim();
-          const questionCategory =
-            document.getElementById("questionCategory").value;
-          const questionContent = document
-            .getElementById("questionContent")
-            .value.trim();
-          const isAnonymous = document.getElementById("anonymous").checked;
-
-          if (!questionTitle || !questionContent) {
-            alert("제목과 내용을 모두 입력해주세요.");
-            return;
-          }
-
-          let authorUid = null;
-          let authorEmail = null;
-          let authorName = "익명"; // 기본값은 익명
-
-          // 현재 로그인된 사용자 정보 가져오기
-          const user = auth.currentUser;
-          if (user) {
-            authorUid = user.uid;
-            authorEmail = user.email;
-            if (!isAnonymous) {
-              // 익명이 아니면 사용자 이메일의 로컬파트 (예: test@handong.ac.kr -> test) 또는 별명 사용
-              authorName = user.email ? user.email.split("@")[0] : "알 수 없음";
-              // 만약 사용자 프로필에 'displayName'이 있다면 그것을 사용
-              if (user.displayName) {
-                authorName = user.displayName;
-              }
-            }
+      // DOM이 완전히 로드된 후 스크립트 실행
+      document.addEventListener("DOMContentLoaded", () => {
+        // 1. 인증 상태 확인 및 페이지 보호
+        onAuthStateChanged(auth, (user) => {
+          if (!user) {
+            alert(
+              "이 페이지는 로그인이 필요합니다. 로그인 페이지로 이동합니다."
+            );
+            window.location.href = "login,membership.html";
           } else {
-            // 로그인하지 않은 사용자가 익명 질문을 하지 않는 경우 (선택적)
-            if (!isAnonymous) {
-              alert("로그인 후 질문하시거나 익명으로 질문해 주세요.");
-              return;
-            }
-          }
-
-          const newQuestion = {
-            title: questionTitle,
-            category: questionCategory,
-            content: questionContent,
-            isAnonymous: isAnonymous,
-            authorUid: authorUid, // 로그인한 사용자 UID (익명이어도 저장)
-            authorEmail: authorEmail, // 로그인한 사용자 이메일 (익명이어도 저장)
-            authorName: authorName, // 질문에 표시될 이름 (익명 여부에 따라 달라짐)
-            createdAt: firebase.firestore.FieldValue.serverTimestamp(), // 서버 시간 스탬프
-            views: 0, // 조회수
-            answersCount: 0, // 답변 수
-          };
-
-          try {
-            await db.collection("questions").add(newQuestion);
-            alert("질문이 성공적으로 등록되었습니다!");
-            window.location.href = "QnA_board.html"; // 질문 등록 후 Q&A 게시판으로 이동
-          } catch (error) {
-            console.error("질문 등록 중 오류 발생:", error);
-            alert("질문 등록 중 오류가 발생했습니다: " + error.message);
+            // 2. 'My 계정' 버튼 상태 변경 (로그인 된 경우)
+            updateMyAccountButton(user);
           }
         });
 
-      // Font Awesome 스크립트 수정: integrity 및 crossorigin 속성 제거
+        // 3. 'My 계정' 버튼 업데이트 함수
+        const myAccountBtn = document.querySelector(".user-actions .btn-login");
+        function updateMyAccountButton(user) {
+          if (myAccountBtn) {
+            if (user) {
+              myAccountBtn.innerHTML =
+                '<i class="fas fa-sign-out-alt"></i> 로그아웃';
+              myAccountBtn.href = "#";
+              myAccountBtn.onclick = (e) => {
+                e.preventDefault();
+                if (confirm("정말 로그아웃 하시겠습니까?")) {
+                  signOut(auth).then(() => {
+                    alert("로그아웃되었습니다.");
+                    window.location.href = "index.html";
+                  });
+                }
+              };
+            } else {
+              myAccountBtn.innerHTML =
+                '<i class="fas fa-user-circle"></i> My 계정';
+              myAccountBtn.href = "login,membership.html";
+              myAccountBtn.onclick = null;
+            }
+          }
+        }
+
+        // 4. 질문 등록 폼 제출 핸들러
+        document
+          .getElementById("questionForm")
+          .addEventListener("submit", async (e) => {
+            e.preventDefault();
+
+            const title = document.getElementById("questionTitle").value.trim();
+            const category = document.getElementById("questionCategory").value;
+            const content = document
+              .getElementById("questionContent")
+              .value.trim();
+            const isAnonymous = document.getElementById("anonymous").checked;
+
+            if (!title || !content) {
+              alert("제목과 내용을 모두 입력해주세요.");
+              return;
+            }
+
+            const user = auth.currentUser; // 이 시점에는 user가 항상 있어야 함 (페이지 보호 로직 때문)
+            if (!user) {
+              alert("사용자 정보가 없습니다. 다시 로그인해주세요.");
+              return;
+            }
+
+            let authorName = "익명";
+            if (!isAnonymous) {
+              authorName =
+                user.displayName ||
+                (user.email ? user.email.split("@")[0] : "알 수 없음");
+            }
+
+            const newQuestion = {
+              title: title,
+              category: category,
+              content: content,
+              isAnonymous: isAnonymous,
+              authorUid: user.uid,
+              authorEmail: user.email,
+              authorName: authorName,
+              createdAt: serverTimestamp(),
+              views: 0,
+              answersCount: 0,
+            };
+
+            try {
+              await addDoc(collection(db, "questions"), newQuestion);
+              alert("질문이 성공적으로 등록되었습니다!");
+              window.location.href = "QaA_board.html";
+            } catch (error) {
+              console.error("질문 등록 중 오류 발생:", error);
+              alert("질문 등록 중 오류가 발생했습니다: " + error.message);
+            }
+          });
+      });
     </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
   </body>
 </html>

@@ -22,8 +22,47 @@
         </a>
         <ul class="nav-links">
           <li><a href="#sections">둘러보기</a></li>
-          <li><a href="majors_all.html">학부/전공</a></li>
-          <li><a href="institute.html">동아리/학회</a></li>
+          <li>
+        <a href="majors_all.html">
+            학부/전공
+            <i class="fas fa-chevron-down"></i>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="global_leadership.html">글로벌리더십학부</a></li>
+            <li><a href="language.html">국제어문학부</a></li>
+            <li><a href="economics.html">경영경제학부</a></li>
+            <li><a href="law.html">법학부</a></li>
+            <li><a href="communication.html">커뮤니케이션학부</a></li>
+            <li><a href="counseling.html">상담심리사회복지학부</a></li>
+            <li><a href="spatial.html">공간환경시스템공학부</a></li>
+            <li><a href="mechanical.html">기계제어공학부</a></li>
+            <li><a href="design.html">콘텐츠융합디자인학부</a></li>
+            <li><a href="life-science.html">생명과학부</a></li>
+            <li><a href="cse.html">전산전자공학부</a></li>
+            <li><a href="ict.html">ICT창업학부</a></li>
+        </ul>
+    </li>
+          <li>
+        <a href="institute.html">
+            동아리/학회
+            <i class="fas fa-chevron-down"></i>
+        </a>
+        <ul class="dropdown-menu">
+            <li><a href="institute.html#economics">경영경제학부 학회</a></li>
+            <li><a href="institute.html#language">국제어문학부 학회</a></li>
+            <li><a href="institute.html#counseling">상담심리사회복지학부 학회</a></li>
+            <li><a href="institute.html#law">법학부 학회</a></li>
+            <li><a href="institute.html#design">콘텐츠융합디자인학부 학회</a></li>
+            <li><a href="institute.html#ict">ICT창업학부 학회</a></li>
+            <li><a href="institute.html#cse">전산전자공학부 학회</a></li>
+            <li><a href="institute.html#life-science">생명과학부 학회</a></li>
+            <li><a href="institute.html#communication">커뮤니케이션학부 학회</a></li>
+            <li><a href="institute.html#spatial">공간환경시스템공학부 학회</a></li>
+            <li><a href="institute.html#creative-fusion">창의융합교육원 학회</a></li>
+            <li><a href="institute.html#mechanical">기계제어공학부 학회</a></li>
+            <li><a href="institute.html#track">트랙별, 프로그램별 학회 추천</a></li>
+        </ul>
+    </li>
           <li><a href="#community">커뮤니티</a></li>
           <li><a href="inquiry.html">문의</a></li>
         </ul>
@@ -609,5 +648,33 @@
       <p>&copy; 2025 Handong Connect. 한동대학교를 위한 학생 개발 플랫폼.</p>
     </footer>
     <script src="script.js"></script>
+    <script src="script.js"></script> <script type="module">
+        import { auth } from './firebase-config.js';
+        import { onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+        const myAccountBtn = document.querySelector('.user-actions .btn-login');
+
+        if (myAccountBtn) {
+            onAuthStateChanged(auth, (user) => {
+                if (user) {
+                    myAccountBtn.innerHTML = '<i class="fas fa-sign-out-alt"></i> 로그아웃';
+                    myAccountBtn.href = "#";
+                    myAccountBtn.onclick = (e) => {
+                        e.preventDefault();
+                        if (confirm("정말 로그아웃 하시겠습니까?")) {
+                            signOut(auth).then(() => {
+                                alert("로그아웃되었습니다.");
+                                window.location.href = 'index.html';
+                            });
+                        }
+                    };
+                } else {
+                    myAccountBtn.innerHTML = '<i class="fas fa-user-circle"></i> My 계정';
+                    myAccountBtn.href = "login,membership.html";
+                    myAccountBtn.onclick = null;
+                }
+            });
+        }
+    </script>
   </body>
 </html>

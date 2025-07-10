@@ -883,3 +883,64 @@ ul {
     padding: 20px 15px; /* 푸터 안쪽 여백 줄이기 */
   }
 }
+/* =================================== */
+/* 내비게이션 드롭다운 메뉴 추가 스타일 */
+/* =================================== */
+
+/* 드롭다운 기준점 설정 */
+.nav-links li {
+  position: relative;
+}
+
+/* 드롭다운 화살표 아이콘 */
+.nav-links .fa-chevron-down {
+  font-size: 0.8em;
+  margin-left: 6px;
+  transition: transform 0.3s ease;
+}
+
+/* 드롭다운 메뉴 기본 숨김 */
+.nav-links .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--bg-white);
+  border-radius: var(--border-radius-base);
+  box-shadow: var(--shadow-medium);
+  padding: 10px 0;
+  min-width: 250px; /* 메뉴 너비 조정 */
+  margin-top: 15px; /* 메뉴와 네비게이션 바 사이 간격 */
+  opacity: 0;
+  visibility: hidden;
+  transform: translate(-50%, 10px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+  border: 1px solid var(--border-light);
+}
+
+/* 마우스 올리면 드롭다운 메뉴 보이기 */
+.nav-links li:hover > .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+  transform: translate(-50%, 0);
+}
+
+/* 마우스 올리면 화살표 회전 */
+.nav-links li:hover > a .fa-chevron-down {
+  transform: rotate(180deg);
+}
+
+/* 드롭다운 메뉴 안의 링크 스타일 */
+.dropdown-menu a {
+  display: block;
+  padding: 12px 20px;
+  white-space: nowrap; /* 글자 한 줄로 표시 */
+  border-bottom: none; /* 하단 보더 제거 */
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.dropdown-menu a:hover {
+  background-color: var(--bg-light);
+  color: var(--primary-purple);
+  border-bottom: none; /* 호버 시에도 보더 제거 */
+}

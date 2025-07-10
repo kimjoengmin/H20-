@@ -433,5 +433,39 @@
       <p>&copy; 2025 Handong Connect. 한동대학교를 위한 학생 개발 플랫폼.</p>
     </footer>
     <script src="script.js"></script>
+    <script src="script.js"></script>
+    <script type="module">
+      import { auth } from "./firebase-config.js";
+      import {
+        onAuthStateChanged,
+        signOut,
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+      const myAccountBtn = document.querySelector(".user-actions .btn-login");
+
+      if (myAccountBtn) {
+        onAuthStateChanged(auth, (user) => {
+          if (user) {
+            myAccountBtn.innerHTML =
+              '<i class="fas fa-sign-out-alt"></i> 로그아웃';
+            myAccountBtn.href = "#";
+            myAccountBtn.onclick = (e) => {
+              e.preventDefault();
+              if (confirm("정말 로그아웃 하시겠습니까?")) {
+                signOut(auth).then(() => {
+                  alert("로그아웃되었습니다.");
+                  window.location.href = "index.html";
+                });
+              }
+            };
+          } else {
+            myAccountBtn.innerHTML =
+              '<i class="fas fa-user-circle"></i> My 계정';
+            myAccountBtn.href = "login,membership.html";
+            myAccountBtn.onclick = null;
+          }
+        });
+      }
+    </script>
   </body>
 </html>
