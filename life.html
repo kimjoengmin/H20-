@@ -477,5 +477,20 @@
         });
       }
     </script>
+    <script type="module" src="firebase-config.js"></script>
+
+    <script type="module">
+      import { auth } from "./firebase-config.js"; // 설정 파일에서 auth 객체를 가져옵니다.
+      import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+      onAuthStateChanged(auth, (user) => {
+        if (!user) {
+          // 사용자가 로그인하지 않은 경우
+          alert("이 페이지는 로그인이 필요합니다. 로그인 페이지로 이동합니다.");
+          window.location.href = "login,membership.html"; // 로그인/회원가입 선택 페이지로 리디렉션
+        }
+        // 사용자가 로그인한 경우에는 아무 작업도 하지 않고 페이지 로드를 계속합니다.
+      });
+    </script>
   </body>
 </html>
